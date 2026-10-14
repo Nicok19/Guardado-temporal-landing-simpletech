@@ -11,13 +11,25 @@ import { MODULE_PREVIEWS } from '@/sections/SimpleSuite/previews';
 import PreviewWindow from '@/sections/SimpleSuite/previews/PreviewWindow';
 import PipelinePreview from '@/sections/SimpleSuite/previews/PipelinePreview';
 
-// Foto de fondo (Unsplash, licencia libre): equipo trabajando con laptops.
-const BG_PHOTO = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?fm=jpg&q=60&w=1600&auto=format&fit=crop';
+// Fotos de fondo (Unsplash, licencia libre), en el orden en que aparecen al scrollear.
+const unsplash = (id) => `https://images.unsplash.com/${id}?fm=jpg&q=60&w=1600&auto=format&fit=crop`;
+const BG_PHOTOS = [
+  unsplash('photo-1522071820081-009f0129c71c'), // equipo con laptops
+  unsplash('photo-1531482615713-2afd69097998'), // revisando código
+  unsplash('photo-1519389950473-47ba0277781c'), // escritorio con laptops, desde arriba
+  unsplash('photo-1556761175-b413da4baf72'), // equipo en la oficina
+  unsplash('photo-1521737604893-d14cc237f11d'), // equipo en una mesa
+  unsplash('photo-1542744173-8e7e53415bb0'), // presentación en sala de reuniones
+  unsplash('photo-1517245386807-bb43f82c33c4'), // reunión con laptop
+  unsplash('photo-1600880292203-757bb62b4baf'), // festejo
+];
 
-// Parallax de la foto de fondo: se mueve a PARALLAX_SPEED de la velocidad del scroll, en sentido contrario.
-// La foto es más alta que la sección (PARALLAX_BLEED arriba y abajo) para que nunca se vean sus bordes.
+// Parallax de las fotos de fondo: se mueven a PARALLAX_SPEED de la velocidad del scroll, en sentido contrario.
+// Son más altas que la sección (PARALLAX_BLEED arriba y abajo) para que nunca se vean sus bordes.
+// Además cambian según el scroll, sin fundido: el recorrido de la sección se reparte en partes iguales, una por foto.
 const PARALLAX_SPEED = 0.2;
 const PARALLAX_BLEED = '22%';
+const clamp01 = (n) => Math.min(1, Math.max(0, n));
 
 function useParallax(ref) {
   useEffect(() => {
@@ -25,13 +37,21 @@ function useParallax(ref) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!el || !SITE.features.motion || reduced) return undefined;
     const section = el.parentElement;
+    const layers = [...el.children];
     let frame = 0;
     const update = () => {
       frame = 0;
       const r = section.getBoundingClientRect();
+      const vh = window.innerHeight;
       // 0 cuando el centro de la sección coincide con el centro de la pantalla.
-      const offset = r.top + r.height / 2 - window.innerHeight / 2;
+      const offset = r.top + r.height / 2 - vh / 2;
       el.style.transform = `translate3d(0, ${(offset * PARALLAX_SPEED).toFixed(1)}px, 0)`;
+      // Recorrido de la sección: 0 cuando asoma por abajo, 1 cuando su final llega arriba de la pantalla.
+      const progress = clamp01((vh - r.top) / (vh + r.height));
+      const current = Math.min(layers.length - 1, Math.floor(progress * layers.length));
+      layers.forEach((layer, i) => {
+        layer.style.opacity = i === current ? '1' : '0';
+      });
     };
     const onScroll = () => frame || (frame = requestAnimationFrame(update));
     update();
@@ -94,8 +114,8 @@ export default function ProductsTeaserSection() {
         overflow: 'hidden',
       }}
     >
-      {/* Foto de fondo apenas visible: en blanco y negro (luminosity) para que tome el azul de la sección.
-          Se mueve con parallax (useParallax). */}
+      {/* Fotos de fondo apenas visibles: en blanco y negro (luminosity) para que tomen el azul de la sección.
+          Se mueven con parallax y van cambiando con el scroll (useParallax). */}
       <div
         ref={bgRef}
         aria-hidden="true"
@@ -111,7 +131,10 @@ export default function ProductsTeaserSection() {
           willChange: 'transform',
         }}
       >
-        <CoverImage src={BG_PHOTO} sizes="100vw" style={{ position: 'absolute', inset: 0 }} />
+        {/* Una capa por foto; sin JS (o con movimiento reducido) se ve solo la primera */}
+        {BG_PHOTOS.map((src, i) => (
+          <CoverImage key={src} src={src} sizes="100vw" style={{ position: 'absolute', inset: 0, opacity: i ? 0 : 1 }} />
+        ))}
       </div>
       <div
         style={{
