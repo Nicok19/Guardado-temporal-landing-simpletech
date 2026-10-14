@@ -7,7 +7,7 @@ import Testimonials from './cases/Testimonials';
 
 const ALL_INDUSTRIES = 'Todas';
 
-/** Casos de éxito con filtro por industria (sección de /soluciones). */
+/** Casos de éxito con filtro por industria: es la primera sección de /soluciones (su título es el h1 de la página). */
 export default function SuccessCasesSection() {
   const [industry, setIndustry] = useState(ALL_INDUSTRIES);
 
@@ -19,7 +19,8 @@ export default function SuccessCasesSection() {
       className="bg-night"
       style={{
         position: 'relative',
-        padding: 'clamp(88px,10vw,140px) var(--page-x)',
+        // Arriba deja lugar para el header fijo.
+        padding: 'clamp(150px,15vw,190px) var(--page-x) clamp(88px,10vw,140px)',
       }}
     >
       <div
@@ -45,7 +46,7 @@ export default function SuccessCasesSection() {
             >
               CASOS DE ÉXITO
             </span>
-            <h2
+            <h1
               data-reveal="2"
               style={{
                 margin: 0,
@@ -57,7 +58,7 @@ export default function SuccessCasesSection() {
               }}
             >
               Ellos ya están revolucionando su CX.
-            </h2>
+            </h1>
           </div>
           <p
             data-reveal="3"
