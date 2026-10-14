@@ -2,11 +2,10 @@
 
 export const SUITE_HERO = {
   title: 'Cada conversación con tus clientes, en una sola suite.',
-  // Video del hero. Por ahora es uno de referencia (el fondo del hero de la Home): reemplazar `src` y `poster`
-  // por el video definitivo (ej. /videos/simplesuite.mp4 y /videos/simplesuite-poster.jpg en public/).
+  // Video del hero (public/videos/). El póster es un fotograma del propio video (segundo 14: la suite con sus plataformas).
   video: {
-    src: '/videos/hero-bg.mp4',
-    poster: '/videos/hero-bg-poster.jpg',
+    src: '/videos/simplesuite_promo.mp4',
+    poster: '/videos/simplesuite_promo-poster.jpg',
     label: 'Video de SimpleSuite',
   },
 };
