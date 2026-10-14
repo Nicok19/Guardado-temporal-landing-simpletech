@@ -345,4 +345,12 @@ export default {
   'WEBINARS ANTERIORES': 'PAST WEBINARS',
   'Webinars en vivo sobre las novedades de nuestras plataformas y tendencias de experiencia del cliente. Mirá los anteriores.':
     "Live webinars on what's new in our platforms and customer experience trends. Watch the previous ones.",
+  'LLAMADAS HOY': 'CALLS TODAY',
+  'RESUELTAS POR IA': 'RESOLVED BY AI',
+  'ESPERA PROMEDIO': 'AVERAGE WAIT',
+  'Llamada entrante': 'Incoming call',
+  'VoiceBot resolvió la consulta': 'VoiceBot resolved the request',
+  'Transferida a un agente · Ventas': 'Transferred to an agent · Sales',
+  'Llamada transcrita y analizada con IA': 'Call transcribed and analyzed with AI',
+  'Encuesta post-llamada completada': 'Post-call survey completed',
 };

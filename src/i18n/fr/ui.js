@@ -348,4 +348,12 @@ export default {
   'WEBINARS ANTERIORES': 'WEBINARS PRÉCÉDENTS',
   'Webinars en vivo sobre las novedades de nuestras plataformas y tendencias de experiencia del cliente. Mirá los anteriores.':
     "Des webinars en direct sur les nouveautés de nos plateformes et les tendances de l'expérience client. Regardez les précédents.",
+  'LLAMADAS HOY': "APPELS AUJOURD'HUI",
+  'RESUELTAS POR IA': "RÉSOLUS PAR L'IA",
+  'ESPERA PROMEDIO': 'ATTENTE MOYENNE',
+  'Llamada entrante': 'Appel entrant',
+  'VoiceBot resolvió la consulta': 'Le VoiceBot a résolu la demande',
+  'Transferida a un agente · Ventas': 'Transféré à un agent · Ventes',
+  'Llamada transcrita y analizada con IA': "Appel transcrit et analysé par l'IA",
+  'Encuesta post-llamada completada': 'Enquête post-appel complétée',
 };
