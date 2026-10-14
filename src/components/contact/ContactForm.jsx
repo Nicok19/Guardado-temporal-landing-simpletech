@@ -3,9 +3,9 @@ import ChipToggle from '@/components/forms/ChipToggle';
 import { useForm } from '@/hooks/useForm';
 import { useAsync } from '@/hooks/useAsync';
 import { getContactInterests, submitContactRequest } from '@/services/contactService';
-import { CONTACT_INTERESTS } from '@/data/contact';
+import { CONTACT_HIDDEN_INTERESTS, CONTACT_INTERESTS } from '@/data/contact';
 import { FONT_MONO } from '@/styles/tokens';
-import { CONTACT_INITIAL_VALUES, toContactRequest, validateContact } from './contactForm.schema';
+import { CONTACT_INITIAL_VALUES, isContactComplete, toContactRequest, validateContact } from './contactForm.schema';
 
 const formStyle = {
   display: 'flex',
@@ -74,6 +74,10 @@ export default function ContactForm() {
     onSubmit: (values) => submitContactRequest(toContactRequest(values, window.location.pathname)),
   });
   const { errors, isSubmitting } = form;
+  const options = interests.filter((opt) => !CONTACT_HIDDEN_INTERESTS.includes(opt.id));
+  // El botón queda bloqueado hasta completar los obligatorios (nombre, empresa, email y "Me interesa").
+  const complete = isContactComplete(form.values);
+  const blocked = isSubmitting || !complete;
 
   return (
     <form data-reveal="2" noValidate onSubmit={form.handleSubmit} style={formStyle}>
@@ -95,6 +99,7 @@ export default function ContactForm() {
               label="EMPRESA"
               placeholder="Empresa"
               autoComplete="organization"
+              required
               inputProps={form.field('company')}
               error={errors.company}
             />
@@ -108,12 +113,19 @@ export default function ContactForm() {
             inputProps={form.field('email')}
             error={errors.email}
           />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <span style={{ fontFamily: FONT_MONO, fontSize: '11px', letterSpacing: '.12em', color: '#636262' }}>
-              ME INTERESA
+          <div
+            role="group"
+            aria-labelledby="contact-interests-label"
+            style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+          >
+            <span
+              id="contact-interests-label"
+              style={{ fontFamily: FONT_MONO, fontSize: '11px', letterSpacing: '.12em', color: '#636262' }}
+            >
+              ME INTERESA<span aria-hidden="true"> *</span>
             </span>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {interests.map((opt) => (
+              {options.map((opt) => (
                 <ChipToggle
                   key={opt.id}
                   selected={form.values.interests.includes(opt.id)}
@@ -149,8 +161,9 @@ export default function ContactForm() {
           )}
           <button
             type="submit"
-            disabled={isSubmitting}
-            className={isSubmitting ? undefined : 'hv-bg-ink'}
+            disabled={blocked}
+            aria-describedby={complete ? undefined : 'contact-required-hint'}
+            className={blocked ? undefined : 'hv-bg-ink'}
             style={{
               font: '600 16px Inter,sans-serif',
               padding: '18px',
@@ -158,8 +171,8 @@ export default function ContactForm() {
               border: 'none',
               background: '#00249C',
               color: '#fff',
-              cursor: isSubmitting ? 'wait' : 'pointer',
-              opacity: isSubmitting ? 0.7 : 1,
+              cursor: isSubmitting ? 'wait' : complete ? 'pointer' : 'not-allowed',
+              opacity: isSubmitting ? 0.7 : complete ? 1 : 0.4,
               transition: 'all .3s',
               display: 'flex',
               justifyContent: 'center',
@@ -168,6 +181,11 @@ export default function ContactForm() {
           >
             {isSubmitting ? 'Enviando…' : 'Enviar mensaje'} <span style={{ fontFamily: FONT_MONO }}>→</span>
           </button>
+          {!complete && (
+            <span id="contact-required-hint" style={{ fontSize: '13px', color: '#636262', textAlign: 'center' }}>
+              Completá los campos obligatorios (*) para enviar.
+            </span>
+          )}
         </div>
       )}
     </form>

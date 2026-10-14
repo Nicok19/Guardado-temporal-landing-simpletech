@@ -356,4 +356,7 @@ export default {
   'Transferida a un agente · Ventas': 'Transféré à un agent · Ventes',
   'Llamada transcrita y analizada con IA': "Appel transcrit et analysé par l'IA",
   'Encuesta post-llamada completada': 'Enquête post-appel complétée',
+  'Ingresá tu empresa.': 'Saisissez votre entreprise.',
+  'Elegí al menos una opción.': 'Choisissez au moins une option.',
+  'Completá los campos obligatorios (*) para enviar.': 'Remplissez les champs obligatoires (*) pour envoyer.',
 };

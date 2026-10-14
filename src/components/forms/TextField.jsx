@@ -28,7 +28,10 @@ export default function TextField({ label, error, multiline = false, inputProps,
   const errorId = error ? `${inputProps.name}-error` : undefined;
   return (
     <label style={labelStyle}>
-      {label}
+      <span>
+        {label}
+        {rest.required && <span aria-hidden="true"> *</span>}
+      </span>
       <Tag
         className="fx-bd-blue"
         aria-describedby={errorId}
