@@ -383,4 +383,6 @@ export default {
     "With the Simpletech team, what we've achieved is a partnership. What we share is innovation, exceeding expectations and being agile.",
   'Gerente de Operaciones IT en Ta-Ta Supermercados': 'IT Operations Manager at Ta-Ta Supermercados',
   'Ver caso': 'See case',
+  'Video de SimpleSuite': 'SimpleSuite video',
+  'Reproducir video': 'Play video',
 };

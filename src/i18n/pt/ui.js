@@ -381,4 +381,6 @@ export default {
     'Com a equipe da Simpletech, o que conquistamos é uma parceria. O que nos une é a inovação, superar as expectativas e ser ágeis.',
   'Gerente de Operaciones IT en Ta-Ta Supermercados': 'Gerente de Operações de TI na Ta-Ta Supermercados',
   'Ver caso': 'Ver caso',
+  'Video de SimpleSuite': 'Vídeo do SimpleSuite',
+  'Reproducir video': 'Reproduzir vídeo',
 };
