@@ -81,8 +81,6 @@ const CSS = `
 @keyframes st-eco-flow { to { stroke-dashoffset: -11; } }
 .st-eco-bob { animation: st-eco-bob 3.2s ease-in-out infinite; }
 @keyframes st-eco-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
-.st-eco-ripple { transform-box: fill-box; transform-origin: center; animation: st-eco-ripple 3s ease-out infinite; }
-@keyframes st-eco-ripple { from { transform: scale(1); opacity: .9; } to { transform: scale(1.7); opacity: 0; } }
 .st-eco-diagram-column { display: none; }
 @media (max-width: 1079.98px) {
   .st-eco-diagram-row { display: none; }
@@ -318,19 +316,6 @@ function Diagram({ layout, className }) {
 
       {/* Núcleo */}
       <g className="st-eco-pop" style={{ '--d': '.3s' }}>
-        {[0, 1].map((i) => (
-          <circle
-            key={i}
-            className="st-eco-ripple"
-            style={{ animationDelay: `${-i * 1.5}s` }}
-            cx={core.cx}
-            cy={core.cy}
-            r="86"
-            fill="none"
-            stroke={BLUE}
-            strokeWidth="2"
-          />
-        ))}
         <g className="st-eco-core" data-g="core center" data-hit="">
           <circle cx={core.cx + 6} cy={core.cy + 6} r="86" fill={INK} />
           <circle cx={core.cx} cy={core.cy} r="86" fill={BLUE} stroke={INK} strokeWidth="3" />

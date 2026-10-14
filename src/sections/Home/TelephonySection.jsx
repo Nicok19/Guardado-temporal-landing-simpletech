@@ -52,8 +52,6 @@ const CSS = `
 .st-vx-flow { stroke-dasharray: 2 8; animation: st-vx-flow 1s linear infinite; }
 .st-vx-flow-out { animation-direction: reverse; }
 @keyframes st-vx-flow { to { stroke-dashoffset: -10; } }
-.st-vx-ripple { transform-origin: ${C}px ${C}px; animation: st-vx-ripple 3s ease-out infinite; }
-@keyframes st-vx-ripple { from { transform: scale(1); opacity: .9; } to { transform: scale(2.1); opacity: 0; } }
 .st-vx-bar { transform-box: fill-box; transform-origin: center; animation: st-vx-bar .9s ease-in-out infinite alternate; }
 @keyframes st-vx-bar { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
 .st-vx-note { animation: st-vx-note .55s cubic-bezier(.34,1.56,.64,1) both; }
@@ -169,35 +167,6 @@ function VoiceOrbit() {
         strokeDasharray="1 9"
         strokeLinecap="round"
       />
-      {/* Detalles sueltos de ilustración */}
-      {[
-        [72, 92],
-        [330, 300],
-        [306, 66],
-      ].map(([x, y], i) => (
-        <path
-          key={i}
-          d={`M${x - 6} ${y}h12M${x} ${y - 6}v12`}
-          stroke={INK}
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity=".5"
-        />
-      ))}
-      {/* Ondas que salen del núcleo */}
-      {[0, 1, 2].map((i) => (
-        <circle
-          key={i}
-          className="st-vx-ripple"
-          style={{ animationDelay: `${-i}s` }}
-          cx={C}
-          cy={C}
-          r="56"
-          fill="none"
-          stroke={INK}
-          strokeWidth="1.5"
-        />
-      ))}
       {/* Llamadas que entran (órbita interna) y que salen hacia agentes, bots y red (externa) */}
       <Orbit nodes={INNER} r={132} dur="45s" />
       <Orbit nodes={OUTER} r={172} dur="70s" reverse />
