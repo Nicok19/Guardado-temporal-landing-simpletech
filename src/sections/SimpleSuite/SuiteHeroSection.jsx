@@ -1,25 +1,15 @@
-import { useRef, useState } from 'react';
 import { SITE } from '@/config/site';
 import { SUITE_HERO } from '@/data/suite';
 import SmartLink from '@/components/common/SmartLink';
+import PosterVideo from '@/components/common/PosterVideo';
 import { FONT_MONO } from '@/styles/tokens';
 
 /**
  * Hero de /simplesuite: a la izquierda el logo, el título y los dos llamados (demo y plataformas); a la derecha el
  * video (debajo en pantallas angostas). Fondo crema y texto azul, como el resto de los heroes internos
- * (ej. ModuleHeroSection). Isla: el video muestra un play grande al centro mientras no se reproduce y recién ahí
- * aparecen los controles del navegador.
+ * (ej. ModuleHeroSection). Isla por el video (PosterVideo: play grande al centro hasta que se reproduce).
  */
 export default function SuiteHeroSection() {
-  const videoRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
-  const [started, setStarted] = useState(false);
-
-  const play = () => {
-    setStarted(true);
-    videoRef.current?.play();
-  };
-
   return (
     <section
       style={{
@@ -99,60 +89,8 @@ export default function SuiteHeroSection() {
           </div>
         </div>
 
-        {/* Video: no descarga nada hasta darle play */}
-        <div
-          data-reveal="3"
-          style={{
-            position: 'relative',
-            borderRadius: '28px',
-            overflow: 'hidden',
-            background: '#04081c',
-            boxShadow: '0 40px 80px -40px rgba(0,36,156,.45)',
-          }}
-        >
-          <video
-            ref={videoRef}
-            src={SUITE_HERO.video.src}
-            poster={SUITE_HERO.video.poster}
-            aria-label={SUITE_HERO.video.label}
-            controls={started}
-            playsInline
-            preload="none"
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
-            onEnded={() => setPlaying(false)}
-            style={{ display: 'block', width: '100%', aspectRatio: '16 / 9', objectFit: 'cover' }}
-          ></video>
-          {/* Play grande al centro mientras el video no se reproduce */}
-          {!playing && (
-            <button
-              type="button"
-              onClick={play}
-              aria-label="Reproducir video"
-              className="hv-bg-gold hv-c-blue"
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                translate: '-50% -50%',
-                width: 'clamp(64px,7vw,88px)',
-                height: 'clamp(64px,7vw,88px)',
-                borderRadius: '50%',
-                border: 'none',
-                background: '#00249C',
-                color: '#F9F6EE',
-                display: 'grid',
-                placeItems: 'center',
-                cursor: 'pointer',
-                boxShadow: '0 16px 40px -12px rgba(4,8,28,.6)',
-                transition: 'all .3s',
-              }}
-            >
-              <svg width="30%" height="30%" viewBox="0 0 24 24" aria-hidden="true" style={{ marginLeft: '8%' }}>
-                <path d="M6 4l14 8-14 8z" fill="currentColor" />
-              </svg>
-            </button>
-          )}
+        <div data-reveal="3">
+          <PosterVideo video={SUITE_HERO.video} style={{ boxShadow: '0 40px 80px -40px rgba(0,36,156,.45)' }} />
         </div>
       </div>
     </section>

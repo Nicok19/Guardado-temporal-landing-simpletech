@@ -5,14 +5,13 @@
 export const ACADEMY_URL = 'https://academy.simpletech.uy/';
 
 export default {
-  // Video del lanzamiento (https://www.youtube.com/watch?v=X3vRRO-q7U4)
+  // Video de Academy (public/videos/). El del lanzamiento sigue en YouTube: https://www.youtube.com/watch?v=X3vRRO-q7U4
   video: {
     title: 'Conocé Simpletech Academy.',
     text: 'Así presentamos Academy: la plataforma de cursos para que tu equipo aprenda a usar SimpleSuite y diseñe sus propios proyectos de CX.',
-    youtubeId: 'X3vRRO-q7U4',
+    src: '/videos/simpletech_academy.mp4',
+    poster: '/videos/simpletech_academy-poster.jpg', // fotograma del segundo 8: el logo de Academy
     label: 'Lanzamiento Simpletech Academy',
-    meta: 'WEBINAR · YOUTUBE',
-    speaker: { name: 'Mauro Silva', role: 'Product Training Assistant' },
   },
 
   features: {
