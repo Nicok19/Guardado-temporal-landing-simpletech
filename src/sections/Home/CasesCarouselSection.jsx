@@ -1,7 +1,9 @@
+import { useEffect, useRef } from 'react';
 import CaseLogo from '@/components/common/CaseLogo';
 import { CASES, toCaseView } from '@/data/cases';
 import SmartLink from '@/components/common/SmartLink';
 import CoverImage from '@/components/common/CoverImage';
+import { SITE } from '@/config/site';
 import { FONT_MONO } from '@/styles/tokens';
 
 // Abanico fijo de tarjetas (estilo "What's up on socials" de landonorris.com): sin autoplay ni carrusel.
@@ -19,6 +21,8 @@ const HOME_CASES = CASES.filter((c) => !c.hideInHome)
 
 // Desktop: abanico en arco. Al pasar el mouse, la tarjeta sube y se agranda (escala pareja, la foto no se deforma)
 // y el resto baja al 40% de opacidad, se achica (--s) y se corre hacia afuera (--shift): así ninguna se monta sobre otra.
+// Al scrollear, las tarjetas suben una a una desde abajo (--in: 0 → 1 según el scroll, ver useScrollEntrance).
+// La entrada usa las propiedades `translate` y `rotate`, que se suman al `transform` del abanico sin pisarlo.
 // Hasta 1280px (tablet, celular y notebooks chicas): fila horizontal que se recorre con el dedo, sin rotación.
 const CSS = `
 .st-fan { --card-w: clamp(230px, 18vw, 270px); position: relative; height: calc(var(--card-w) * 1.4 + 90px); }
@@ -26,14 +30,17 @@ const CSS = `
   position: absolute; left: 50%; top: 0; width: var(--card-w); aspect-ratio: 5 / 7;
   transform-origin: 50% 100%;
   transform: translateX(calc(-50% + var(--card-w) * .95 * var(--o) + var(--shift, 0px))) translateY(calc(var(--a) * 38px)) rotate(calc(var(--o) * 6deg)) scale(var(--s, 1));
-  transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease, opacity .4s ease;
+  translate: 0 calc((1 - var(--in, 1)) * 320px);
+  rotate: calc((1 - var(--in, 1)) * var(--o) * 4deg);
+  opacity: var(--in, 1);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease, opacity .25s ease;
 }
 .st-fan-card:hover, .st-fan-card:focus-visible {
   z-index: 20 !important;
   transform: translateX(calc(-50% + var(--card-w) * .95 * var(--o) + var(--shift, 0px))) translateY(calc(var(--a) * 38px - 16px)) rotate(calc(var(--o) * 6deg)) scale(1.1);
   box-shadow: 0 30px 60px -20px rgba(0,36,156,.5);
 }
-.st-fan:has(.st-fan-card:hover, .st-fan-card:focus-visible) .st-fan-card:not(:hover, :focus-visible) { opacity: .4; --s: .8; }
+.st-fan:has(.st-fan-card:hover, .st-fan-card:focus-visible) .st-fan-card:not(:hover, :focus-visible) { opacity: calc(var(--in, 1) * .4); --s: .8; }
 .st-fan-card:is(:hover, :focus-visible) ~ .st-fan-card { --shift: calc(var(--card-w) * .2); }
 .st-fan-card:has(~ .st-fan-card:is(:hover, :focus-visible)) { --shift: calc(var(--card-w) * -.2); }
 @media (max-width: 1279.98px) {
@@ -45,12 +52,50 @@ const CSS = `
   .st-fan::-webkit-scrollbar { display: none; }
   .st-fan-card, .st-fan-card:hover, .st-fan-card:focus-visible {
     position: relative; left: auto; flex: 0 0 var(--card-w); order: var(--order);
-    transform: none; scroll-snap-align: center; opacity: 1 !important;
+    transform: none; scroll-snap-align: center; opacity: 1 !important; translate: none; rotate: none;
   }
 }
 `;
 
+// Progreso de entrada de cada tarjeta según el scroll: empieza cuando el abanico asoma por abajo y termina cuando su
+// borde superior llega al 40% de la pantalla. Cada tarjeta (de izquierda a derecha) arranca un poco después que la anterior.
+const ENTER_DELAY = 0.13; // fracción del recorrido entre una tarjeta y la siguiente
+const ENTER_SPAN = 0.45; // fracción del recorrido que dura la entrada de cada tarjeta
+const easeOut = (p) => 1 - Math.pow(1 - p, 3);
+const clamp01 = (n) => Math.min(1, Math.max(0, n));
+
+function useScrollEntrance(ref) {
+  useEffect(() => {
+    const stage = ref.current;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!stage || !SITE.features.motion || reduced) return undefined;
+    const cards = [...stage.querySelectorAll('.st-fan-card')];
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const vh = window.innerHeight;
+      const progress = (vh - stage.getBoundingClientRect().top) / (vh * 0.6);
+      cards.forEach((card, k) =>
+        card.style.setProperty('--in', easeOut(clamp01((progress - k * ENTER_DELAY) / ENTER_SPAN)).toFixed(3)),
+      );
+    };
+    const onScroll = () => frame || (frame = requestAnimationFrame(update));
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      cards.forEach((card) => card.style.removeProperty('--in'));
+    };
+  }, [ref]);
+}
+
 export default function CasesCarouselSection() {
+  const stageRef = useRef(null);
+  useScrollEntrance(stageRef);
+
   return (
     <section
       style={{
@@ -101,7 +146,7 @@ export default function CasesCarouselSection() {
             Ver casos de éxito <span style={{ fontFamily: FONT_MONO }}>→</span>
           </SmartLink>
         </div>
-        <div className="st-fan" data-reveal="2">
+        <div className="st-fan" ref={stageRef}>
           {HOME_CASES.map((c) => {
             const { offset } = c;
             const abs = Math.abs(offset);

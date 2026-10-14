@@ -16,6 +16,6 @@ import PartnersTeaserSection from '@/sections/Home/PartnersTeaserSection.jsx';
   <AboutTeaserSection />
   <ProductsTeaserSection client:visible />
   <TelephonySection />
-  <CasesCarouselSection />
-  <PartnersTeaserSection />
+  <CasesCarouselSection client:load />
+  <PartnersTeaserSection client:visible={{ rootMargin: '300px' }} />
 </BaseLayout>
