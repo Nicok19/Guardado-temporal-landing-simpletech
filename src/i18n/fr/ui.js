@@ -359,4 +359,22 @@ export default {
   'Ingresá tu empresa.': 'Saisissez votre entreprise.',
   'Elegí al menos una opción.': 'Choisissez au moins une option.',
   'Completá los campos obligatorios (*) para enviar.': 'Remplissez les champs obligatoires (*) pour envoyer.',
+  'CONECTIVIDAD': 'CONNECTIVITÉ',
+  'Todo conectado en un mismo lugar.': 'Tout connecté au même endroit.',
+  'Tus canales, las herramientas que ya usás y los servicios de IA y nube trabajan juntos alrededor de SimpleSuite.': "Vos canaux, les outils que vous utilisez déjà et les services d'IA et de cloud fonctionnent ensemble autour de SimpleSuite.",
+  'Canales': 'Canaux',
+  'Integraciones': 'Intégrations',
+  'Servicios externos': 'Services externes',
+  'INTEGRACIONES':
+    'INTÉGRATIONS',
+  'Que se adaptan a tu empresa':
+    "Qui s'adaptent à votre entreprise",
+  'SimpleBots se conecta con las tecnologías existentes en tu empresa, para que tu negocio y procesos funcionen de forma unificada.':
+    'SimpleBots se connecte aux technologies déjà en place dans votre entreprise, pour que votre activité et vos processus fonctionnent de façon unifiée.',
+  'INTELIGENCIA ARTIFICIAL':
+    'INTELLIGENCE ARTIFICIELLE',
+  'A tu servicio':
+    'À votre service',
+  'SimpleBots trabaja con IA para analizar grandes cantidades de datos, comprender y clasificar intenciones o sentimientos, generar reportes avanzados, realizar predicciones o sugerencias. Es posible conectar servicios externos de los motores más potentes.':
+    "SimpleBots s'appuie sur l'IA pour analyser de grandes quantités de données, comprendre et classer les intentions ou les sentiments, générer des rapports avancés et faire des prédictions ou des suggestions. Il est aussi possible de connecter des services externes des moteurs les plus puissants.",
 };

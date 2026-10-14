@@ -3,13 +3,16 @@ import { SUITE_HERO } from '@/data/suite';
 import SmartLink from '@/components/common/SmartLink';
 import { FONT_MONO } from '@/styles/tokens';
 
-/** Hero de /simplesuite: logo, título a lo ancho y los dos llamados (demo y plataformas). Estático. */
+/**
+ * Hero de /simplesuite: logo, título a lo ancho y los dos llamados (demo y plataformas). Estático.
+ * Fondo crema y texto azul, como el resto de los heroes internos (ej. ModuleHeroSection).
+ */
 export default function SuiteHeroSection() {
   return (
     <section
       style={{
-        background: '#00249C',
-        color: '#fff',
+        background: '#F9F6EE',
+        color: '#00249C',
         padding: 'clamp(150px,15vw,190px) var(--page-x) clamp(88px,10vw,120px)',
       }}
     >
@@ -20,7 +23,7 @@ export default function SuiteHeroSection() {
           data-reveal="1"
           src={SITE.suiteLogoUrl}
           alt="SimpleSuite"
-          style={{ height: 'clamp(34px,4vw,52px)', width: 'max-content', filter: 'brightness(0) invert(1)' }}
+          style={{ height: 'clamp(34px,4vw,52px)', width: 'max-content' }}
         />
         <h1
           data-reveal="2"
@@ -39,7 +42,7 @@ export default function SuiteHeroSection() {
         </h1>
         <div data-reveal="3" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <SmartLink
-            className="hv-bg-cream hv-c-blue"
+            className="hv-bg-gold hv-c-blue"
             href="/#contacto"
             style={{
               display: 'flex',
@@ -47,8 +50,8 @@ export default function SuiteHeroSection() {
               alignItems: 'center',
               padding: '16px 26px',
               borderRadius: '999px',
-              background: '#DCD291',
-              color: '#00249C',
+              background: '#00249C',
+              color: '#F9F6EE',
               fontWeight: 700,
               fontSize: '15px',
               transition: 'all .3s',
@@ -57,7 +60,7 @@ export default function SuiteHeroSection() {
             Pedí una demo <span style={{ fontFamily: FONT_MONO }}>→</span>
           </SmartLink>
           <SmartLink
-            className="hv-bg-glass-10"
+            className="hv-bd-blue"
             href="#plataformas"
             style={{
               display: 'flex',
@@ -65,8 +68,8 @@ export default function SuiteHeroSection() {
               alignItems: 'center',
               padding: '16px 26px',
               borderRadius: '999px',
-              border: '1px solid rgba(178,220,255,.35)',
-              color: '#F9F6EE',
+              border: '1px solid #DADAE4',
+              color: '#00249C',
               fontWeight: 600,
               fontSize: '15px',
               transition: 'all .3s',
