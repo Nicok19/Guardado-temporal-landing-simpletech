@@ -11,8 +11,9 @@ const INK = '#04081c';
 const CREAM = '#F9F6EE';
 const BLUE = '#00249C';
 const GOLD = '#DCD291';
-const MINT = '#7fd9ae';
+const LILAC_SOFT = '#e6ddff'; // canales: el mismo lila, más suave
 const GREY = '#d9dbe3';
+const LILAC = '#d4c2ff'; // el lila del estilo ilustrado (ver Home/hero/panel.jsx)
 
 const CHANNELS = ['sms', 'web', 'whatsapp', 'messenger', 'instagram'];
 const INTEGRATIONS = ['Jira', 'Zendesk', 'Help Scout', 'Sistarbanc', 'Mercado Pago', 'Salesforce', 'WordPress', '3CX'];
@@ -24,7 +25,7 @@ const HIGHLIGHTS = [
     kicker: 'INTEGRACIONES',
     title: 'Que se adaptan a tu empresa',
     text: 'SimpleBots se conecta con las tecnologías existentes en tu empresa, para que tu negocio y procesos funcionen de forma unificada.',
-    color: MINT,
+    color: LILAC,
   },
   {
     kicker: 'INTELIGENCIA ARTIFICIAL',
@@ -211,7 +212,7 @@ function Diagram({ layout, className }) {
       aria-hidden="true"
     >
       {/* Círculos laterales primero: en la fila, el del centro va encima, como en el diagrama original */}
-      <Disc c={left} fill={MINT} d="0s" />
+      <Disc c={left} fill={LILAC_SOFT} d="0s" />
       <Disc c={right} fill={GREY} d=".3s" />
       <Disc c={center} fill={CREAM} d=".15s">
         <circle
