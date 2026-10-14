@@ -2,15 +2,52 @@ import { useEffect, useRef, useState } from 'react';
 import { SUITE_MODULES } from '@/data/suiteModules';
 import { PRODUCT_COLORS } from '@/data/products';
 import { ROUTES, suiteModulePath } from '@/config/routes';
+import { SITE } from '@/config/site';
 import SmartLink from '@/components/common/SmartLink';
+import CoverImage from '@/components/common/CoverImage';
 import { fadeIn } from '@/utils/animation';
 import { FONT_MONO, FONT_POPPINS } from '@/styles/tokens';
 import { MODULE_PREVIEWS } from '@/sections/SimpleSuite/previews';
 import PreviewWindow from '@/sections/SimpleSuite/previews/PreviewWindow';
 import PipelinePreview from '@/sections/SimpleSuite/previews/PipelinePreview';
 
+// Foto de fondo (Unsplash, licencia libre): equipo trabajando con laptops.
+const BG_PHOTO = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?fm=jpg&q=60&w=1600&auto=format&fit=crop';
+
+// Parallax de la foto de fondo: se mueve a PARALLAX_SPEED de la velocidad del scroll, en sentido contrario.
+// La foto es más alta que la sección (PARALLAX_BLEED arriba y abajo) para que nunca se vean sus bordes.
+const PARALLAX_SPEED = 0.2;
+const PARALLAX_BLEED = '22%';
+
+function useParallax(ref) {
+  useEffect(() => {
+    const el = ref.current;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!el || !SITE.features.motion || reduced) return undefined;
+    const section = el.parentElement;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const r = section.getBoundingClientRect();
+      // 0 cuando el centro de la sección coincide con el centro de la pantalla.
+      const offset = r.top + r.height / 2 - window.innerHeight / 2;
+      el.style.transform = `translate3d(0, ${(offset * PARALLAX_SPEED).toFixed(1)}px, 0)`;
+    };
+    const onScroll = () => frame || (frame = requestAnimationFrame(update));
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [ref]);
+}
+
 // Las plataformas del menú lateral: los módulos de SimpleSuite y SimplePipeline, todas iguales.
-// `Preview` = maqueta de la interfaz que se muestra al elegirla.
+// `Preview` = maqueta de la interfaz que se muestra al elegirla. SimpleStats va al final de la lista.
+const LAST = 'simplestats';
 const PLATFORMS = [
   ...SUITE_MODULES.map((m) => ({ ...m, href: suiteModulePath(m.id), Preview: MODULE_PREVIEWS[m.id] })),
   {
@@ -22,7 +59,7 @@ const PLATFORMS = [
     href: ROUTES.simplepipeline,
     Preview: PipelinePreview,
   },
-];
+].sort((a, b) => (a.id === LAST) - (b.id === LAST));
 
 /**
  * Plataformas propias (Home): menú lateral con cada plataforma; al elegir una se muestra su vista
@@ -32,9 +69,11 @@ export default function ProductsTeaserSection() {
   const [active, setActive] = useState(0);
   const tabRefs = useRef([]);
   const panelRef = useRef(null);
+  const bgRef = useRef(null);
   const p = PLATFORMS[active];
 
   useEffect(() => fadeIn(panelRef.current), [active]);
+  useParallax(bgRef);
 
   // Flechas ↑/↓ para moverse entre plataformas (patrón de tabs accesible).
   const onKeyDown = (e) => {
@@ -55,6 +94,25 @@ export default function ProductsTeaserSection() {
         overflow: 'hidden',
       }}
     >
+      {/* Foto de fondo apenas visible: en blanco y negro (luminosity) para que tome el azul de la sección.
+          Se mueve con parallax (useParallax). */}
+      <div
+        ref={bgRef}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: `-${PARALLAX_BLEED}`,
+          bottom: `-${PARALLAX_BLEED}`,
+          opacity: 0.14,
+          mixBlendMode: 'luminosity',
+          pointerEvents: 'none',
+          willChange: 'transform',
+        }}
+      >
+        <CoverImage src={BG_PHOTO} sizes="100vw" style={{ position: 'absolute', inset: 0 }} />
+      </div>
       <div
         style={{
           position: 'relative',
