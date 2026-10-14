@@ -4,4 +4,7 @@ export const ENDPOINTS = {
     submit: '/contact', // POST  → ContactRequest
     interests: '/contact/interests', // GET   → InterestOption[]
   },
+  newsletter: {
+    subscribe: '/newsletter', // POST  → NewsletterRequest
+  },
 };

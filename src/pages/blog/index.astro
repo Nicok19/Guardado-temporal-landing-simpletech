@@ -1,9 +1,10 @@
 ---
 // /blog — artículos del blog de WordPress (services/wordpress.js): el más nuevo destacado y el resto con filtro por
-// categoría. Se lee la API al compilar el sitio.
+// categoría, y debajo la suscripción al newsletter. Se lee la API al compilar el sitio.
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/common/PageHero.jsx';
 import BlogListSection from '@/sections/Blog/BlogListSection.jsx';
+import NewsletterSection from '@/sections/Blog/NewsletterSection.jsx';
 import { PAGE_SEO } from '@/config/seo';
 import { navItem } from '@/data/navigation';
 import { getPosts } from '@/services/wordpress';
@@ -21,4 +22,5 @@ const posts = (await getPosts()).map(({ html, ...p }) => localizeCard(p, lang));
 <BaseLayout {...seo}>
   <PageHero parent={nav} title="Blog" lead={seo.description} />
   <BlogListSection client:load posts={posts} />
+  <NewsletterSection client:visible />
 </BaseLayout>
