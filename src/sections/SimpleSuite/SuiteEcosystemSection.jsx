@@ -88,6 +88,28 @@ const CSS = `
   .st-eco-diagram-row { display: none; }
   .st-eco-diagram-column { display: block; }
 }
+/* Hover (desktop con mouse): el grupo bajo el mouse (círculo, sus ítems y su rótulo) se destaca, el resto se
+   atenúa y sus flujos se pintan dorados; cada ítem salta al pasarle el mouse; sobre integraciones o el núcleo,
+   el giro se pausa para poder leerlas. data-g = grupos a los que pertenece cada elemento; data-hit = activa el hover. */
+@media (hover: hover) and (min-width: 1080px) {
+  .st-eco-diagram-row [data-g] { transition: opacity .35s ease, transform .4s cubic-bezier(.34,1.56,.64,1); }
+  .st-eco-diagram-row line[data-g] { transition: opacity .35s ease, stroke .35s ease, stroke-width .35s ease; }
+  .st-eco-diagram-row .st-eco-disc, .st-eco-diagram-row .st-eco-item, .st-eco-diagram-row .st-eco-core {
+    transform-box: fill-box; transform-origin: center;
+  }
+  .st-eco-diagram-row .st-eco-item:hover { transform: scale(1.15) rotate(-3deg); }
+  .st-eco-diagram-row .st-eco-core:hover { transform: scale(1.06); }
+  .st-eco-diagram-row:has([data-g~="center"][data-hit]:hover) .st-eco-spin { animation-play-state: paused; }
+  .st-eco-diagram-row:has([data-g~="left"][data-hit]:hover) [data-g]:not([data-g~="left"]):not([data-g~="core"]) { opacity: .3; }
+  .st-eco-diagram-row:has([data-g~="left"][data-hit]:hover) .st-eco-disc[data-g~="left"] { transform: scale(1.03); }
+  .st-eco-diagram-row:has([data-g~="left"][data-hit]:hover) line[data-g~="left"] { stroke: ${GOLD}; stroke-width: 3.5; }
+  .st-eco-diagram-row:has([data-g~="center"][data-hit]:hover) [data-g]:not([data-g~="center"]):not([data-g~="core"]) { opacity: .3; }
+  .st-eco-diagram-row:has([data-g~="center"][data-hit]:hover) .st-eco-disc[data-g~="center"] { transform: scale(1.03); }
+  .st-eco-diagram-row:has([data-g~="center"][data-hit]:hover) line[data-g~="center"] { stroke: ${GOLD}; stroke-width: 3.5; }
+  .st-eco-diagram-row:has([data-g~="right"][data-hit]:hover) [data-g]:not([data-g~="right"]):not([data-g~="core"]) { opacity: .3; }
+  .st-eco-diagram-row:has([data-g~="right"][data-hit]:hover) .st-eco-disc[data-g~="right"] { transform: scale(1.03); }
+  .st-eco-diagram-row:has([data-g~="right"][data-hit]:hover) line[data-g~="right"] { stroke: ${GOLD}; stroke-width: 3.5; }
+}
 @media (prefers-reduced-motion: reduce) { .st-eco * { animation: none !important; transition: none !important; } }
 `;
 
@@ -186,16 +208,25 @@ function Label({ x, y, text, tilt }) {
   );
 }
 
-/** Círculo con sombra dura. `d` = demora de la entrada con rebote. */
-function Disc({ c, fill, d, children }) {
+/** Círculo con sombra dura. `d` = demora de la entrada con rebote; `g` = grupo para el hover. */
+function Disc({ c, fill, d, g, children }) {
   return (
     <g className="st-eco-pop" style={{ '--d': d }}>
-      <circle cx={c.cx + 9} cy={c.cy + 9} r={c.r} fill={BLUE} />
-      <circle cx={c.cx} cy={c.cy} r={c.r} fill={fill} stroke={INK} strokeWidth="3" />
-      {children}
+      <g className="st-eco-disc" data-g={g} data-hit="">
+        <circle cx={c.cx + 9} cy={c.cy + 9} r={c.r} fill={BLUE} />
+        <circle cx={c.cx} cy={c.cy} r={c.r} fill={fill} stroke={INK} strokeWidth="3" />
+        {children}
+      </g>
     </g>
   );
 }
+
+/** Ítem que salta con el hover y pertenece al grupo `g`. */
+const Item = ({ g, children }) => (
+  <g className="st-eco-item" data-g={g} data-hit="">
+    {children}
+  </g>
+);
 
 function Diagram({ layout, className }) {
   const { vb, left, center, right, labels, serviceSize } = layout;
@@ -212,9 +243,9 @@ function Diagram({ layout, className }) {
       aria-hidden="true"
     >
       {/* Círculos laterales primero: en la fila, el del centro va encima, como en el diagrama original */}
-      <Disc c={left} fill={LILAC_SOFT} d="0s" />
-      <Disc c={right} fill={GREY} d=".3s" />
-      <Disc c={center} fill={CREAM} d=".15s">
+      <Disc c={left} fill={LILAC_SOFT} d="0s" g="left" />
+      <Disc c={right} fill={GREY} d=".3s" g="right" />
+      <Disc c={center} fill={CREAM} d=".15s" g="center">
         <circle
           className="st-eco-spin"
           style={{ '--dur': '80s', transformOrigin: `${core.cx}px ${core.cy}px` }}
@@ -237,6 +268,7 @@ function Diagram({ layout, className }) {
             <line
               key={`c${i}`}
               className="st-eco-flow"
+              data-g="left center"
               x1={x}
               y1={y}
               x2={core.cx}
@@ -251,6 +283,7 @@ function Diagram({ layout, className }) {
             <line
               key={`s${i}`}
               className="st-eco-flow"
+              data-g="right center"
               x1={core.cx}
               y1={core.cy}
               x2={x}
@@ -274,7 +307,9 @@ function Diagram({ layout, className }) {
                 className="st-eco-spin st-eco-rev"
                 style={{ '--dur': '70s', transformBox: 'view-box', transformOrigin: `${x}px ${y}px` }}
               >
-                <Pill x={x} y={y} text={name} fill="#fff" size={14} />
+                <Item g="center">
+                  <Pill x={x} y={y} text={name} fill="#fff" size={14} />
+                </Item>
               </g>
             </g>
           );
@@ -296,21 +331,23 @@ function Diagram({ layout, className }) {
             strokeWidth="2"
           />
         ))}
-        <circle cx={core.cx + 6} cy={core.cy + 6} r="86" fill={INK} />
-        <circle cx={core.cx} cy={core.cy} r="86" fill={BLUE} stroke={INK} strokeWidth="3" />
-        <text
-          x={core.cx}
-          y={core.cy - 4}
-          textAnchor="middle"
-          dominantBaseline="central"
-          fill={CREAM}
-          fontSize="26"
-          fontWeight="800"
-          letterSpacing="-1"
-          fontFamily="Inter, sans-serif"
-        >
-          simplesuite
-        </text>
+        <g className="st-eco-core" data-g="core center" data-hit="">
+          <circle cx={core.cx + 6} cy={core.cy + 6} r="86" fill={INK} />
+          <circle cx={core.cx} cy={core.cy} r="86" fill={BLUE} stroke={INK} strokeWidth="3" />
+          <text
+            x={core.cx}
+            y={core.cy - 4}
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill={CREAM}
+            fontSize="26"
+            fontWeight="800"
+            letterSpacing="-1"
+            fontFamily="Inter, sans-serif"
+          >
+            simplesuite
+          </text>
+        </g>
       </g>
 
       {/* Canales */}
@@ -319,11 +356,13 @@ function Diagram({ layout, className }) {
         return (
           <g key={name} className="st-eco-pop" style={{ '--d': `${0.2 + i * 0.07}s` }}>
             <g className="st-eco-bob" style={{ animationDelay: `${-i * 0.6}s` }}>
-              <circle cx={x + 3} cy={y + 3} r="25" fill={INK} />
-              <circle cx={x} cy={y} r="25" fill={CREAM} stroke={INK} strokeWidth="2.5" />
-              <g transform={`translate(${x - 12} ${y - 12})`}>
-                <ChannelIcon name={name} />
-              </g>
+              <Item g="left">
+                <circle cx={x + 3} cy={y + 3} r="25" fill={INK} />
+                <circle cx={x} cy={y} r="25" fill={CREAM} stroke={INK} strokeWidth="2.5" />
+                <g transform={`translate(${x - 12} ${y - 12})`}>
+                  <ChannelIcon name={name} />
+                </g>
+              </Item>
             </g>
           </g>
         );
@@ -335,7 +374,9 @@ function Diagram({ layout, className }) {
         return (
           <g key={name} className="st-eco-pop" style={{ '--d': `${0.5 + i * 0.07}s` }}>
             <g className="st-eco-bob" style={{ animationDelay: `${-i * 0.5}s` }}>
-              <Pill x={x} y={y} text={name} size={serviceSize} />
+              <Item g="right">
+                <Pill x={x} y={y} text={name} size={serviceSize} />
+              </Item>
             </g>
           </g>
         );
@@ -343,13 +384,19 @@ function Diagram({ layout, className }) {
 
       {/* Rótulos */}
       <g className="st-eco-pop" style={{ '--d': '.7s' }}>
-        <Label x={labels.left[0]} y={labels.left[1]} text="Canales" tilt={-3} />
+        <Item g="left">
+          <Label x={labels.left[0]} y={labels.left[1]} text="Canales" tilt={-3} />
+        </Item>
       </g>
       <g className="st-eco-pop" style={{ '--d': '.8s' }}>
-        <Label x={labels.center[0]} y={labels.center[1]} text="Integraciones" tilt={2} />
+        <Item g="center">
+          <Label x={labels.center[0]} y={labels.center[1]} text="Integraciones" tilt={2} />
+        </Item>
       </g>
       <g className="st-eco-pop" style={{ '--d': '.9s' }}>
-        <Label x={labels.right[0]} y={labels.right[1]} text="Servicios externos" tilt={-2} />
+        <Item g="right">
+          <Label x={labels.right[0]} y={labels.right[1]} text="Servicios externos" tilt={-2} />
+        </Item>
       </g>
     </svg>
   );
