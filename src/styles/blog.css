@@ -1,0 +1,123 @@
+/*
+ * Contenido de los artículos del blog (/blog/:slug). El HTML viene de WordPress ya limpio (services/wordpress.js):
+ * solo títulos, párrafos, listas, links, imágenes, citas y tablas, sin clases. Se estiliza todo desde .blog-prose.
+ */
+.blog-prose {
+  max-width: 720px;
+  margin: 0 auto;
+  color: #1d2340;
+  font-size: 18px;
+  line-height: 1.75;
+}
+.blog-prose > * + * {
+  margin-top: 1.1em;
+}
+.blog-prose p,
+.blog-prose ul,
+.blog-prose ol,
+.blog-prose blockquote,
+.blog-prose figure,
+.blog-prose table {
+  margin-bottom: 0;
+}
+.blog-prose h2,
+.blog-prose h3,
+.blog-prose h4 {
+  color: #00249c;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 1.9em 0 0;
+  text-wrap: balance;
+}
+.blog-prose h2 {
+  font-size: clamp(26px, 2.6vw, 34px);
+}
+.blog-prose h3 {
+  font-size: clamp(21px, 2vw, 25px);
+}
+.blog-prose h4 {
+  font-size: 19px;
+}
+.blog-prose a {
+  color: #00249c;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #dcd291;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.blog-prose a:hover {
+  text-decoration-color: #00249c;
+}
+.blog-prose strong,
+.blog-prose b {
+  color: #04081c;
+  font-weight: 700;
+}
+.blog-prose ul,
+.blog-prose ol {
+  padding-left: 1.3em;
+}
+.blog-prose li + li {
+  margin-top: 0.45em;
+}
+.blog-prose li::marker {
+  color: #00249c;
+  font-weight: 700;
+}
+.blog-prose blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 18px 24px;
+  border-left: 4px solid #dcd291;
+  background: #fff;
+  border-radius: 0 16px 16px 0;
+  font-size: 19px;
+  font-weight: 600;
+  color: #00249c;
+}
+.blog-prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  margin: 0 auto;
+}
+.blog-prose figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+.blog-prose figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #636262;
+  text-align: center;
+}
+.blog-prose hr {
+  border: 0;
+  border-top: 1px solid #dadae4;
+  margin: 2.2em 0;
+}
+.blog-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  display: block;
+  overflow-x: auto;
+}
+.blog-prose th,
+.blog-prose td {
+  padding: 10px 12px;
+  border: 1px solid #dadae4;
+  text-align: left;
+}
+.blog-prose th {
+  background: #fff;
+  color: #00249c;
+}
+@media (max-width: 600px) {
+  .blog-prose {
+    font-size: 17px;
+  }
+}

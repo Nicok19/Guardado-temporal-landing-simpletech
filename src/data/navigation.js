@@ -1,8 +1,8 @@
 import { ROUTES, suiteModulePath } from '@/config/routes';
 import { SUITE_MODULES } from '@/data/suiteModules';
 
-// Blog del sitio actual (externo: se abre en otra pestaña).
-const BLOG_URL = 'https://www.simpletech.uy/blog/';
+// Artículos del blog: se leen del WordPress de simpletech.uy (services/wordpress.js).
+const BLOG_URL = '/blog';
 
 // Menú principal. Un ítem sin `items` es un link directo, sin submenú.
 export const NAV_ITEMS = [

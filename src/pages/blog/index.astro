@@ -1,0 +1,20 @@
+---
+// /blog — artículos del blog de WordPress (services/wordpress.js): el más nuevo destacado y el resto con filtro por
+// categoría. Se lee la API al compilar el sitio.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import BlogListSection from '@/sections/Blog/BlogListSection.jsx';
+import { PAGE_SEO } from '@/config/seo';
+import { navItem } from '@/data/navigation';
+import { getPosts } from '@/services/wordpress';
+
+const nav = navItem('nosotros');
+const seo = PAGE_SEO.blog;
+// Al navegador va solo lo que muestran las tarjetas (sin el contenido de cada artículo).
+const posts = (await getPosts()).map(({ html, ...p }) => p);
+---
+
+<BaseLayout {...seo}>
+  <PageHero parent={nav} title="Artículos" lead={seo.description} />
+  <BlogListSection client:load posts={posts} />
+</BaseLayout>

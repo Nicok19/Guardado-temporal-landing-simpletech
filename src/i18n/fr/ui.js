@@ -409,4 +409,13 @@ export default {
   'Datos de la industria · Simpletech': 'Données sectorielles · Simpletech',
   'Los desafíos de experiencia del cliente de cada industria y los números que los explican: logística, seguros, industria, automotriz y retail.':
     "Les défis d'expérience client de chaque secteur et les chiffres qui les expliquent : logistique, assurance, industrie, automobile et commerce.",
+  'Artículos · Simpletech': 'Articles · Simpletech',
+  'Novedades, guías y tendencias sobre experiencia del cliente, WhatsApp, automatización e inteligencia artificial.':
+    "Actualités, guides et tendances sur l'expérience client, WhatsApp, l'automatisation et l'intelligence artificielle.",
+  'Ver más artículos': "Voir plus d'articles",
+  '{0} DE {1} ARTÍCULOS': '{0} SUR {1} ARTICLES',
+  'No pudimos cargar los artículos en este momento.': 'Impossible de charger les articles pour le moment.',
+  '{0} min de lectura': '{0} min de lecture',
+  'Todos los artículos': 'Tous les articles',
+  'Más artículos': "Plus d'articles",
 };

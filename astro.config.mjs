@@ -36,8 +36,7 @@ export default defineConfig({
   redirects: {
     '/nosotros/mision': '/nosotros',
     '/nosotros/presencia': '/nosotros',
-    '/blog': 'https://www.simpletech.uy/blog/',
-    '/blog/articulos': 'https://www.simpletech.uy/blog/',
+    '/blog/articulos': '/blog',
     '/blog/recursos': '/blog/webinars',
     '/nosotros/metodo': '/como-trabajamos',
     '/nosotros/entrega': '/como-trabajamos',

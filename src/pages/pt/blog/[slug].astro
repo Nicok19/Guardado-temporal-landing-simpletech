@@ -1,0 +1,9 @@
+---
+// /pt/blog/:slug — la misma página en otro idioma (ver src/i18n). El artículo sigue en español.
+import Page from '../../blog/[slug].astro';
+import { blogPostPaths } from '@/services/wordpress';
+
+export const getStaticPaths = blogPostPaths;
+---
+
+<Page {...Astro.props} />
