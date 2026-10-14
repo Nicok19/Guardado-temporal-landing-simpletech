@@ -5,6 +5,8 @@ import Fonts from '@/components/layout/Fonts.astro';
 import ContactSection from '@/components/contact/ContactSection.jsx';
 import ContactForm from '@/components/contact/ContactForm.jsx';
 import WhatsAppFloat from '@/components/layout/WhatsAppFloat.astro';
+import GeoScript from '@/components/layout/GeoScript.astro';
+import { REGION_CSS } from '@/utils/geo';
 import { DEFAULT_OG_IMAGE, SITE_NAME } from '@/config/seo';
 import { LANGS, getLang, pathFor, stripLang, t } from '@/i18n';
 import '@/styles/global.css';
@@ -51,6 +53,9 @@ const ogImage = new URL(image, Astro.site);
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
+    <!-- Geolocalización: país/región e idioma por defecto (config/geo.js). Primero, para redirigir antes de cargar nada. -->
+    <GeoScript />
+    <style is:inline set:html={REGION_CSS}></style>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />

@@ -5,6 +5,7 @@ import { SITE } from '@/config/site';
 import { NAV_ITEMS, menuRows } from '@/data/navigation';
 import { FONT_MONO } from '@/styles/tokens';
 import { getLang, pathFor } from '@/i18n';
+import { rememberLangChoice } from '@/utils/geo';
 
 const HEADER_HEIGHT = 84; // alto del header flotante + margen superior
 
@@ -164,6 +165,7 @@ function MenuGroup({ item, active, open, onToggle }) {
 function LanguageSwitch() {
   const current = getLang();
   const go = (lang) => {
+    rememberLangChoice(lang); // la geolocalización ya no cambia el idioma por su cuenta
     if (lang !== current) {
       window.location.assign(pathFor(window.location.pathname, lang) + window.location.search + window.location.hash);
     }

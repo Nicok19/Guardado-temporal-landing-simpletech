@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { getLang, pathFor } from '@/i18n';
+import { rememberLangChoice } from '@/utils/geo';
 
 // Idiomas del selector: cada uno lleva a la misma página en ese idioma (src/i18n: /en/..., /pt/..., /fr/...).
 const LANGUAGES = [
@@ -42,6 +43,7 @@ export default function LanguageSelector() {
   const pick = (code) => {
     setSelected(code);
     setOpen(false);
+    rememberLangChoice(code); // la geolocalización ya no cambia el idioma por su cuenta
     // La misma página en el idioma elegido (con su ancla, si tiene).
     if (code !== getLang()) {
       window.location.assign(pathFor(window.location.pathname, code) + window.location.search + window.location.hash);

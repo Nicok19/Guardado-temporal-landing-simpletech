@@ -1,0 +1,81 @@
+---
+// Geolocalización en el navegador (configuración y reglas en config/geo.js). Va al principio del <head>: detecta el
+// país antes de que se dibuje la página, marca <html data-country data-region> (para <RegionContent>) y, si
+// corresponde, redirige a la versión en el idioma de la región. Es inline y sin dependencias para no demorar nada.
+import { GEO_CLIENT_CONFIG } from '@/config/geo';
+import { DEFAULT_LANG, getLang } from '@/i18n';
+
+const pageLang = getLang();
+---
+
+<script is:inline define:vars={{ GEO: GEO_CLIENT_CONFIG, PAGE_LANG: pageLang, DEFAULT_LANG }}>
+  (function () {
+    var K = GEO.keys;
+    var store = function (s, k, v) {
+      try {
+        if (v === undefined) return s.getItem(k);
+        if (v === null) s.removeItem(k);
+        else s.setItem(k, v);
+      } catch (e) {
+        return null;
+      }
+    };
+    var regionOf = function (c) {
+      for (var r in GEO.regions) if (GEO.regions[r].countries.indexOf(c) !== -1) return r;
+      return GEO.defaultRegion;
+    };
+    var fromTimezone = function () {
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        if (GEO.timezones[tz]) return GEO.timezones[tz];
+        for (var p in GEO.timezonePrefixes) if (tz.indexOf(p) === 0) return GEO.timezonePrefixes[p];
+      } catch (e) {}
+      return '';
+    };
+
+    // 1. ?geo=XX fuerza un país durante la sesión (para probar); ?geo= lo borra.
+    var param = new URLSearchParams(location.search).get('geo');
+    if (param !== null) store(sessionStorage, K.override, param ? param.toUpperCase() : null);
+    var override = store(sessionStorage, K.override);
+
+    // 2. País guardado de una visita anterior · 3. zona horaria.
+    var saved = null;
+    try {
+      saved = JSON.parse(store(localStorage, K.country) || 'null');
+    } catch (e) {}
+    var country = override || (saved && saved.country) || fromTimezone();
+    var region = regionOf(country);
+    var root = document.documentElement;
+    root.setAttribute('data-region', region);
+    if (country) root.setAttribute('data-country', country);
+    window.__ST_GEO__ = { country: country, region: region, source: override ? 'override' : saved ? saved.source : 'timezone' };
+
+    // 4. Endpoint del hosting (si hay): se consulta en segundo plano y se guarda para la próxima visita.
+    if (GEO.endpoint && !override && (!saved || saved.source !== 'endpoint')) {
+      fetch(GEO.endpoint, { credentials: 'omit' })
+        .then(function (r) {
+          return r.ok ? r.json() : null;
+        })
+        .then(function (d) {
+          if (d && d.country)
+            store(localStorage, K.country, JSON.stringify({ country: String(d.country).toUpperCase(), source: 'endpoint', t: Date.now() }));
+        })
+        .catch(function () {});
+    } else if (!saved && country && !override) {
+      store(localStorage, K.country, JSON.stringify({ country: country, source: 'timezone', t: Date.now() }));
+    }
+
+    // Redirección al idioma de la región: solo desde páginas en español (sin prefijo), sin elección manual previa,
+    // una vez por sesión y nunca para buscadores.
+    var target = GEO.regions[region].lang;
+    var isBot = /bot|crawl|spider|slurp|facebookexternalhit|preview|lighthouse/i.test(navigator.userAgent) || navigator.webdriver;
+    // Con ?geo=XX (prueba) se redirige siempre que el parámetro esté en la URL, aunque haya una elección guardada.
+    var allowed = override ? param !== null : !store(localStorage, K.langChoice) && !store(sessionStorage, K.redirected);
+    if (target !== DEFAULT_LANG && PAGE_LANG === DEFAULT_LANG && (!isBot || override) && allowed) {
+      store(sessionStorage, K.redirected, '1');
+      var url = new URL(location.href);
+      url.searchParams.delete('geo');
+      location.replace('/' + target + url.pathname + url.search + url.hash);
+    }
+  })();
+</script>
