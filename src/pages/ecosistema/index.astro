@@ -1,0 +1,18 @@
+---
+// /ecosistema — la intención detrás del ecosistema: por qué, principios, piezas e invitación a sumarse.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import ManifestoSection from '@/sections/Ecosistema/ManifestoSection.jsx';
+import PhotoBand from '@/components/common/PhotoBand.jsx';
+import { ECOSISTEMA_PHOTOS } from '@/data/ecosistema';
+import { PAGE_SEO } from '@/config/seo';
+---
+
+<BaseLayout {...PAGE_SEO.ecosistema}>
+  <PageHero
+    title="Un ecosistema que suma"
+    lead="No creemos en soluciones aisladas. Conectamos tecnología, socios e inteligencia artificial para que cada conversación llegue más lejos."
+  />
+  <PhotoBand photo={ECOSISTEMA_PHOTOS.ecosistema} />
+  <ManifestoSection />
+</BaseLayout>

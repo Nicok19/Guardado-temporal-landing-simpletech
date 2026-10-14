@@ -1,0 +1,20 @@
+---
+// /como-trabajamos/precios — todo lo que incluye la propuesta (sin montos), qué define el precio y el formulario de contacto.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import PhotoBand from '@/components/common/PhotoBand.jsx';
+import PricingSection from '@/sections/Nosotros/PricingSection.jsx';
+import { PRICING_PHOTO } from '@/data/pricing';
+import { PAGE_SEO } from '@/config/seo';
+import { navItem, navSubpage } from '@/data/navigation';
+
+const nav = navItem('como-trabajamos');
+const page = navSubpage('como-trabajamos', '/como-trabajamos/precios');
+const seo = PAGE_SEO.precios;
+---
+
+<BaseLayout {...seo} contact>
+  <PageHero parent={nav} title={page.label} lead={seo.description} />
+  <PhotoBand photo={PRICING_PHOTO} />
+  <PricingSection />
+</BaseLayout>

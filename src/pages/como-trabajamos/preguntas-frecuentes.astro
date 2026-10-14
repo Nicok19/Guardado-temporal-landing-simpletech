@@ -1,0 +1,20 @@
+---
+// /como-trabajamos/preguntas-frecuentes — las consultas más comunes sobre Simpletech y sus plataformas.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import PhotoBand from '@/components/common/PhotoBand.jsx';
+import FaqSection from '@/sections/Nosotros/FaqSection.jsx';
+import { FAQ_PHOTO } from '@/data/faqs';
+import { PAGE_SEO } from '@/config/seo';
+import { navItem, navSubpage } from '@/data/navigation';
+
+const nav = navItem('como-trabajamos');
+const page = navSubpage('como-trabajamos', '/como-trabajamos/preguntas-frecuentes');
+const seo = PAGE_SEO.faq;
+---
+
+<BaseLayout {...seo}>
+  <PageHero parent={nav} title={page.label} lead={seo.description} />
+  <PhotoBand photo={FAQ_PHOTO} />
+  <FaqSection client:visible />
+</BaseLayout>

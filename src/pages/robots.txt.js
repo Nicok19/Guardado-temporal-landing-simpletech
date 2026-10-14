@@ -1,0 +1,6 @@
+// robots.txt generado en el build, con la URL del sitemap según `site` (astro.config.mjs).
+export function GET({ site }) {
+  return new Response(`User-agent: *\nAllow: /\n\nSitemap: ${new URL('sitemap-index.xml', site)}\n`, {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
+}

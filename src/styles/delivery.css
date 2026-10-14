@@ -1,0 +1,231 @@
+/*
+ * "Cómo entregamos la solución" (sections/Nosotros/DeliverySection.jsx): cada fase como línea de tiempo vertical.
+ * Desktop: presentación de la fase a la izquierda, pasos a la derecha (título | detalle).
+ * Tablet y celular: todo en una columna; el detalle de cada paso va debajo del título.
+ */
+.nv-phase {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+  gap: 24px clamp(32px, 5vw, 72px);
+  padding-top: 40px;
+  border-top: 1px solid #dadae4;
+}
+.nv-phase-note {
+  grid-column: 2;
+}
+.nv-step {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 20px;
+}
+.nv-step-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 6px 24px;
+  align-items: start;
+  margin-bottom: 8px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  transition: background 0.4s;
+}
+
+@media (max-width: 860px) {
+  .nv-phase {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .nv-phase-note {
+    grid-column: 1;
+  }
+  .nv-step-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/*
+ * Pase entre fases (PhaseHandoff): la preventa le entrega el proyecto a la implementación en el kick-off.
+ * Al entrar en pantalla (.is-in) la línea se llena y los puntos viajan de una fase a la otra.
+ * Celular: en vertical. Sin animaciones si el sistema pide movimiento reducido.
+ */
+.nv-handoff {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  padding: 28px clamp(20px, 3vw, 36px);
+  border-radius: 24px;
+  background: #060c28;
+  color: #f9f6ee;
+  overflow: hidden;
+}
+.nv-handoff-chip {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(178, 220, 255, 0.3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+.nv-handoff-chip--from {
+  background: #dcd291;
+  border-color: #dcd291;
+  color: #00249c;
+}
+.nv-handoff-track {
+  position: relative;
+  height: 2px;
+  background: rgba(178, 220, 255, 0.18);
+}
+.nv-handoff-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #dcd291, #1e4bd8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.nv-handoff.is-in .nv-handoff-fill {
+  transform: scaleX(1);
+}
+.nv-handoff-dot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #dcd291;
+  box-shadow: 0 0 12px rgba(220, 210, 145, 0.8);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.nv-handoff.is-in .nv-handoff-dot {
+  animation: nv-flow-x 2.4s linear infinite;
+}
+.nv-handoff-dot:nth-child(3) {
+  animation-delay: 0.8s !important;
+}
+.nv-handoff-dot:nth-child(4) {
+  animation-delay: 1.6s !important;
+}
+.nv-handoff-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #00249c;
+  border: 1px solid #1e4bd8;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.nv-handoff.is-in .nv-handoff-mark::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 2px solid #dcd291;
+  animation: nv-pulse 2.4s ease-out infinite;
+}
+@keyframes nv-flow-x {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+@keyframes nv-flow-y {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+@keyframes nv-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35, 1.9);
+  }
+}
+@media (max-width: 600px) {
+  .nv-handoff {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+  .nv-handoff-track {
+    width: 2px;
+    height: 96px;
+  }
+  .nv-handoff-fill {
+    background: linear-gradient(180deg, #dcd291, #1e4bd8);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  .nv-handoff.is-in .nv-handoff-fill {
+    transform: scaleY(1);
+  }
+  .nv-handoff-dot {
+    left: 50%;
+    top: 0;
+  }
+  .nv-handoff.is-in .nv-handoff-dot {
+    animation-name: nv-flow-y;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nv-handoff-fill {
+    transform: none !important;
+    transition: none;
+  }
+  .nv-handoff-dot,
+  .nv-handoff-mark::after {
+    display: none;
+  }
+}
+
+/* Valores (MissionSection): 5 por fila en desktop, sin huecos al cortar de línea */
+.nv-values {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+@media (max-width: 1079.98px) {
+  .nv-values {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .nv-values > * {
+    grid-column: span 2;
+  }
+  .nv-values > :nth-child(n + 4) {
+    grid-column: span 3;
+  }
+}
+@media (max-width: 560px) {
+  .nv-values {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .nv-values > *,
+  .nv-values > :nth-child(n + 4) {
+    grid-column: auto;
+  }
+}

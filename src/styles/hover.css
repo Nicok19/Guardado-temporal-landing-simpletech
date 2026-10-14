@@ -1,0 +1,89 @@
+/*
+ * Utilidades de hover/focus.
+ * Los estilos base van inline en cada componente, por eso estas reglas usan !important.
+ * Se combinan: className="hv-bg-blue hv-c-cream".
+ */
+
+/* Borde */
+.hv-bd-gold:hover {
+  border-color: #dcd291 !important;
+}
+.hv-bd-blue:hover {
+  border-color: #00249c !important;
+}
+
+/* Fondo */
+.hv-bg-blue:hover {
+  background: #00249c !important;
+}
+.hv-bg-cream:hover {
+  background: #f9f6ee !important;
+}
+.hv-bg-gold:hover {
+  background: #dcd291 !important;
+}
+.hv-bg-ink:hover {
+  background: #04081c !important;
+}
+.hv-bg-white:hover {
+  background: #fff !important;
+}
+.hv-bg-navy:hover {
+  background: #0b1438 !important;
+}
+.hv-bg-glass-6:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+.hv-bg-glass-7:hover {
+  background: rgba(255, 255, 255, 0.07) !important;
+}
+.hv-bg-glass-10:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+.hv-bg-sky-8:hover {
+  background: rgba(178, 220, 255, 0.08) !important;
+}
+.hv-bg-sky-10:hover {
+  background: rgba(178, 220, 255, 0.1) !important;
+}
+
+/* Texto */
+.hv-c-cream:hover {
+  color: #f9f6ee !important;
+}
+.hv-c-blue:hover {
+  color: #00249c !important;
+}
+.hv-c-gold:hover {
+  color: #dcd291 !important;
+}
+.hv-c-white:hover {
+  color: #fff !important;
+}
+.hv-c-ink:hover {
+  color: #04081c !important;
+}
+
+/* Movimiento */
+.hv-lift-3:hover {
+  transform: translateY(-3px) !important;
+}
+.hv-lift-4:hover {
+  transform: translateY(-4px) !important;
+}
+.hv-lift-6:hover {
+  transform: translateY(-6px) !important;
+}
+.hv-nudge:hover {
+  transform: translateX(6px) !important;
+}
+
+/* Sombra */
+.hv-shadow-blue:hover {
+  box-shadow: 0 30px 60px -30px rgba(0, 36, 156, 0.35) !important;
+}
+
+/* Focus (inputs) */
+.fx-bd-blue:focus {
+  border-color: #00249c !important;
+}

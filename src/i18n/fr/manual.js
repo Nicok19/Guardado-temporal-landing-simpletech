@@ -1,0 +1,46 @@
+// Traducciones escritas a mano (no se generan): textos armados con variables ({0}, {1}) y textos de los .astro.
+// Las variables se traducen por separado (por ejemplo, el titular de un caso), así que alcanza con la frase.
+export default {
+  'Caso {0}: {1} · Simpletech': 'Cas client {0} : {1} · Simpletech',
+  'Lo que suelen preguntarnos sobre {0}': 'Les questions fréquentes sur {0}',
+  'Página no encontrada': 'Page introuvable',
+  'Esta página no existe.': "Cette page n'existe pas.",
+  'Volver al inicio': "Retour à l'accueil",
+  'Estamos en más de 40 países': 'Nous sommes présents dans plus de 40 pays',
+  'Más en {0}': 'Plus dans {0}',
+  // Palabra resaltada del título de la home (HeroSection.astro): tiene que estar dentro de la frase traducida.
+  resultados: 'résultats',
+  Conversemos: 'Parlons-en',
+  Manufactura: 'Industrie manufacturière',
+  Simplicidad: 'Simplicité',
+  Respondidos: 'Répondus',
+  Plataformas: 'Plateformes',
+  // Etiquetas de una sola palabra en mayúsculas (kickers, rótulos de formulario y de datos).
+  ALCANCE: 'PORTÉE',
+  ALERTAS: 'ALERTES',
+  ANTES: 'AVANT',
+  AUTOMATIZAR: 'AUTOMATISER',
+  BRASIL: 'BRÉSIL',
+  CASO: 'CAS CLIENT',
+  CASOS: 'CAS CLIENTS',
+  COMBINABLES: 'COMBINABLES',
+  CONTACTO: 'CONTACT',
+  INDICADOR: 'INDICATEUR',
+  INDUSTRIA: 'SECTEUR',
+  'Filtrar por industria': 'Filtrer par secteur',
+  MEDIR: 'MESURER',
+  MENSAJE: 'MESSAGE',
+  NOMBRE: 'NOM',
+  OFICINAS: 'BUREAUX',
+  OMNICANAL: 'OMNICANAL',
+  OMNICANALIDAD: 'OMNICANALITÉ',
+  RELACIONES: 'RELATIONS',
+  RESOLVER: 'RÉSOUDRE',
+  SITIO: 'SITE',
+  // Vista previa de SimpleSend (SendPreview): variable de la plantilla y porcentajes con decimales.
+  '{{nombre}}': '{{prénom}}',
+  '98,2%': '98,2 %',
+  '87,5%': '87,5 %',
+  // Iniciales de los días de la semana (StatsPreview).
+  'L M M J V S D': 'L M M J V S D',
+};

@@ -1,0 +1,61 @@
+---
+// Hero de la Home. HTML estático; el título y el subtítulo se escriben con Typewriter y la demo es una isla de React.
+// Layout (100% del alto de pantalla en todos los breakpoints): src/styles/hero.css
+import { HERO_SUBTITLE, HERO_TITLE } from '@/data/home';
+import Typewriter from './hero/Typewriter.astro';
+import HeroDemo from './hero/HeroDemo.jsx';
+import HeroStats from './hero/HeroStats.jsx';
+import '@/styles/hero.css';
+import '@/styles/hero-demo.css';
+import { t } from '@/i18n';
+
+// Se traducen la frase y la palabra resaltada antes de partir la frase (src/i18n).
+const highlight = t(HERO_TITLE.highlight);
+const [titleBefore, titleAfter = ''] = t(HERO_TITLE.text).split(highlight);
+---
+
+<section id="top" class="st-hero bg-night">
+  <!--
+    Video de fondo (estilo gorgias.com): muteado, en loop y sin controles, con el póster mientras carga.
+    Video: "A Man Texting on the Phone" de Pexels (licencia libre) — https://www.pexels.com/video/9898442/
+  -->
+  <video
+    class="st-hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="/videos/hero-bg-poster.jpg"
+    aria-hidden="true"
+  >
+    <source src="/videos/hero-bg.mp4" type="video/mp4" />
+  </video>
+  <div class="st-hero-veil" aria-hidden="true"></div>
+  <div class="st-hero-inner">
+    <div class="st-hero-copy">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <h1 data-typewriter="1" class="st-hero-title">
+          {titleBefore}<span style={{ color: '#DCD291' }}>{highlight}</span>{titleAfter}
+        </h1>
+        <p data-typewriter="2" class="st-hero-subtitle">{t(HERO_SUBTITLE)}</p>
+      </div>
+      <HeroStats />
+    </div>
+    <!-- Solo en desktop: en tablet y celular se oculta (hero.css) y no se hidrata -->
+    <div class="st-hero-demo" data-reveal="2">
+      <HeroDemo client:media="(min-width: 1080px)" />
+    </div>
+  </div>
+</section>
+
+<Typewriter />
+
+<script>
+  // Con prefers-reduced-motion el video no corre: queda el póster como imagen fija.
+  const video = document.querySelector<HTMLVideoElement>('.st-hero-video');
+  if (video && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.removeAttribute('autoplay');
+    video.pause();
+  }
+</script>

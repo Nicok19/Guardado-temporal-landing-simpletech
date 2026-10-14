@@ -1,0 +1,293 @@
+/*
+ * Páginas de producto con diseño propio (SimpleBots, SimpleAgents; ver data/showcases): bento,
+ * tarjeta de funcionalidades y casos en pestañas. Las clases "sb-" son de "showcase block".
+ * Layout en CSS (no JS) para que el HTML del servidor ya sea correcto en cada breakpoint.
+ */
+
+/* ---- Bento: 12 columnas; filas ancha+angosta y angosta+ancha (como gorgias.com) ---- */
+.sb-bento {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+.sb-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 460px;
+  padding: clamp(24px, 2.6vw, 36px);
+  border-radius: 28px;
+  background: #fff;
+  border: 1px solid #e6e4ee;
+}
+/* Variante en azul de marca, sólido (sin degradados) */
+.sb-card--blue {
+  background: #00249c;
+  border-color: #00249c;
+}
+.sb-card--blue .sb-card-title {
+  color: #f9f6ee;
+}
+.sb-card--wide {
+  grid-column: span 7;
+}
+.sb-card--full {
+  grid-column: 1 / -1;
+  min-height: 0;
+}
+.sb-card--full .sb-card-title {
+  max-width: 640px;
+}
+.sb-card--narrow {
+  grid-column: span 5;
+}
+.sb-card-title {
+  margin: 0;
+  font-size: clamp(26px, 2.6vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #00249c;
+  max-width: 420px;
+  text-wrap: balance;
+}
+.sb-card-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Editor: reglas + prueba en vivo lado a lado */
+.sb-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 600px;
+  align-items: end;
+}
+
+/* Canales en órbita */
+.sb-orbit {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+.sb-orbit-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(249, 246, 238, 0.35);
+  animation: sb-spin 40s linear infinite;
+}
+.sb-orbit-ring--inner {
+  inset: 68px;
+  animation-direction: reverse;
+}
+.sb-orbit-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: #00249c;
+  border: 1px solid #fff;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.45);
+  /* Cada canal se ubica con --a (ángulo) y gira con la órbita sin rotar el ícono */
+  transform: rotate(var(--a)) translateY(-130px) rotate(calc(-1 * var(--a)));
+  transition:
+    background 0.4s,
+    color 0.4s,
+    box-shadow 0.4s;
+}
+/* Canal activo en dorado (acento de marca) sobre la tarjeta azul */
+.sb-orbit-item[data-active='true'] {
+  background: #dcd291;
+  border-color: #dcd291;
+  color: #00249c;
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.5);
+}
+.sb-orbit-spin {
+  position: absolute;
+  inset: 0;
+  animation: sb-spin 40s linear infinite;
+}
+.sb-orbit-spin .sb-orbit-item svg {
+  animation: sb-spin 40s linear infinite reverse;
+}
+@keyframes sb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cita + chat (tarjeta Ta-Ta) */
+/* Bandeja unificada (SimpleAgents): lista de conversaciones + conversación activa */
+.sb-inbox {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 600px;
+  align-items: end;
+}
+
+/* Tablero (SimpleStats): 4 indicadores en fila */
+.sb-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sb-quote {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+}
+
+/* ---- Tarjeta de funcionalidades ---- */
+.sb-features {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+  gap: clamp(32px, 5vw, 72px);
+  padding: clamp(28px, 3.4vw, 48px);
+  border-radius: 28px;
+  background: #fff;
+  border: 1px solid #e6e4ee;
+}
+.sb-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 32px;
+}
+
+/* ---- Casos en pestañas ---- */
+.sb-tabs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.sb-tab-media {
+  position: relative;
+  aspect-ratio: 4 / 4.2;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #0b1233;
+}
+
+/* ---- Tablet y celular ---- */
+@media (max-width: 1079.98px) {
+  .sb-card--wide,
+  .sb-card--narrow {
+    grid-column: 1 / -1;
+  }
+  .sb-features,
+  .sb-tabs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sb-tab-media {
+    aspect-ratio: 4 / 3;
+  }
+}
+@media (max-width: 640px) {
+  .sb-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sb-card {
+    min-height: 0;
+  }
+  .sb-editor,
+  .sb-inbox,
+  .sb-quote,
+  .sb-features-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sb-orbit {
+    transform: scale(0.85);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-orbit-ring,
+  .sb-orbit-spin,
+  .sb-orbit-spin .sb-orbit-item svg {
+    animation: none;
+  }
+}
+
+/* Barra de progreso de la pestaña activa (CaseTabsSection) */
+@keyframes sb-fill {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Onda de voz (Waveform en ProductShowcase/ui.jsx) */
+.sb-wave-bar {
+  transform-origin: center;
+  animation: sb-wave 1s ease-in-out infinite alternate;
+}
+@keyframes sb-wave {
+  from {
+    transform: scaleY(0.15);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sb-wave-bar {
+    animation: none;
+    transform: scaleY(0.4);
+  }
+}
+
+/* Video con portada propia (ProductShowcase/VideoSection.jsx) */
+/* Título arriba y bajada debajo */
+.sb-video-head {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 760px;
+}
+.sb-video-cover:hover .sb-video-play,
+.sb-video-cover:focus-visible .sb-video-play {
+  transform: scale(1.08);
+}
+.sb-video-cover:focus-visible {
+  outline: 3px solid #dcd291;
+  outline-offset: -6px;
+  border-radius: 28px;
+}
+.sb-video-play {
+  flex: none;
+}
+@media (max-width: 640px) {
+  .sb-video-meta {
+    display: none !important;
+  }
+  .sb-video-cover {
+    justify-content: center !important;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+}
+@media (max-width: 640px) {
+  .sb-video-foot {
+    justify-content: center !important;
+  }
+}

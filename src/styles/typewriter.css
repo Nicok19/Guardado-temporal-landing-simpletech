@@ -1,0 +1,27 @@
+/* Efecto máquina de escribir (ver src/sections/Home/hero/Typewriter.astro) */
+
+/* Letras todavía no escritas: invisibles pero ocupando su lugar (sin saltos de layout) */
+.tw-char {
+  position: relative;
+  visibility: hidden;
+}
+.tw-char.tw-on {
+  visibility: visible;
+}
+
+/* Cursor: se dibuja pegado a la última letra escrita, posicionado en absoluto (no mueve el texto) */
+.tw-caret::after {
+  content: '';
+  position: absolute;
+  left: calc(100% + 0.04em);
+  top: 0.1em;
+  bottom: 0.06em;
+  width: max(2px, 0.06em);
+  background: #dcd291;
+  animation: tw-blink 1s steps(1) infinite;
+}
+@keyframes tw-blink {
+  50% {
+    opacity: 0;
+  }
+}

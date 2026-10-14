@@ -1,0 +1,44 @@
+/*
+ * Degradados de fondo de marca (CSS puro, sin imágenes).
+ * Uso: className="bg-night" / "bg-cream-blue" en la sección.
+ */
+
+/* Azul profundo → casi negro (hero de la Home, casos de éxito) */
+.bg-night {
+  background: linear-gradient(90deg, #243a75 0%, #101a3c 50%, #020309 100%);
+}
+
+/* Crema → azul de marca (sección de contacto) */
+.bg-cream-blue {
+  background: linear-gradient(
+    90deg,
+    #faf7f0 0%,
+    #faf7f0 40%,
+    #eceded 50%,
+    #becae1 60%,
+    #7793cc 70%,
+    #3058b2 80%,
+    #032a9e 90%,
+    #00249c 95%
+  );
+}
+
+/*
+ * En pantallas angostas las columnas se apilan: el degradado pasa a vertical para que el texto
+ * (arriba) quede sobre crema y el azul quede detrás del formulario (abajo).
+ */
+@media (max-width: 860px) {
+  .bg-cream-blue {
+    background: linear-gradient(
+      180deg,
+      #faf7f0 0%,
+      #faf7f0 38%,
+      #eceded 48%,
+      #becae1 58%,
+      #7793cc 68%,
+      #3058b2 78%,
+      #032a9e 88%,
+      #00249c 94%
+    );
+  }
+}

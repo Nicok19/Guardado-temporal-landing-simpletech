@@ -1,0 +1,18 @@
+---
+// /como-trabajamos — encabezado con foto y la entrega (preventa consultiva e implementación).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import PhotoBand from '@/components/common/PhotoBand.jsx';
+import DeliverySection from '@/sections/Nosotros/DeliverySection.jsx';
+import { METHOD_PHOTO } from '@/data/company';
+import { PAGE_SEO } from '@/config/seo';
+import { navItem } from '@/data/navigation';
+
+const seo = PAGE_SEO.metodo;
+---
+
+<BaseLayout {...seo}>
+  <PageHero title={navItem('como-trabajamos').label} lead={seo.description} />
+  <PhotoBand photo={METHOD_PHOTO} />
+  <DeliverySection client:visible />
+</BaseLayout>

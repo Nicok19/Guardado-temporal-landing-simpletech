@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { PAGE_SEO } from '@/config/seo';
+import HeroSection from '@/sections/Home/HeroSection.astro';
+import ClientsMarquee from '@/sections/Home/ClientsMarquee.jsx';
+import AboutTeaserSection from '@/sections/Home/AboutTeaserSection.jsx';
+import ProductsTeaserSection from '@/sections/Home/ProductsTeaserSection.jsx';
+import TelephonySection from '@/sections/Home/TelephonySection.jsx';
+import CasesCarouselSection from '@/sections/Home/CasesCarouselSection.jsx';
+import PartnersTeaserSection from '@/sections/Home/PartnersTeaserSection.jsx';
+---
+
+<BaseLayout {...PAGE_SEO.home} contact>
+  <HeroSection />
+  <ClientsMarquee />
+  <AboutTeaserSection />
+  <ProductsTeaserSection client:visible />
+  <TelephonySection />
+  <CasesCarouselSection client:visible />
+  <PartnersTeaserSection />
+</BaseLayout>

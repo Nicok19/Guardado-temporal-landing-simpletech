@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { PAGE_SEO } from '@/config/seo';
+import OverviewSection from '@/sections/Producto/OverviewSection.jsx';
+import PurposeSection from '@/sections/Producto/PurposeSection.jsx';
+---
+
+<BaseLayout {...PAGE_SEO.producto}>
+  <OverviewSection />
+  <PurposeSection />
+</BaseLayout>

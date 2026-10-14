@@ -1,0 +1,27 @@
+---
+// /academy — Simpletech Academy: video del lanzamiento y funcionalidades. Datos: data/showcases/academy.js
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import SubpageLinks from '@/components/common/SubpageLinks.jsx';
+import { PAGE_SEO } from '@/config/seo';
+import { ROUTES } from '@/config/routes';
+import { navItem } from '@/data/navigation';
+import showcase from '@/data/showcases/academy';
+import FeaturesCardSection from '@/sections/ProductShowcase/FeaturesCardSection.jsx';
+import VideoSection from '@/sections/ProductShowcase/VideoSection.jsx';
+import '@/styles/showcase.css';
+
+// Las plataformas del menú SimpleSuite (sin Academy).
+const platforms = navItem('producto').items.filter((it) => it.href !== ROUTES.academy);
+---
+
+<BaseLayout {...PAGE_SEO.academy}>
+  <PageHero
+    parent={{ label: 'SimpleSuite', href: ROUTES.simplesuite }}
+    title="Academy"
+    lead="Cursos y recursos para que tu equipo domine SimpleSuite."
+  />
+  <VideoSection client:visible video={showcase.video} />
+  <FeaturesCardSection features={showcase.features} />
+  <SubpageLinks title="Plataformas" items={platforms} />
+</BaseLayout>

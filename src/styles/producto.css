@@ -1,0 +1,27 @@
+/* Página /producto: sección "Nuestro enfoque" (sections/Producto/PurposeSection.jsx) */
+.pr-purpose-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: end;
+}
+.pr-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.pr-pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(24px, 2.6vw, 36px);
+  border-radius: 28px;
+  background: #f9f6ee;
+  border: 1px solid #e6e4ee;
+}
+@media (max-width: 1079.98px) {
+  .pr-purpose-head,
+  .pr-pillars {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

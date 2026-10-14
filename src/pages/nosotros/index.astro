@@ -1,0 +1,30 @@
+---
+// /nosotros — encabezado con foto del equipo, presentación y datos, misión, visión y valores,
+// "Estamos en más de 40 países" escrito con el scroll y el globo interactivo. Los puntos de tierra del globo se calculan en el build (globeData.js).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import PhotoBand from '@/components/common/PhotoBand.jsx';
+import { PAGE_SEO } from '@/config/seo';
+import { TEAM } from '@/data/company';
+import IntroSection from '@/sections/Nosotros/IntroSection.jsx';
+import PresenceStats from '@/sections/Nosotros/PresenceStats.jsx';
+import MissionSection from '@/sections/Nosotros/MissionSection.jsx';
+import GlobeSection from '@/sections/Nosotros/GlobeSection.jsx';
+import ScrollTypeSection from '@/sections/Nosotros/ScrollTypeSection.astro';
+import { GLOBE_DOTS } from '@/sections/Nosotros/globeData.js';
+---
+
+<BaseLayout {...PAGE_SEO.nosotros} contact>
+  <PageHero title={TEAM.title} lead={TEAM.text} />
+  <PhotoBand photo={TEAM.photo} />
+  <IntroSection afterTop />
+  <PresenceStats />
+  <MissionSection />
+  <ScrollTypeSection kicker="PRESENCIA REGIONAL" text="Estamos en más de 40 países" />
+  <GlobeSection
+    client:visible
+    dots={GLOBE_DOTS}
+    kicker="OFICINAS"
+    title="Conectamos operaciones en todo el continente."
+  />
+</BaseLayout>

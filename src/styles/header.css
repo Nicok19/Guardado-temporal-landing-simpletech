@@ -1,0 +1,76 @@
+/*
+ * Header responsive. Se resuelve con CSS (no con JS) para que el HTML generado
+ * en el servidor ya muestre la versión correcta en desktop y en celular.
+ */
+.st-header {
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 0 calc(min(var(--page-x), 64px) - 8px);
+  pointer-events: none;
+}
+.st-header-nav {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1160px; /* más ancho que el contenido (--page-max) para que entre el menú con aire */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 10px 10px 24px;
+  border-radius: 999px;
+  background: rgba(6, 12, 40, 0.62);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(178, 220, 255, 0.14);
+  transition: background 0.3s;
+}
+.st-header-nav[data-menu-open='true'] {
+  background: rgba(6, 12, 40, 0.96);
+}
+.st-header-logo {
+  height: 22px;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+.st-header-cta {
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #f9f6ee;
+  color: #00249c;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+/* Desktop vs. tablet/celular (menú hamburguesa) */
+.st-mobile-only {
+  display: none !important;
+}
+@media (max-width: 1079.98px) {
+  .st-desktop-only {
+    display: none !important;
+  }
+  .st-mobile-only {
+    display: block !important;
+  }
+}
+
+/* Celulares: header más compacto */
+@media (max-width: 479.98px) {
+  .st-header-nav {
+    padding: 8px 8px 8px 18px;
+  }
+  .st-header-logo {
+    height: 19px;
+  }
+}

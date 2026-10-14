@@ -1,0 +1,348 @@
+// Interfaz común, páginas y secciones (header, menú, pie, formulario, botones y textos fijos).
+// Clave: el texto en español tal como está en el código; valor: el texto en inglés.
+export default {
+  ', te recordamos que tu cuota vence el 30/09. ¿Querés pagar ahora?':
+    ', this is a reminder that your installment is due on 09/30. Want to pay now?',
+  '¿En qué podemos ayudarte?': 'How can we help you?',
+  '¿Por qué integrar con nuestra API?': 'Why integrate with our API?',
+  '¿Qué te gustaría resolver?': 'What would you like to solve?',
+  '¿Querés conocer los precios?': 'Want to know the prices?',
+  '¿Querés integrar SimpleSuite con tus sistemas?': 'Want to integrate SimpleSuite with your systems?',
+  '¿Querés ser partner?': 'Want to become a partner?',
+  '¿Tenés alguna duda?': 'Have a question?',
+  '¿Tienen stock del modelo azul?': 'Do you have the blue model in stock?',
+  '· FASE': '· PHASE',
+  '· SOLUCIÓN': '· SOLUTION',
+  '↓ 34% vs. mes anterior': '↓ 34% vs. last month',
+  '↓ SI NO LLEGA': "↓ IF IT DOESN'T ARRIVE",
+  '01 · DIAGNÓSTICO': '01 · DIAGNOSIS',
+  '02 · CRITERIO': '02 · JUDGMENT',
+  '03 · ACOMPAÑAMIENTO': '03 · SUPPORT',
+  'Abrir menú': 'Open menu',
+  'Academy · Cursos de SimpleSuite · Simpletech': 'Academy · SimpleSuite courses · Simpletech',
+  'Acompañar a cada organización como socio estratégico, con plataformas SaaS que simplifican la relación con sus clientes y generan resultados medibles.':
+    'To support every organization as a strategic partner, with SaaS platforms that simplify the relationship with its customers and deliver measurable results.',
+  'Agente FAQ': 'FAQ agent',
+  'Agente Postventa': 'After-sales agent',
+  Agentes: 'Agents',
+  'Agentes de IA entrenados con el conocimiento de tu negocio para automatizar la comunicación en WhatsApp, voz y todos tus canales.':
+    'AI agents trained on your business knowledge to automate communication on WhatsApp, voice and all your channels.',
+  'AGENTES IA': 'AI AGENTS',
+  'Algunos que ya pasaron.': 'Some that already took place.',
+  'Alianzas que respaldan cada proyecto.': 'Alliances that back every project.',
+  'Alianzas tecnológicas con Meta, AWS y Facephi y una red de socios comerciales que llevan nuestras soluciones a América Latina.':
+    'Technology alliances with Meta, AWS and Facephi, and a network of commercial partners that bring our solutions to Latin America.',
+  'Analizamos cada desafío con una mirada consultiva y combinamos las herramientas justas: desde la automatización de conversaciones hasta la infraestructura que la sostiene.':
+    'We analyze every challenge with a consultative approach and combine just the right tools: from conversation automation to the infrastructure that supports it.',
+  Anterior: 'Previous',
+  'API · Sistema de reservas': 'API · Booking system',
+  'API para desarrolladores · Ecosistema · Simpletech': 'Developer API · Ecosystem · Simpletech',
+  'Árbol de decisión': 'Decision tree',
+  'Arrastrá para girar': 'Drag to rotate',
+  'ASÍ LA IA PUEDE': "HERE'S WHAT AI CAN DO",
+  Bandeja: 'Inbox',
+  Biometría: 'Biometrics',
+  'Bot · consultando estado…': 'Bot · checking status…',
+  'BOT → AGENTE · 00:42': 'BOT → AGENT · 00:42',
+  'Buenas prácticas probadas en +200 empresas y cada industria.':
+    'Best practices proven in 200+ companies and every industry.',
+  'Cada pieza que se suma hace más fuerte al conjunto, y cada cliente se beneficia de todo lo que el ecosistema ya sabe hacer.':
+    'Every piece that joins makes the whole stronger, and every customer benefits from everything the ecosystem already knows how to do.',
+  'Cada poco tiempo organizamos webinars en vivo para mostrar las novedades de nuestras plataformas y compartir tendencias de experiencia del cliente.':
+    "We regularly host live webinars to show what's new in our platforms and share customer experience trends.",
+  'Cada una suma algo distinto.': 'Each one adds something different.',
+  'Cambiar dirección': 'Change address',
+  'Campaña · Recordatorio de pago': 'Campaign · Payment reminder',
+  'CANALES DISPONIBLES': 'AVAILABLE CHANNELS',
+  'CASO VIAJES': 'TRAVEL CASE',
+  'CASOS DE ÉXITO': 'SUCCESS STORIES',
+  'Casos de éxito · Simpletech': 'Success stories · Simpletech',
+  'Casos de éxito con resultados medibles en logística, seguros, finanzas, salud, retail, gobierno y más industrias.':
+    'Success stories with measurable results in logistics, insurance, finance, healthcare, retail, government and more industries.',
+  'Cerrar menú': 'Close menu',
+  'Combinamos solidez, conocimiento y capacidad de resolución con una cercanía profesional orientada a construir relaciones de confianza de largo plazo.':
+    'We combine solidity, know-how and problem-solving skills with a professional closeness aimed at building long-term relationships of trust.',
+  Comenzá: 'Start',
+  'Cómo entregamos cada proyecto: preventa consultiva e implementación en 7 pasos, del kick-off al go-live.':
+    'How we deliver every project: consultative pre-sales and implementation in 7 steps, from kick-off to go-live.',
+  'CÓMO ENTREGAMOS LA SOLUCIÓN': 'HOW WE DELIVER THE SOLUTION',
+  'CÓMO FUNCIONA': 'HOW IT WORKS',
+  'CÓMO SE DEFINE EL PRECIO': 'HOW THE PRICE IS SET',
+  'Cómo trabajamos · Simpletech': 'How we work · Simpletech',
+  'Comunicate con nosotros por WhatsApp': 'Contact us on WhatsApp',
+  'con nosotros.': 'with us.',
+  'Con SimpleVoice unificamos telefonía IP, contact center en la nube y VoiceBots con IA en el mismo ecosistema que tus canales de mensajería. Y te acompañamos a definir qué conviene automatizar y qué debe seguir en manos de tu equipo.':
+    "With SimpleVoice we unify IP telephony, cloud contact center and AI VoiceBots in the same ecosystem as your messaging channels. And we help you decide what is worth automating and what should stay in your team's hands.",
+  CONCLUSIÓN: 'CONCLUSION',
+  'Conectamos operaciones en todo el continente.': 'We connect operations across the continent.',
+  'CONFÍAN EN NOSOTROS': 'THEY TRUST US',
+  'Conocé las plataformas': 'Discover the platforms',
+  'Conocé los casos completos:': 'Read the full stories:',
+  'Conocé Simpletech': 'Discover Simpletech',
+  'Conocé SimpleVoice': 'Discover SimpleVoice',
+  'Consultando tus sistemas…': 'Checking your systems…',
+  'Contanos sobre tu empresa y armamos juntos la propuesta.':
+    "Tell us about your company and we'll build the proposal together.",
+  'Contanos tu desafío. Un especialista analiza tu operación y te muestra cómo nuestras plataformas se adaptan a ella.':
+    'Tell us about your challenge. A specialist will review your operation and show you how our platforms fit it.',
+  'CRITERIO SIMPLETECH': 'SIMPLETECH INSIGHT',
+  'Cuando trabajás con Simpletech no comprás un software y quedás solo con él. Tu propuesta reúne todo lo que hace falta para que la solución funcione en tu operación y siga mejorando con el tiempo.':
+    "When you work with Simpletech you don't buy software and get left alone with it. Your proposal brings together everything needed for the solution to work in your operation and keep improving over time.",
+  Curso: 'Course',
+  'Cursos y recursos para que tu equipo domine SimpleSuite.':
+    'Courses and resources so your team can master SimpleSuite.',
+  'DATOS GENERALES DE LAS INDUSTRIAS': 'INDUSTRY OVERVIEW',
+  'De {0} a {1}, en el kick-off': 'From {0} to {1}, at the kick-off',
+  'de las conversaciones': 'of conversations',
+  'Demo: una conversación atendida por IA, el flujo que la resuelve y una llamada con un asistente de voz':
+    'Demo: a conversation handled by AI, the flow that resolves it and a call with a voice assistant',
+  'Desafíos resueltos en conjunto con nuestros clientes. Filtrá por industria para ver los de tu sector.':
+    'Challenges solved together with our customers. Filter by industry to see the ones in your sector.',
+  Desde: 'Since',
+  'Desde 2011 acompañamos a empresas de toda América Latina como socio estratégico en experiencia del cliente, automatización e IA.':
+    'Since 2011 we have supported companies across Latin America as a strategic partner in customer experience, automation and AI.',
+  'Desde 2011 acompañamos a empresas de toda América Latina con una mirada consultiva: primero entendemos el negocio, después lo impulsamos con nuestras plataformas SaaS.':
+    'Since 2011 we have supported companies across Latin America with a consultative approach: first we understand the business, then we boost it with our SaaS platforms.',
+  'Desde 2011 entendemos la operación de cada organización y la potenciamos con nuestras plataformas SaaS de experiencia del cliente, telefonía e IA.':
+    'Since 2011 we have understood how each organization operates and boosted it with our SaaS platforms for customer experience, telephony and AI.',
+  'Diseñá flujos con agentes de IA especializados, múltiples motores de IA e integración con tus sistemas internos.':
+    'Design flows with specialized AI agents, multiple AI engines and integration with your internal systems.',
+  'Dos productos que se integran entre sí y con tus sistemas: uno para gestionar cada interacción con tus clientes, otro para convertir esas conversaciones en negocio.':
+    'Two products that integrate with each other and with your systems: one to manage every interaction with your customers, the other to turn those conversations into business.',
+  'Ecosistema · Simpletech': 'Ecosystem · Simpletech',
+  'EL AGENTE RECIBE': 'THE AGENT GETS',
+  'El servidor tardó demasiado en responder.': 'The server took too long to respond.',
+  'Ellos ya están revolucionando su CX.': 'They are already revolutionizing their CX.',
+  Empresa: 'Company',
+  Empresas: 'Companies',
+  'Empresas que ya trabajan con SimpleSuite.': 'Companies already working with SimpleSuite.',
+  'EN CURSO ·': 'IN PROGRESS ·',
+  'En espera': 'Pending',
+  'EN VIVO': 'LIVE',
+  'Entendemos tu operación antes de hablar de tecnología.':
+    'We understand your operation before talking about technology.',
+  Entregado: 'Delivered',
+  'Enviando…': 'Sending…',
+  'Enviar mensaje': 'Send message',
+  'Enviar otro': 'Send another',
+  'Equipo de trabajo en un workshop relevando procesos con post-its':
+    'Team in a workshop mapping processes with sticky notes',
+  'Escalar tus comunicaciones nunca fue tan fácil.': 'Scaling your communications has never been easier.',
+  'Escribinos por WhatsApp': 'Message us on WhatsApp',
+  Etiquetar: 'Tag',
+  Explorar: 'Explore',
+  'Flujo: Seguimiento de envíos': 'Flow: Shipment tracking',
+  'Flujo: Venta de viajes': 'Flow: Travel sales',
+  'Flujos con agentes de IA especializados, conectados a múltiples motores de IA y a tus sistemas internos para resolver de punta a punta.':
+    'Flows with specialized AI agents, connected to multiple AI engines and your internal systems to resolve end to end.',
+  'Flujos con agentes de IA especializados.': 'Flows with specialized AI agents.',
+  'Foto del caso {0}': 'Photo for the {0} story',
+  'FUNCIONALIDADES PARA AGENTES': 'FEATURES FOR AGENTS',
+  'Gestión de clientes': 'Customer management',
+  'Globo con las ciudades donde estamos presentes': 'Globe showing the cities where we are present',
+  'Gracias, quedó resuelto': 'Thanks, all sorted',
+  'Hablar con agente': 'Talk to an agent',
+  Hola: 'Hi',
+  'IA · validación': 'AI · validation',
+  'IA conversacional · Ecosistema · Simpletech': 'Conversational AI · Ecosystem · Simpletech',
+  'IA EN WHATSAPP': 'AI ON WHATSAPP',
+  'IA integrada en cada módulo de SimpleSuite.': 'AI built into every SimpleSuite module.',
+  'IA para resolver problemas en WhatsApp.': 'AI to solve problems on WhatsApp.',
+  Idioma: 'Language',
+  'Idioma: {0}': 'Language: {0}',
+  'IMPACTO COMERCIAL Y OPERATIVO': 'BUSINESS AND OPERATIONAL IMPACT',
+  'Ingresá tu email.': 'Enter your email.',
+  'Ingresá tu nombre.': 'Enter your name.',
+  'Inicio · WhatsApp': 'Start · WhatsApp',
+  'Integrá IA y WhatsApp con tus sistemas.': 'Integrate AI and WhatsApp with your systems.',
+  'Ir al canal de YouTube': 'Go to the YouTube channel',
+  'Kick-off: arrancamos juntos': 'Kick-off: we start together',
+  'La página que buscás no existe.': 'The page you are looking for does not exist.',
+  'La tecnología que potencia nuestras plataformas.': 'The technology that powers our platforms.',
+  'La voz también es un canal digital.': 'Voice is a digital channel too.',
+  'Las consultas más comunes sobre cómo trabajamos, nuestras plataformas y la implementación.':
+    'The most common questions about how we work, our platforms and implementation.',
+  'Las conversaciones con tus clientes atraviesan canales, sistemas y equipos. Por eso no construimos una herramienta cerrada: construimos un lugar donde la tecnología, los socios y la inteligencia artificial se conectan alrededor de SimpleSuite.':
+    "Conversations with your customers span channels, systems and teams. That's why we don't build a closed tool: we build a place where technology, partners and artificial intelligence connect around SimpleSuite.",
+  'LAS PIEZAS': 'THE PIECES',
+  'LAS PLATAFORMAS DE LA SUITE': "THE SUITE'S PLATFORMS",
+  LEÍDOS: 'READ',
+  'LÍMITE ·': 'LIMIT ·',
+  'Listo, queda para el jueves de 9 a 12 h.': "Done, it's set for Thursday from 9 to 12.",
+  'LO QUE NOS GUÍA': 'WHAT GUIDES US',
+  'Lo que suelen preguntarnos sobre SimplePipeline.': 'What people usually ask us about SimplePipeline.',
+  'Lo que viven las empresas de cada sector': 'What companies in each sector are going through',
+  'Los agentes de IA identifican el problema, analizan el contexto y ejecutan acciones inmediatas, derivando a una persona solo cuando hace falta.':
+    'AI agents identify the problem, analyze the context and take immediate action, handing off to a person only when needed.',
+  'Los enviamos en privado, en una propuesta a medida. Completá el formulario y te los hacemos llegar.':
+    "We send them privately, in a tailored proposal. Fill out the form and we'll get them to you.",
+  'Más casos de éxito.': 'More success stories.',
+  'Más productividad y mejor rendimiento para tus agentes.':
+    'More productivity and better performance for your agents.',
+  'Más tarde': 'Later',
+  'ME INTERESA': "I'M INTERESTED IN",
+  'Medimos, ajustamos y evolucionamos con vos, siempre.': 'We measure, adjust and evolve with you, always.',
+  'Mensaje entrante · WhatsApp': 'Incoming message · WhatsApp',
+  Mensajería: 'Messaging',
+  'Menú principal': 'Main menu',
+  'Mi ruta de aprendizaje': 'My learning path',
+  MISIÓN: 'MISSION',
+  'MODO AGENTE': 'AGENT MODE',
+  'MODO BOT': 'BOT MODE',
+  'Motores de IA': 'AI engines',
+  'Múltiples motores de IA · reglas de negocio · integración': 'Multiple AI engines · business rules · integration',
+  'Necesito reprogramar la entrega': 'I need to reschedule the delivery',
+  'Necesito reprogramar la entrega.': 'I need to reschedule the delivery.',
+  'Ninguna solución resuelve todo sola.': 'No solution solves everything alone.',
+  'No creemos en soluciones aisladas. Conectamos tecnología, socios e inteligencia artificial para que cada conversación llegue más lejos.':
+    "We don't believe in isolated solutions. We connect technology, partners and artificial intelligence so every conversation goes further.",
+  'No entregado': 'Not delivered',
+  'No hay casos publicados de esa industria.': 'There are no published stories for that industry.',
+  'No pudimos completar la solicitud. Intentá de nuevo en unos minutos.':
+    "We couldn't complete the request. Please try again in a few minutes.",
+  'No te pierdas el próximo.': "Don't miss the next one.",
+  'No trabajamos con planes cerrados: el alcance lo definimos juntos en la preventa, según estos factores.':
+    "We don't work with fixed plans: we define the scope together during pre-sales, based on these factors.",
+  'nombre@empresa.com': 'name@company.com',
+  'Nosotros · Simpletech': 'About us · Simpletech',
+  'Nuestras plataformas nacen para resolver los desafíos reales de las empresas: comunicarse con sus clientes por los canales que ya usan y gestionar cada relación sin perder el hilo. La idea es que todo funcione como un solo ecosistema, conectado a tus sistemas, para que cada cliente reciba la misma atención en cualquier canal.':
+    "Our platforms were born to solve companies' real challenges: talking to their customers on the channels they already use and managing every relationship without losing the thread. The idea is for everything to work as one ecosystem, connected to your systems, so every customer gets the same service on any channel.",
+  'NUESTRO ENFOQUE': 'OUR APPROACH',
+  'Nuestros precios se envían en privado, en una propuesta a medida de tu operación. Acá te contamos todo lo que incluye; para recibir los precios, comunicate con nosotros.':
+    'Our prices are shared privately, in a proposal tailored to your operation. Here is everything it includes; to get the prices, contact us.',
+  'Nueva campaña': 'New campaign',
+  'Ocurrió un error inesperado.': 'An unexpected error occurred.',
+  Oficina: 'Office',
+  'Omnicanal y 360': 'Omnichannel and 360',
+  'Otras plataformas': 'Other platforms',
+  Pagar: 'Pay',
+  'Pagás por lo que tu operación necesita.': 'You pay for what your operation needs.',
+  Países: 'Countries',
+  'Para entender mejor a tus usuarios, resolver más rápido, anticipar necesidades y mejorar cada interacción.':
+    'To better understand your users, resolve faster, anticipate needs and improve every interaction.',
+  'Partner comercial': 'Commercial partner',
+  'Partners · Ecosistema · Simpletech': 'Partners · Ecosystem · Simpletech',
+  'PARTNERS COMERCIALES · {0}': 'COMMERCIAL PARTNERS · {0}',
+  'PARTNERS TECNOLÓGICOS · {0}': 'TECHNOLOGY PARTNERS · {0}',
+  'Partners tecnológicos y comerciales, una API para integrar tus sistemas e IA conversacional en todos tus canales.':
+    'Technology and commercial partners, an API to integrate your systems, and conversational AI across all your channels.',
+  'Pedí una demo': 'Request a demo',
+  'Pedir acceso': 'Request access',
+  'Pedir precios': 'Request pricing',
+  'Plataforma SaaS de IA conversacional, mensajería y telefonía en la nube: WhatsApp, voz y contact center en un mismo ecosistema.':
+    'SaaS platform for conversational AI, messaging and cloud telephony: WhatsApp, voice and contact center in one ecosystem.',
+  'Plataformas propias': 'Our own platforms',
+  'Plataformas propias para gestionar cada interacción con tus clientes y convertir conversaciones en negocio con agentes de IA.':
+    'Our own platforms to manage every interaction with your customers and turn conversations into business with AI agents.',
+  'Plataformas propias, pensadas para escalar': 'Our own platforms, built to scale',
+  'plataformas que trabajan como una sola': 'platforms that work as one',
+  'POR QUÉ UN ECOSISTEMA': 'WHY AN ECOSYSTEM',
+  'Precios · Simpletech': 'Pricing · Simpletech',
+  'PREGUNTAS FRECUENTES': 'FAQ',
+  'Preguntas frecuentes · Simpletech': 'FAQ · Simpletech',
+  'PRESENCIA REGIONAL': 'REGIONAL PRESENCE',
+  'Presioná el ícono de WhatsApp y uno de nuestros agentes de Customer Success se pondrá en contacto con vos.':
+    'Tap the WhatsApp icon and one of our Customer Success agents will get in touch with you.',
+  Principal: 'Main',
+  'Probar bot': 'Test bot',
+  'Producto · SimpleSuite y SimplePipeline · Simpletech': 'Product · SimpleSuite and SimplePipeline · Simpletech',
+  'QUÉ INCLUYE TU PROPUESTA': 'WHAT YOUR PROPOSAL INCLUDES',
+  'Quiero saber el saldo de mi tarjeta.': "I'd like to know my card balance.",
+  'Quiero ser partner': 'I want to be a partner',
+  'Quiero una demo': 'I want a demo',
+  'Recibimos tu mensaje.': 'We got your message.',
+  Recursos: 'Resources',
+  'Referencias de mercado y datos agregados de proyectos Simpletech en la región.':
+    'Market references and aggregated data from Simpletech projects in the region.',
+  'Reproducir: {0}': 'Play: {0}',
+  Respaldo: 'Backup',
+  'Respuesta sugerida IA': 'AI suggested reply',
+  'RESUELTO POR BOT': 'RESOLVED BY BOT',
+  'Resultados que ya generamos junto a nuestros clientes.':
+    'Results we have already achieved together with our customers.',
+  'RESULTADOS REALES': 'REAL RESULTS',
+  'Revisá el formato del email.': 'Check the email format.',
+  'Router · clasifica la intención': 'Router · classifies the intent',
+  'Seas cliente, partner o desarrollador, hay un lugar para vos.':
+    "Whether you are a customer, partner or developer, there's a place for you.",
+  'Ser el socio de referencia en experiencia del cliente e inteligencia artificial en América Latina, reconocido por hacer simple lo complejo.':
+    'To be the go-to partner in customer experience and artificial intelligence in Latin America, recognized for making the complex simple.',
+  'SER PARTNER': 'BECOME A PARTNER',
+  Siguiente: 'Next',
+  'SimplePipeline · Flujos con agentes de IA · Simpletech': 'SimplePipeline · Flows with AI agents · Simpletech',
+  'SimpleSuite · Bots, agentes, métricas, campañas y voz · Simpletech':
+    'SimpleSuite · Bots, agents, analytics, campaigns and voice · Simpletech',
+  'SimpleSuite al centro, conectado con partners, API e IA':
+    'SimpleSuite at the center, connected with partners, API and AI',
+  'SimpleSuite reúne en un mismo ecosistema todo lo que necesitás para gestionar cada interacción con tus clientes: bots sin código, atención omnicanal que combina IA y agentes humanos, métricas en tiempo real, campañas por WhatsApp y SMS, y telefonía con VoiceBots. Cada plataforma funciona por sí sola y se integra con las demás y con tus sistemas; y con SimplePipeline sumás agentes de IA especializados para automatizar procesos de punta a punta.':
+    'SimpleSuite brings together in one ecosystem everything you need to manage every interaction with your customers: no-code bots, omnichannel service that combines AI and human agents, real-time analytics, WhatsApp and SMS campaigns, and telephony with VoiceBots. Each platform works on its own and integrates with the others and with your systems; and with SimplePipeline you add specialized AI agents to automate processes end to end.',
+  'SimpleSuite se conecta con tus sistemas para que los agentes de IA gestionen consultas y trámites por WhatsApp de forma 100% autónoma.':
+    'SimpleSuite connects to your systems so AI agents can handle inquiries and requests on WhatsApp 100% autonomously.',
+  'Simpletech · Convertimos conversaciones en resultados': 'Simpletech · We turn conversations into results',
+  'Simpletech Academy: cursos online sobre SimpleSuite para que tu equipo diseñe e implemente sus propios proyectos de CX.':
+    'Simpletech Academy: online courses on SimpleSuite so your team can design and run its own CX projects.',
+  'Simpletech, inicio': 'Simpletech, home',
+  'SimpleVoice · comprende · responde · deriva cuando hace falta':
+    'SimpleVoice · understands · responds · hands off when needed',
+  'Sin código · lógica profunda · publicación en 1 clic': 'No code · deep logic · publish in 1 click',
+  'Socio estratégico en experiencia del cliente, automatización e IA.':
+    'Strategic partner in customer experience, automation and AI.',
+  'Socios estratégicos en {0} que venden, implementan y acompañan a clientes con nuestras plataformas.':
+    'Strategic partners in {0} that sell, implement and support customers with our platforms.',
+  'Soluciones a la medida de tu operación': 'Solutions tailored to your operation',
+  'SUITE CONVERSACIONAL CON IA': 'CONVERSATIONAL SUITE WITH AI',
+  'Suite de gestión de interacciones con clientes: SimpleBots, SimpleAgents, SimpleStats, SimpleSend y SimpleVoice en una sola plataforma.':
+    'Customer interaction management suite: SimpleBots, SimpleAgents, SimpleStats, SimpleSend and SimpleVoice in one platform.',
+  'Sumate a nuestra red de socios estratégicos.': 'Join our network of strategic partners.',
+  'Sumate al ecosistema.': 'Join the ecosystem.',
+  'Suscribite a nuestro canal y mirá todos los webinars grabados.':
+    'Subscribe to our channel and watch all the recorded webinars.',
+  'Te damos acceso a la documentación y te acompañamos en la integración.':
+    'We give you access to the documentation and support you throughout the integration.',
+  'TELEFONÍA · SIMPLEVOICE': 'TELEPHONY · SIMPLEVOICE',
+  'TIEMPO MEDIO DE RESPUESTA': 'AVERAGE RESPONSE TIME',
+  'TODO EN UN SOLO LUGAR': 'EVERYTHING IN ONE PLACE',
+  'Trabajamos con líderes globales para que cada conversación sea oficial, segura y escalable.':
+    'We work with global leaders so every conversation is official, secure and scalable.',
+  Transcripción: 'Transcript',
+  Transferir: 'Transfer',
+  'Tres ideas detrás de cada conexión.': 'Three ideas behind every connection.',
+  'Tu nombre': 'Your name',
+  'tu proyecto': 'your project',
+  'Tu socio estratégico para hacer simple lo complejo.': 'Your strategic partner to make the complex simple.',
+  'Un ecosistema que suma': 'An ecosystem that adds up',
+  'Un especialista te va a contactar a la brevedad.': 'A specialist will get in touch with you shortly.',
+  'Un proyecto integral diseñado para entregar valor, eficiencia y resultados medibles en cada etapa.':
+    'An end-to-end project designed to deliver value, efficiency and measurable results at every stage.',
+  'Una empresa omnicanal, con una mirada 360 de cada cliente.':
+    'An omnichannel company, with a 360 view of every customer.',
+  'Una interfaz potente y segura para integrar los canales y módulos de SimpleSuite en tus flujos de trabajo.':
+    'A powerful, secure interface to integrate SimpleSuite channels and modules into your workflows.',
+  'Una interfaz potente y segura para integrar los canales y módulos de SimpleSuite en tus flujos de trabajo. Accedé a las funciones de administración de contenido de la plataforma y hacé más eficientes las interacciones entre tu empresa y tus aplicaciones de negocio.':
+    "A powerful, secure interface to integrate SimpleSuite channels and modules into your workflows. Access the platform's content management features and make the interactions between your company and your business applications more efficient.",
+  'Una red que lleva nuestras soluciones a la región.': 'A network that brings our solutions to the region.',
+  'Una solución completa, no solo una licencia': 'A complete solution, not just a license',
+  'Validé tu identidad por biometría de voz. Tu saldo disponible es de $ 48.200.':
+    'I verified your identity with voice biometrics. Your available balance is $48,200.',
+  'Vendé nuestros desarrollos y resolvé la omnicanalidad de tus clientes con el respaldo de nuestro equipo.':
+    "Sell our solutions and solve your customers' omnichannel needs with the backing of our team.",
+  Ver: 'View',
+  'Ver capacidades': 'See capabilities',
+  'Ver caso {0}': 'See {0} story',
+  'Ver caso →': 'See story →',
+  'Ver caso de éxito': 'See success story',
+  'Ver el caso': 'See the story',
+  'Ver el caso →': 'See the story →',
+  'Ver en YouTube ↗': 'Watch on YouTube ↗',
+  'Ver partners': 'See partners',
+  'Ver productos': 'See products',
+  'Ver todos': 'See all',
+  VISIÓN: 'VISION',
+  'Vista previa': 'Preview',
+  'VoiceBot · Atención telefónica': 'VoiceBot · Phone support',
+  'VOICEBOT · IA': 'VOICEBOT · AI',
+  Voz: 'Voice',
+  'WEBINARS ANTERIORES': 'PAST WEBINARS',
+  'Webinars en vivo sobre las novedades de nuestras plataformas y tendencias de experiencia del cliente. Mirá los anteriores.':
+    "Live webinars on what's new in our platforms and customer experience trends. Watch the previous ones.",
+};

@@ -1,0 +1,20 @@
+---
+// /ecosistema/api — API para desarrolladores: canales disponibles y beneficios de integrar.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import ApiSection from '@/sections/Ecosistema/ApiSection.jsx';
+import PhotoBand from '@/components/common/PhotoBand.jsx';
+import { ECOSISTEMA_PHOTOS } from '@/data/ecosistema';
+import { PAGE_SEO } from '@/config/seo';
+import { navItem, navSubpage } from '@/data/navigation';
+
+const nav = navItem('ecosistema');
+const page = navSubpage('ecosistema', '/ecosistema/api');
+const seo = PAGE_SEO.ecosistemaApi;
+---
+
+<BaseLayout {...seo}>
+  <PageHero parent={nav} title={page.label} lead={seo.description} />
+  <PhotoBand photo={ECOSISTEMA_PHOTOS.api} />
+  <ApiSection />
+</BaseLayout>

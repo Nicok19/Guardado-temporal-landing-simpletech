@@ -1,0 +1,76 @@
+---
+// /caso/:slug — una página por cada caso con contenido en data/caseStudies.js.
+// Las secciones opcionales se muestran solo si el caso tiene ese contenido.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE_NAME } from '@/config/seo';
+import { CASES, toCaseView } from '@/data/cases';
+import { CASE_STUDIES } from '@/data/caseStudies';
+import HeroSection from '@/sections/CaseStudy/HeroSection.jsx';
+import MetricsSection from '@/sections/CaseStudy/MetricsSection.jsx';
+import AboutSection from '@/sections/CaseStudy/AboutSection.jsx';
+import StorySection from '@/sections/CaseStudy/StorySection.jsx';
+import SolutionsSection from '@/sections/CaseStudy/SolutionsSection.jsx';
+import ComparisonSection from '@/sections/CaseStudy/ComparisonSection.jsx';
+import AchievementsSection from '@/sections/CaseStudy/AchievementsSection.jsx';
+import HowItWorksSection from '@/sections/CaseStudy/HowItWorksSection.jsx';
+import ClosingSection from '@/sections/CaseStudy/ClosingSection.jsx';
+import MoreCasesSection from '@/sections/CaseStudy/MoreCasesSection.jsx';
+
+const MORE_CASES_COUNT = 3;
+
+export function getStaticPaths() {
+  return CASES.filter((c) => c.slug && CASE_STUDIES[c.slug]).map((c) => ({
+    params: { slug: c.slug },
+    props: { caseItem: c, study: CASE_STUDIES[c.slug] },
+  }));
+}
+
+const { caseItem, study } = Astro.props;
+// Otros casos (sin los que no van en la Home, así no se repiten DHL Chile / Uruguay).
+const moreCases = CASES.filter((c) => c !== caseItem && !c.hideInHome)
+  .slice(0, MORE_CASES_COUNT)
+  .map(toCaseView);
+const caseView = toCaseView(caseItem);
+---
+
+<BaseLayout
+  title={`Caso ${caseItem.client}: ${caseItem.headline} · ${SITE_NAME}`}
+  description={study.lead}
+  image={caseView.photo}
+  type="article"
+>
+  <HeroSection caseItem={caseView} study={study} />
+  <MetricsSection metrics={study.metrics} />
+  {study.about && <AboutSection about={study.about} why={study.why} />}
+  {study.story && <StorySection story={study.story} layout={study.storyLayout} />}
+  {
+    study.solutions && (
+      <SolutionsSection title={study.solutions.title} items={study.solutions.items} related={study.solutions.related} />
+    )
+  }
+  {
+    study.flow && (
+      <HowItWorksSection title={study.flowTitle} label={study.flowLabel} steps={study.flow} image={study.flowImage} />
+    )
+  }
+  {
+    study.comparison && (
+      <ComparisonSection comparison={study.comparison} awards={study.awards} image={study.awardsImage} />
+    )
+  }
+  {
+    study.achievements && (
+      <AchievementsSection
+        title={study.achievements.title}
+        items={study.achievements.items}
+        chart={study.achievements.chart}
+      />
+    )
+  }
+  {
+    (study.conclusion || study.testimonial) && (
+      <ClosingSection conclusion={study.conclusion} testimonial={study.testimonial} title={study.closingTitle} />
+    )
+  }
+  <MoreCasesSection cases={moreCases} />
+</BaseLayout>

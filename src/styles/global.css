@@ -1,0 +1,103 @@
+/*
+ * Ancho del contenido y margen lateral de todas las secciones (y del header).
+ * Para dar más o menos aire a los costados, cambiar solo estos dos valores.
+ */
+:root {
+  --page-max: 1000px;
+  --page-x: clamp(20px, 7vw, 120px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: #04081c;
+  color: #f9f6ee;
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  color: #dcd291;
+}
+::selection {
+  background: #dcd291;
+  color: #00249c;
+}
+input::placeholder,
+textarea::placeholder {
+  color: #8a8aa0;
+}
+
+/* Texto solo para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #dcd291;
+  z-index: 60;
+}
+
+@keyframes st-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes st-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Menú mobile */
+@keyframes st-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes st-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+}
+#mobile-menu nav::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

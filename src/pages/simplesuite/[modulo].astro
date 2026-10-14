@@ -1,0 +1,75 @@
+---
+// /simplesuite/:modulo — una página por módulo de SimpleSuite (data/suiteModules.js). Tres diseños, según sus datos:
+// - Con `hero` en data/showcases (ej. SimpleBots, SimpleAgents): estructura inspirada en zendesk.com.mx/service/ai
+//   (hero con vista previa, qué resuelve, capacidades en filas alternadas, casos y preguntas) y formulario al pie.
+// - Con entrada en data/showcases sin `hero`: bento, funcionalidades y casos (estilo gorgias.com).
+// - Sin entrada: la plantilla común (ModuleDetailSection).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import SubpageLinks from '@/components/common/SubpageLinks.jsx';
+import { SITE_NAME } from '@/config/seo';
+import { ROUTES, suiteModulePath, suiteModulePaths } from '@/config/routes';
+import { SUITE_MODULES } from '@/data/suiteModules';
+import { SHOWCASES } from '@/data/showcases';
+import ModuleDetailSection from '@/sections/SimpleSuite/ModuleDetailSection.jsx';
+import IntroBentoSection from '@/sections/ProductShowcase/IntroBentoSection.jsx';
+import FeaturesCardSection from '@/sections/ProductShowcase/FeaturesCardSection.jsx';
+import CaseTabsSection from '@/sections/ProductShowcase/CaseTabsSection.jsx';
+import ModuleHeroSection from '@/sections/ModulePage/ModuleHeroSection.jsx';
+import ModuleSolutionsSection from '@/sections/ModulePage/ModuleSolutionsSection.jsx';
+import ModuleRowsSection from '@/sections/ModulePage/ModuleRowsSection.jsx';
+import FaqSection from '@/sections/Nosotros/FaqSection.jsx';
+import '@/styles/showcase.css';
+
+export const getStaticPaths = suiteModulePaths;
+
+const { module } = Astro.props;
+const showcase = SHOWCASES[module.id];
+const page = showcase?.hero ? showcase : null; // diseño nuevo (con hero propio)
+// Las otras plataformas: el resto de los módulos de SimpleSuite + SimplePipeline (sin SimpleSuite general ni Academy).
+const otherModules = [
+  ...SUITE_MODULES.filter((m) => m.id !== module.id).map((m) => ({
+    label: m.name,
+    desc: m.short,
+    href: suiteModulePath(m.id),
+  })),
+  { label: 'SimplePipeline', desc: 'Flujos con agentes de IA especializados.', href: ROUTES.simplepipeline },
+];
+---
+
+<BaseLayout
+  title={`${module.name} · SimpleSuite · ${SITE_NAME}`}
+  description={`${module.head} ${module.desc}`}
+  contact={Boolean(page)}
+>
+  {
+    page ? (
+      <>
+        <ModuleHeroSection client:visible hero={page.hero} module={module} />
+        <ModuleSolutionsSection items={page.solutions} />
+        <ModuleRowsSection client:visible rows={page.rows} />
+        <CaseTabsSection client:visible cases={page.cases} />
+        <FaqSection
+          client:visible
+          items={page.faqs}
+          kicker="PREGUNTAS FRECUENTES"
+          title={`Lo que suelen preguntarnos sobre ${module.name}.`}
+        />
+      </>
+    ) : (
+      <>
+        <PageHero parent={{ label: 'SimpleSuite', href: ROUTES.simplesuite }} title={module.name} lead={module.head} />
+        {showcase ? (
+          <>
+            <IntroBentoSection client:visible intro={showcase.intro} cards={showcase.cards} />
+            <FeaturesCardSection features={showcase.features} tip={module.tip} />
+            <CaseTabsSection client:visible cases={showcase.cases} />
+          </>
+        ) : (
+          <ModuleDetailSection client:visible module={module} />
+        )}
+      </>
+    )
+  }
+  <SubpageLinks title="Otras plataformas" items={otherModules} />
+</BaseLayout>

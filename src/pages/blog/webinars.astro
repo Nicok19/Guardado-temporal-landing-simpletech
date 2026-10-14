@@ -1,0 +1,23 @@
+---
+// /blog/webinars — de qué tratan los webinars, los que ya pasaron y link al canal de YouTube.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import SubpageLinks from '@/components/common/SubpageLinks.jsx';
+import WebinarsSection from '@/sections/Blog/WebinarsSection.jsx';
+import { PAGE_SEO } from '@/config/seo';
+import { navItem, navSiblings, navSubpage } from '@/data/navigation';
+
+const nav = navItem('nosotros');
+const page = navSubpage('nosotros', '/blog/webinars');
+const seo = PAGE_SEO.blogWebinars;
+---
+
+<BaseLayout {...seo}>
+  <PageHero
+    parent={nav}
+    title={page.label}
+    lead="Cada poco tiempo organizamos webinars en vivo para mostrar las novedades de nuestras plataformas y compartir tendencias de experiencia del cliente."
+  />
+  <WebinarsSection />
+  <SubpageLinks title={`Más en ${nav.label}`} items={navSiblings('nosotros', page.href)} background="#fff" />
+</BaseLayout>

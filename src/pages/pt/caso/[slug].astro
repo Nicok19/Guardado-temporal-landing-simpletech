@@ -1,0 +1,8 @@
+---
+// /pt/caso/[slug] — la misma página en portugués (ver src/i18n).
+import Page, { getStaticPaths as paths } from '../../caso/[slug].astro';
+
+export const getStaticPaths = paths;
+---
+
+<Page {...Astro.props} />

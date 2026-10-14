@@ -1,0 +1,185 @@
+/*
+ * Presencia regional en Nosotros (pages/nosotros/index.astro).
+ * - Globo (GlobeSection.jsx): sección de alto normal; el globo recorre solo las ciudades y se puede arrastrar.
+ *   Desktop: lista de ciudades a la izquierda, globo a la derecha. Tablet y celular: sin globo, solo la lista.
+ * - Datos (PresenceStats.jsx).
+ */
+
+/* ---- Globo ---- */
+.pg-section {
+  background: #00249c;
+  color: #f9f6ee;
+  padding: clamp(88px, 10vw, 140px) var(--page-x);
+  overflow: hidden;
+}
+.pg-inner {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+}
+.pg-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.pg-title {
+  margin: 0;
+  font-size: clamp(30px, 3.4vw, 48px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.pg-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(178, 220, 255, 0.2);
+}
+.pg-list li {
+  border-bottom: 1px solid rgba(178, 220, 255, 0.2);
+}
+.pg-item {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 0 12px 16px;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  opacity: 0.45;
+  transition:
+    opacity 0.4s,
+    border-color 0.4s;
+}
+.pg-item:hover,
+.pg-item:focus-visible {
+  opacity: 0.8;
+}
+.pg-item[data-active='true'] {
+  opacity: 1;
+  border-left-color: #dcd291;
+}
+.pg-item-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pg-country {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #b2dcff;
+}
+.pg-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #dcd291;
+  color: #00249c;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.pg-city {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+/* El detalle solo se despliega en la ciudad activa */
+.pg-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #dadae4;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.pg-item[data-active='true'] .pg-text {
+  max-height: 60px;
+}
+
+.pg-globe {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  justify-self: center;
+}
+.pg-globe canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  cursor: grab;
+  touch-action: pan-y; /* en celular, el gesto vertical sigue scrolleando */
+}
+.pg-globe canvas:active {
+  cursor: grabbing;
+}
+.pg-hint {
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b2dcff;
+  pointer-events: none;
+}
+
+/* Tablet y celular: sin globo; la lista completa de ciudades, todas con su descripción */
+@media (max-width: 1079.98px) {
+  .pg-inner {
+    display: block;
+  }
+  .pg-title {
+    font-size: clamp(30px, 5vw, 44px);
+  }
+  .pg-globe {
+    display: none;
+  }
+  .pg-item {
+    opacity: 1;
+    cursor: default;
+    border-left-color: #dcd291;
+  }
+  .pg-text {
+    max-height: none;
+  }
+}
+
+/* ---- Datos ---- */
+.pr-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid #dadae4;
+}
+.pr-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 24px 0 0;
+}
+.pr-stat + .pr-stat {
+  padding-left: 24px;
+  border-left: 1px solid #dadae4;
+}
+@media (max-width: 860px) {
+  .pr-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+  }
+  .pr-stat:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}

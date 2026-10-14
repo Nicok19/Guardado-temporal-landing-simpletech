@@ -1,0 +1,20 @@
+---
+// /ecosistema/ia-conversacional — agentes de IA en SimpleSuite, funcionalidades, VoiceBot y biometría.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/common/PageHero.jsx';
+import IaSection from '@/sections/Ecosistema/IaSection.jsx';
+import PhotoBand from '@/components/common/PhotoBand.jsx';
+import { ECOSISTEMA_PHOTOS } from '@/data/ecosistema';
+import { PAGE_SEO } from '@/config/seo';
+import { navItem, navSubpage } from '@/data/navigation';
+
+const nav = navItem('ecosistema');
+const page = navSubpage('ecosistema', '/ecosistema/ia-conversacional');
+const seo = PAGE_SEO.ecosistemaIa;
+---
+
+<BaseLayout {...seo}>
+  <PageHero parent={nav} title={page.label} lead={seo.description} />
+  <PhotoBand photo={ECOSISTEMA_PHOTOS.ia} />
+  <IaSection />
+</BaseLayout>

@@ -1,0 +1,102 @@
+---
+// Botón flotante de WhatsApp (abajo a la derecha, en todas las páginas). Al pasar el mouse o con foco de teclado
+// se despliega "Comunicate con nosotros por WhatsApp". Sin JS: el despliegue es CSS.
+import { SITE } from '@/config/site';
+import { t } from '@/i18n';
+
+const label = t('Comunicate con nosotros por WhatsApp');
+---
+
+<a class="wa-float" href={SITE.whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label={label}>
+  <span class="wa-float-label" aria-hidden="true">{label}</span>
+  <span class="wa-float-icon">
+    <!-- Ícono de WhatsApp de sections/ProductShowcase/icons.jsx -->
+    <svg
+      viewBox="0 0 24 24"
+      width="28"
+      height="28"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path
+        d="M4 20l1.3-3.9A8 8 0 1112 20a8 8 0 01-4.1-1.1zM9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 1a3.5 3.5 0 01-2-2l1-1-1-2z"
+      ></path>
+    </svg>
+  </span>
+</a>
+
+<style>
+  /* Por debajo del menú celular (z-index 48-49) y del header (50). */
+  .wa-float {
+    position: fixed;
+    right: max(20px, env(safe-area-inset-right));
+    bottom: max(20px, env(safe-area-inset-bottom));
+    z-index: 45;
+    display: block;
+    text-decoration: none;
+  }
+  .wa-float-icon {
+    width: 60px;
+    height: 60px;
+    flex: none;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #25d366;
+    color: #fff;
+    box-shadow: 0 14px 34px -10px rgba(6, 12, 40, 0.45);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  /* Fuera del flujo, a la izquierda del ícono: el área clickeable es solo el círculo. */
+  .wa-float-label {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #060c28;
+    color: #f9f6ee;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 14px 34px -12px rgba(6, 12, 40, 0.5);
+    opacity: 0;
+    transform: translate(8px, -50%);
+    pointer-events: none;
+    transition:
+      opacity 0.25s,
+      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .wa-float:hover .wa-float-label,
+  .wa-float:focus-visible .wa-float-label {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+  .wa-float:hover .wa-float-icon,
+  .wa-float:focus-visible .wa-float-icon {
+    transform: scale(1.06);
+  }
+  .wa-float:focus-visible {
+    outline: none;
+  }
+  .wa-float:focus-visible .wa-float-icon {
+    outline: 3px solid #dcd291;
+    outline-offset: 3px;
+  }
+  @media (max-width: 600px) {
+    .wa-float-icon {
+      width: 54px;
+      height: 54px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wa-float-label,
+    .wa-float-icon {
+      transition: none;
+    }
+  }
+</style>

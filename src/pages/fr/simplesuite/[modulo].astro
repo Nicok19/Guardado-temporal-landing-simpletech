@@ -1,0 +1,8 @@
+---
+// /fr/simplesuite/[modulo] — la misma página en francés (ver src/i18n).
+import Page, { getStaticPaths as paths } from '../../simplesuite/[modulo].astro';
+
+export const getStaticPaths = paths;
+---
+
+<Page {...Astro.props} />

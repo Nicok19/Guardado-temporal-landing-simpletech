@@ -1,0 +1,32 @@
+/*
+ * Resultados de un caso (AchievementsSection.jsx) con gráfico:
+ * desktop: gráfico a la izquierda y 4 tarjetas en 2×2 a la derecha.
+ * Tablet: el gráfico arriba y las tarjetas en 2×2 debajo. Celular: todo en una columna.
+ */
+.ach-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+.ach-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.ach-bar {
+  transition: filter 0.25s;
+}
+.ach-bar:hover {
+  filter: brightness(0.9);
+}
+@media (max-width: 900px) {
+  .ach-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .ach-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

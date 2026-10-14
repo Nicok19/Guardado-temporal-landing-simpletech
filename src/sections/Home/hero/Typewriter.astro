@@ -1,0 +1,79 @@
+---
+/**
+ * Efecto máquina de escribir para los elementos con `data-typewriter="1"`, `"2"`, ... (en ese orden).
+ * Se ejecuta UNA vez al cargar. El texto completo ya está en el HTML (SEO / lectores de pantalla);
+ * el script solo lo parte en letras ocultas con `visibility: hidden`, que siguen ocupando su lugar,
+ * así no hay saltos de layout. Con prefers-reduced-motion no hace nada: el texto queda completo.
+ *
+ * Va inline y justo después del hero para preparar las letras antes del primer pintado.
+ */
+import '@/styles/typewriter.css';
+---
+
+<script is:inline>
+  (() => {
+    // ---- Ajustes de velocidad ----------------------------------------------------------
+    const SPEED_MS = 45; // tiempo promedio por letra
+    const JITTER_MS = 30; // variación aleatoria por letra (tipeo más natural)
+    const START_DELAY_MS = 250; // espera antes de empezar
+    const PAUSE_BETWEEN_MS = 450; // pausa entre el título y el subtítulo
+    const CURSOR_HOLD_MS = 1800; // cuánto queda parpadeando el cursor al terminar
+
+    const targets = Array.from(document.querySelectorAll('[data-typewriter]')).sort(
+      (a, b) => Number(a.dataset.typewriter) - Number(b.dataset.typewriter),
+    );
+    if (!targets.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Parte el contenido en <span class="tw-char"> conservando los elementos internos (ej. el dorado).
+    const splitInto = (source, target, chars) => {
+      source.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          for (const ch of node.textContent) {
+            const span = document.createElement('span');
+            span.className = 'tw-char';
+            span.textContent = ch;
+            target.appendChild(span);
+            chars.push(span);
+          }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const clone = node.cloneNode(false);
+          target.appendChild(clone);
+          splitInto(node, clone, chars);
+        }
+      });
+    };
+
+    const groups = targets.map((el) => {
+      const chars = [];
+      const srText = document.createElement('span');
+      srText.className = 'sr-only';
+      srText.textContent = el.textContent;
+      const visual = document.createElement('span');
+      visual.setAttribute('aria-hidden', 'true');
+      splitInto(el, visual, chars);
+      el.replaceChildren(srText, visual);
+      return chars;
+    });
+
+    let caret = null;
+    const moveCaret = (span) => {
+      caret?.classList.remove('tw-caret');
+      caret = span;
+      caret?.classList.add('tw-caret');
+    };
+
+    const typeGroup = (g, i) => {
+      const chars = groups[g];
+      if (i >= chars.length) {
+        if (g + 1 < groups.length) return setTimeout(() => typeGroup(g + 1, 0), PAUSE_BETWEEN_MS);
+        return setTimeout(() => moveCaret(null), CURSOR_HOLD_MS);
+      }
+      chars[i].classList.add('tw-on');
+      moveCaret(chars[i]);
+      const delay = SPEED_MS + (Math.random() - 0.5) * 2 * JITTER_MS;
+      setTimeout(() => typeGroup(g, i + 1), Math.max(10, delay));
+    };
+
+    setTimeout(() => typeGroup(0, 0), START_DELAY_MS);
+  })();
+</script>

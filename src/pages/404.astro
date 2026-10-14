@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SmartLink from '@/components/common/SmartLink.jsx';
+import { SITE_NAME } from '@/config/seo';
+import { FONT_MONO } from '@/styles/tokens';
+import { t } from '@/i18n';
+---
+
+<BaseLayout title={`${t('Página no encontrada')} · ${SITE_NAME}`} description="La página que buscás no existe.">
+  <section
+    style={{
+      minHeight: '70vh',
+      display: 'grid',
+      placeItems: 'center',
+      padding: '160px var(--page-x) 96px',
+      background: '#F9F6EE',
+      color: '#00249C',
+      textAlign: 'center',
+    }}
+  >
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+      <span style={{ fontFamily: FONT_MONO, fontSize: '12px', letterSpacing: '.24em' }}>ERROR 404</span>
+      <h1 style={{ margin: 0, fontSize: 'clamp(40px,6vw,80px)', fontWeight: 800, letterSpacing: '-.045em' }}>
+        {t('Esta página no existe.')}
+      </h1>
+      <SmartLink
+        href="/"
+        className="hv-bg-ink"
+        style={{
+          padding: '16px 24px',
+          borderRadius: '999px',
+          background: '#00249C',
+          color: '#F9F6EE',
+          fontWeight: 600,
+        }}
+      >
+        {t('Volver al inicio')}
+      </SmartLink>
+    </div>
+  </section>
+</BaseLayout>

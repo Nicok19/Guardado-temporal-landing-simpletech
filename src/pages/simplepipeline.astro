@@ -1,0 +1,39 @@
+---
+// /simplepipeline — mismo diseño que las plataformas de SimpleSuite (pages/simplesuite/[modulo].astro): hero con vista
+// previa, qué resuelve, capacidades en filas (con el pipeline del "Caso Viajes" a todo el ancho), preguntas y formulario.
+// Datos: data/showcases/simplepipeline.js
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SubpageLinks from '@/components/common/SubpageLinks.jsx';
+import { PAGE_SEO } from '@/config/seo';
+import { suiteModulePath } from '@/config/routes';
+import { SUITE_MODULES } from '@/data/suiteModules';
+import { PRODUCT_COLORS } from '@/data/products';
+import page from '@/data/showcases/simplepipeline';
+import ModuleHeroSection from '@/sections/ModulePage/ModuleHeroSection.jsx';
+import ModuleSolutionsSection from '@/sections/ModulePage/ModuleSolutionsSection.jsx';
+import ModuleRowsSection from '@/sections/ModulePage/ModuleRowsSection.jsx';
+import FaqSection from '@/sections/Nosotros/FaqSection.jsx';
+
+// SimplePipeline con la forma de un módulo (nombre, color y etiqueta para el hero y su vista previa).
+const module = {
+  id: 'simplepipeline',
+  name: 'SimplePipeline',
+  tag: 'AGENTES IA',
+  color: PRODUCT_COLORS.SimplePipeline,
+};
+// Otras plataformas: los módulos de SimpleSuite (sin SimpleSuite general ni Academy).
+const otherPlatforms = SUITE_MODULES.map((m) => ({ label: m.name, desc: m.short, href: suiteModulePath(m.id) }));
+---
+
+<BaseLayout {...PAGE_SEO.simplepipeline} contact>
+  <ModuleHeroSection client:visible hero={page.hero} module={module} />
+  <ModuleSolutionsSection items={page.solutions} />
+  <ModuleRowsSection client:visible rows={page.rows} />
+  <FaqSection
+    client:visible
+    items={page.faqs}
+    kicker="PREGUNTAS FRECUENTES"
+    title="Lo que suelen preguntarnos sobre SimplePipeline."
+  />
+  <SubpageLinks title="Otras plataformas" items={otherPlatforms} />
+</BaseLayout>

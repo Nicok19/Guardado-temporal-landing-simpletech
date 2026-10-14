@@ -1,0 +1,102 @@
+---
+import Header from '@/components/layout/Header/Header.jsx';
+import Footer from '@/components/layout/Footer.jsx';
+import Fonts from '@/components/layout/Fonts.astro';
+import ContactSection from '@/components/contact/ContactSection.jsx';
+import ContactForm from '@/components/contact/ContactForm.jsx';
+import WhatsAppFloat from '@/components/layout/WhatsAppFloat.astro';
+import { DEFAULT_OG_IMAGE, SITE_NAME } from '@/config/seo';
+import { LANGS, getLang, pathFor, stripLang, t } from '@/i18n';
+import '@/styles/global.css';
+import '@/styles/hover.css';
+import '@/styles/header.css';
+import '@/styles/gradients.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Ruta canónica (sin sección). Por defecto, la URL actual. */
+  canonicalPath?: string;
+  image?: string;
+  /** 'website' | 'article' */
+  type?: string;
+  /** Muestra el formulario de contacto al pie (home, Nosotros, Precios y SimpleSuite; el resto de los "Conversemos" lleva a /#contacto). */
+  contact?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  image = DEFAULT_OG_IMAGE,
+  type = 'website',
+  contact = false,
+} = Astro.props;
+// Idioma de la página (middleware.js): fuera del español (/en/..., /pt/..., /fr/...) los textos se traducen (i18n) y el
+// diccionario se carga en el <head>.
+const lang = getLang();
+const basePath = stripLang(Astro.url.pathname);
+const canonical = new URL(canonicalPath, Astro.site);
+const alternates = LANGS.map((l) => ({ lang: l, href: new URL(pathFor(basePath, l), Astro.site) }));
+const OG_LOCALES = { es: 'es_UY', en: 'en_US', pt: 'pt_BR', fr: 'fr_FR' };
+const pageTitle = t(title);
+const pageDescription = t(description);
+const ogImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content={OG_LOCALES[lang]} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <Fonts />
+    {lang !== 'es' && <script is:inline src={`/i18n/${lang}.js`} />}
+
+    <script is:inline>
+      // Links viejos de la versión SPA: /#/producto → /producto
+      if (location.hash.startsWith('#/')) location.replace(location.hash.slice(1) || '/');
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <div style={{ position: 'relative', overflowX: 'clip' }}>
+      <div id="scroll-progress" aria-hidden="true"></div>
+      <Header client:idle currentPath={basePath} />
+      <main>
+        <slot />
+      </main>
+      {
+        contact && (
+          <ContactSection>
+            <ContactForm client:visible />
+          </ContactSection>
+        )
+      }
+      <Footer />
+      <WhatsAppFloat />
+    </div>
+    <script>
+      import '@/scripts/site.js';
+    </script>
+  </body>
+</html>

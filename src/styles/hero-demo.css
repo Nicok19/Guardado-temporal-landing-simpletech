@@ -1,0 +1,96 @@
+/*
+ * Animación del hero (src/sections/Home/hero/). Solo transform y opacity, salvo el trazo de las
+ * conexiones del pipeline (stroke-dashoffset), que es pintura de SVG y no mueve el layout.
+ */
+
+/* Transición entre escenas: fade + leve escala */
+.st-hero-scene {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity var(--st-fade, 600ms) ease,
+    transform var(--st-fade, 600ms) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.st-hero-scene[data-active='false'] {
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+/* Escena 1 · mensajes y "escribiendo…" */
+@keyframes st-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+.st-msg {
+  animation: st-msg-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes st-typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+.st-typing-dot {
+  animation: st-typing 1.4s ease-in-out infinite;
+}
+.st-typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.st-typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Escena 2 · pulso de datos recorriendo las conexiones (path con pathLength=1) */
+@keyframes st-flow-pulse {
+  from {
+    stroke-dashoffset: 0.15;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+.st-flow-pulse {
+  animation: st-flow-pulse 2.6s linear infinite;
+}
+
+/* Escena 3 · anillos que pulsan alrededor del avatar */
+@keyframes st-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+.st-ring {
+  animation: st-ring 3.2s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+.st-ring:nth-child(2) {
+  animation-delay: 1.07s;
+}
+.st-ring:nth-child(3) {
+  animation-delay: 2.13s;
+}
+
+/* Movimiento reducido: sin loops decorativos (HeroDemo además muestra una sola escena fija) */
+@media (prefers-reduced-motion: reduce) {
+  .st-typing-dot,
+  .st-ring,
+  .st-msg {
+    animation: none;
+  }
+  .st-flow-pulse {
+    display: none;
+  }
+}
