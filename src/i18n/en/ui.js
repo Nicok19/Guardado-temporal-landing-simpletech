@@ -385,4 +385,25 @@ export default {
   'Ver caso': 'See case',
   'Video de SimpleSuite': 'SimpleSuite video',
   'Reproducir video': 'Play video',
+  'DATOS DE LA INDUSTRIA': 'INDUSTRY DATA',
+  'Los desafíos de experiencia del cliente que más se repiten en cada industria y los números que los explican. Datos de mercado y de nuestros proyectos en la región, para que sepas dónde está tu operación.':
+    'The customer experience challenges that come up most in each industry, and the numbers behind them. Market data and figures from our projects across the region, so you know where your operation stands.',
+  'Ver las industrias': 'See the industries',
+  Reanudar: 'Resume',
+  Pausar: 'Pause',
+  'INDUSTRIA {0}': 'INDUSTRY {0}',
+  'INDUSTRIA {0} / {1}': 'INDUSTRY {0} / {1}',
+  'Ver datos de {0}': 'See data for {0}',
+  '{0} industrias, {1} desafíos': '{0} industries, {1} challenges',
+  'El problema que más se repite en cada sector, con los números que lo explican. Abrí cada industria para ver el detalle y los benchmarks.':
+    "Each sector's most common problem, with the numbers that explain it. Open each industry to see the details and benchmarks.",
+  'TU OPERACIÓN': 'YOUR OPERATION',
+  '¿Tu empresa se parece a alguno de estos números?': 'Does your company look like any of these numbers?',
+  'Contanos tu desafío y te mostramos cómo lo resolvieron otras empresas de tu industria.':
+    "Tell us your challenge and we'll show you how other companies in your industry solved it.",
+  'Datos de la industria': 'Industry data',
+  'Desafíos y benchmarks de cada sector': 'Challenges and benchmarks by sector',
+  'Datos de la industria · Simpletech': 'Industry data · Simpletech',
+  'Los desafíos de experiencia del cliente de cada industria y los números que los explican: logística, seguros, industria, automotriz y retail.':
+    'The customer experience challenges of each industry and the numbers behind them: logistics, insurance, manufacturing, automotive and retail.',
 };

@@ -383,4 +383,25 @@ export default {
   'Ver caso': 'Ver caso',
   'Video de SimpleSuite': 'Vídeo do SimpleSuite',
   'Reproducir video': 'Reproduzir vídeo',
+  'DATOS DE LA INDUSTRIA': 'DADOS DO SETOR',
+  'Los desafíos de experiencia del cliente que más se repiten en cada industria y los números que los explican. Datos de mercado y de nuestros proyectos en la región, para que sepas dónde está tu operación.':
+    'Os desafios de experiência do cliente que mais se repetem em cada setor e os números que os explicam. Dados de mercado e dos nossos projetos na região, para você saber onde está sua operação.',
+  'Ver las industrias': 'Ver os setores',
+  Reanudar: 'Retomar',
+  Pausar: 'Pausar',
+  'INDUSTRIA {0}': 'SETOR {0}',
+  'INDUSTRIA {0} / {1}': 'SETOR {0} / {1}',
+  'Ver datos de {0}': 'Ver dados de {0}',
+  '{0} industrias, {1} desafíos': '{0} setores, {1} desafios',
+  'El problema que más se repite en cada sector, con los números que lo explican. Abrí cada industria para ver el detalle y los benchmarks.':
+    'O problema que mais se repete em cada setor, com os números que o explicam. Abra cada setor para ver o detalhe e os benchmarks.',
+  'TU OPERACIÓN': 'SUA OPERAÇÃO',
+  '¿Tu empresa se parece a alguno de estos números?': 'Sua empresa se parece com algum destes números?',
+  'Contanos tu desafío y te mostramos cómo lo resolvieron otras empresas de tu industria.':
+    'Conte seu desafio e mostramos como outras empresas do seu setor o resolveram.',
+  'Datos de la industria': 'Dados do setor',
+  'Desafíos y benchmarks de cada sector': 'Desafios e benchmarks de cada setor',
+  'Datos de la industria · Simpletech': 'Dados do setor · Simpletech',
+  'Los desafíos de experiencia del cliente de cada industria y los números que los explican: logística, seguros, industria, automotriz y retail.':
+    'Os desafios de experiência do cliente de cada setor e os números que os explicam: logística, seguros, indústria, automotivo e varejo.',
 };

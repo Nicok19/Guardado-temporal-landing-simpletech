@@ -1,0 +1,15 @@
+---
+// /nosotros/datos-de-la-industria — los desafíos y benchmarks de cada industria (data/industries.js), con una
+// estructura inspirada en cxtrends.zendesk.com: hero con un dato que rota, tarjetas por industria con su detalle y cierre.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { PAGE_SEO } from '@/config/seo';
+import IndustryHero from '@/sections/IndustryData/IndustryHero.jsx';
+import IndustryCardsSection from '@/sections/IndustryData/IndustryCardsSection.jsx';
+import IndustryCtaSection from '@/sections/IndustryData/IndustryCtaSection.jsx';
+---
+
+<BaseLayout {...PAGE_SEO.industryData}>
+  <IndustryHero client:load />
+  <IndustryCardsSection client:visible />
+  <IndustryCtaSection />
+</BaseLayout>

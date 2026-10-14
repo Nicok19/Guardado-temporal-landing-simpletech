@@ -1,15 +1,13 @@
 ---
-// /soluciones — "Casos de éxito" (menú): presentación, datos generales de las industrias y casos de éxito con filtros.
+// /soluciones — "Casos de éxito" (menú): presentación y casos de éxito con filtros (los datos de las industrias están en /nosotros/datos-de-la-industria).
 // Las subpáginas anteriores (/soluciones/casos, /casos-industria, /casos-producto, /casos-de-uso) redirigen acá.
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { PAGE_SEO } from '@/config/seo';
 import IntroSection from '@/sections/Soluciones/IntroSection.jsx';
-import IndustryDataSection from '@/sections/Soluciones/IndustryDataSection.jsx';
 import SuccessCasesSection from '@/sections/Soluciones/SuccessCasesSection.jsx';
 ---
 
 <BaseLayout {...PAGE_SEO.soluciones}>
   <IntroSection />
-  <IndustryDataSection />
   <SuccessCasesSection client:visible />
 </BaseLayout>

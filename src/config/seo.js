@@ -71,6 +71,11 @@ export const PAGE_SEO = {
     description:
       'Nuestros precios se envían en privado, en una propuesta a medida de tu operación. Acá te contamos todo lo que incluye; para recibir los precios, comunicate con nosotros.',
   },
+  industryData: {
+    title: 'Datos de la industria · Simpletech',
+    description:
+      'Los desafíos de experiencia del cliente de cada industria y los números que los explican: logística, seguros, industria, automotriz y retail.',
+  },
   faq: {
     title: 'Preguntas frecuentes · Simpletech',
     description: 'Las consultas más comunes sobre cómo trabajamos, nuestras plataformas y la implementación.',

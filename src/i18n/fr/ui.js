@@ -388,4 +388,25 @@ export default {
   'Ver caso': 'Voir le cas',
   'Video de SimpleSuite': 'Vidéo de SimpleSuite',
   'Reproducir video': 'Lire la vidéo',
+  'DATOS DE LA INDUSTRIA': 'DONNÉES SECTORIELLES',
+  'Los desafíos de experiencia del cliente que más se repiten en cada industria y los números que los explican. Datos de mercado y de nuestros proyectos en la región, para que sepas dónde está tu operación.':
+    "Les défis d'expérience client les plus fréquents dans chaque secteur, et les chiffres qui les expliquent. Données de marché et de nos projets dans la région, pour savoir où en est votre opération.",
+  'Ver las industrias': 'Voir les secteurs',
+  Reanudar: 'Reprendre',
+  Pausar: 'Mettre en pause',
+  'INDUSTRIA {0}': 'SECTEUR {0}',
+  'INDUSTRIA {0} / {1}': 'SECTEUR {0} / {1}',
+  'Ver datos de {0}': 'Voir les données : {0}',
+  '{0} industrias, {1} desafíos': '{0} secteurs, {1} défis',
+  'El problema que más se repite en cada sector, con los números que lo explican. Abrí cada industria para ver el detalle y los benchmarks.':
+    'Le problème le plus fréquent dans chaque secteur, avec les chiffres qui l’expliquent. Ouvrez chaque secteur pour voir le détail et les benchmarks.',
+  'TU OPERACIÓN': 'VOTRE OPÉRATION',
+  '¿Tu empresa se parece a alguno de estos números?': 'Votre entreprise ressemble-t-elle à l’un de ces chiffres ?',
+  'Contanos tu desafío y te mostramos cómo lo resolvieron otras empresas de tu industria.':
+    'Racontez-nous votre défi et nous vous montrerons comment d’autres entreprises de votre secteur l’ont résolu.',
+  'Datos de la industria': 'Données sectorielles',
+  'Desafíos y benchmarks de cada sector': 'Défis et benchmarks par secteur',
+  'Datos de la industria · Simpletech': 'Données sectorielles · Simpletech',
+  'Los desafíos de experiencia del cliente de cada industria y los números que los explican: logística, seguros, industria, automotriz y retail.':
+    "Les défis d'expérience client de chaque secteur et les chiffres qui les expliquent : logistique, assurance, industrie, automobile et commerce.",
 };

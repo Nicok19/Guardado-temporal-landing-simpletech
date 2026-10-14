@@ -47,6 +47,11 @@ export const NAV_ITEMS = [
     items: [
       { label: 'Artículos', desc: 'Contenido útil y novedoso', href: BLOG_URL },
       { label: 'Webinars', desc: 'Charlas en vivo sobre nuestras plataformas', href: '/blog/webinars' },
+      {
+        label: 'Datos de la industria',
+        desc: 'Desafíos y benchmarks de cada sector',
+        href: '/nosotros/datos-de-la-industria',
+      },
     ],
   },
   {
