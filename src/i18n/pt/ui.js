@@ -354,22 +354,31 @@ export default {
   'Ingresá tu empresa.': 'Informe sua empresa.',
   'Elegí al menos una opción.': 'Escolha pelo menos uma opção.',
   'Completá los campos obligatorios (*) para enviar.': 'Preencha os campos obrigatórios (*) para enviar.',
-  'CONECTIVIDAD': 'CONECTIVIDADE',
+  CONECTIVIDAD: 'CONECTIVIDADE',
   'Todo conectado en un mismo lugar.': 'Tudo conectado em um só lugar.',
-  'Tus canales, las herramientas que ya usás y los servicios de IA y nube trabajan juntos alrededor de SimpleSuite.': 'Seus canais, as ferramentas que você já usa e os serviços de IA e nuvem trabalham juntos em torno do SimpleSuite.',
-  'Canales': 'Canais',
-  'Integraciones': 'Integrações',
+  'Tus canales, las herramientas que ya usás y los servicios de IA y nube trabajan juntos alrededor de SimpleSuite.':
+    'Seus canais, as ferramentas que você já usa e os serviços de IA e nuvem trabalham juntos em torno do SimpleSuite.',
+  Canales: 'Canais',
+  Integraciones: 'Integrações',
   'Servicios externos': 'Serviços externos',
-  'INTEGRACIONES':
-    'INTEGRAÇÕES',
-  'Que se adaptan a tu empresa':
-    'Que se adaptam à sua empresa',
+  INTEGRACIONES: 'INTEGRAÇÕES',
+  'Que se adaptan a tu empresa': 'Que se adaptam à sua empresa',
   'SimpleBots se conecta con las tecnologías existentes en tu empresa, para que tu negocio y procesos funcionen de forma unificada.':
     'O SimpleBots se conecta com as tecnologias que sua empresa já usa, para que seu negócio e seus processos funcionem de forma unificada.',
-  'INTELIGENCIA ARTIFICIAL':
-    'INTELIGÊNCIA ARTIFICIAL',
-  'A tu servicio':
-    'A seu serviço',
+  'INTELIGENCIA ARTIFICIAL': 'INTELIGÊNCIA ARTIFICIAL',
+  'A tu servicio': 'A seu serviço',
   'SimpleBots trabaja con IA para analizar grandes cantidades de datos, comprender y clasificar intenciones o sentimientos, generar reportes avanzados, realizar predicciones o sugerencias. Es posible conectar servicios externos de los motores más potentes.':
     'O SimpleBots trabalha com IA para analisar grandes volumes de dados, entender e classificar intenções ou sentimentos, gerar relatórios avançados e fazer previsões ou sugestões. Também é possível conectar serviços externos dos motores mais poderosos.',
+  'Cada una resuelve una parte de la experiencia de tus clientes y se integra con las demás. Usalas por separado o combinadas.':
+    'Cada uma resolve uma parte da experiência dos seus clientes e se integra com as demais. Use separadas ou combinadas.',
+  'Con estas plataformas vas a poder…': 'Com estas plataformas você vai poder…',
+  TESTIMONIOS: 'DEPOIMENTOS',
+  'Lo que dicen nuestros clientes.': 'O que dizem nossos clientes.',
+  'El chatbot ha tenido un buen feedback por parte de los corredores y proveedores, ahora se sienten más conectados con nosotros y obtienen respuestas al instante.':
+    'O chatbot teve um ótimo retorno dos corretores e fornecedores: agora eles se sentem mais conectados conosco e recebem respostas na hora.',
+  'Gerencia de Operaciones en San Cristóbal Seguros': 'Gerência de Operações na San Cristóbal Seguros',
+  'Con el equipo de Simpletech lo que hemos logrado es un partnership. Nuestra asociación común es la innovación, exceder las expectativas y ser ágiles.':
+    'Com a equipe da Simpletech, o que conquistamos é uma parceria. O que nos une é a inovação, superar as expectativas e ser ágeis.',
+  'Gerente de Operaciones IT en Ta-Ta Supermercados': 'Gerente de Operações de TI na Ta-Ta Supermercados',
+  'Ver caso': 'Ver caso',
 };

@@ -359,22 +359,31 @@ export default {
   'Ingresá tu empresa.': 'Saisissez votre entreprise.',
   'Elegí al menos una opción.': 'Choisissez au moins une option.',
   'Completá los campos obligatorios (*) para enviar.': 'Remplissez les champs obligatoires (*) pour envoyer.',
-  'CONECTIVIDAD': 'CONNECTIVITÉ',
+  CONECTIVIDAD: 'CONNECTIVITÉ',
   'Todo conectado en un mismo lugar.': 'Tout connecté au même endroit.',
-  'Tus canales, las herramientas que ya usás y los servicios de IA y nube trabajan juntos alrededor de SimpleSuite.': "Vos canaux, les outils que vous utilisez déjà et les services d'IA et de cloud fonctionnent ensemble autour de SimpleSuite.",
-  'Canales': 'Canaux',
-  'Integraciones': 'Intégrations',
+  'Tus canales, las herramientas que ya usás y los servicios de IA y nube trabajan juntos alrededor de SimpleSuite.':
+    "Vos canaux, les outils que vous utilisez déjà et les services d'IA et de cloud fonctionnent ensemble autour de SimpleSuite.",
+  Canales: 'Canaux',
+  Integraciones: 'Intégrations',
   'Servicios externos': 'Services externes',
-  'INTEGRACIONES':
-    'INTÉGRATIONS',
-  'Que se adaptan a tu empresa':
-    "Qui s'adaptent à votre entreprise",
+  INTEGRACIONES: 'INTÉGRATIONS',
+  'Que se adaptan a tu empresa': "Qui s'adaptent à votre entreprise",
   'SimpleBots se conecta con las tecnologías existentes en tu empresa, para que tu negocio y procesos funcionen de forma unificada.':
     'SimpleBots se connecte aux technologies déjà en place dans votre entreprise, pour que votre activité et vos processus fonctionnent de façon unifiée.',
-  'INTELIGENCIA ARTIFICIAL':
-    'INTELLIGENCE ARTIFICIELLE',
-  'A tu servicio':
-    'À votre service',
+  'INTELIGENCIA ARTIFICIAL': 'INTELLIGENCE ARTIFICIELLE',
+  'A tu servicio': 'À votre service',
   'SimpleBots trabaja con IA para analizar grandes cantidades de datos, comprender y clasificar intenciones o sentimientos, generar reportes avanzados, realizar predicciones o sugerencias. Es posible conectar servicios externos de los motores más potentes.':
     "SimpleBots s'appuie sur l'IA pour analyser de grandes quantités de données, comprendre et classer les intentions ou les sentiments, générer des rapports avancés et faire des prédictions ou des suggestions. Il est aussi possible de connecter des services externes des moteurs les plus puissants.",
+  'Cada una resuelve una parte de la experiencia de tus clientes y se integra con las demás. Usalas por separado o combinadas.':
+    "Chacune prend en charge une partie de l'expérience de vos clients et s'intègre aux autres. Utilisez-les séparément ou ensemble.",
+  'Con estas plataformas vas a poder…': 'Avec ces plateformes, vous pourrez…',
+  TESTIMONIOS: 'TÉMOIGNAGES',
+  'Lo que dicen nuestros clientes.': 'Ce que disent nos clients.',
+  'El chatbot ha tenido un buen feedback por parte de los corredores y proveedores, ahora se sienten más conectados con nosotros y obtienen respuestas al instante.':
+    "Le chatbot a reçu d'excellents retours des courtiers et des fournisseurs : ils se sentent plus proches de nous et obtiennent des réponses instantanées.",
+  'Gerencia de Operaciones en San Cristóbal Seguros': 'Direction des opérations chez San Cristóbal Seguros',
+  'Con el equipo de Simpletech lo que hemos logrado es un partnership. Nuestra asociación común es la innovación, exceder las expectativas y ser ágiles.':
+    "Avec l'équipe de Simpletech, ce que nous avons construit est un vrai partenariat. Ce qui nous unit : l'innovation, dépasser les attentes et être agiles.",
+  'Gerente de Operaciones IT en Ta-Ta Supermercados': 'Responsable des opérations IT chez Ta-Ta Supermercados',
+  'Ver caso': 'Voir le cas',
 };

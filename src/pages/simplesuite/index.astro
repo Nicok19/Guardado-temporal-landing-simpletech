@@ -1,24 +1,21 @@
 ---
 // /simplesuite — página de la plataforma (estructura inspirada en zendesk.com.mx/platform): hero con el título,
 // el ecosistema (canales, integraciones y servicios externos),
-// qué gana la operación, un bloque por cada plataforma de la suite, resultados de clientes,
-// recursos y el formulario de contacto al pie.
+// las plataformas de la suite (con lo que gana la operación), resultados de clientes, testimonios
+// y el formulario de contacto al pie.
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SubpageLinks from '@/components/common/SubpageLinks.jsx';
 import { PAGE_SEO } from '@/config/seo';
-import { SUITE_RESOURCES } from '@/data/suite';
 import SuiteHeroSection from '@/sections/SimpleSuite/SuiteHeroSection.jsx';
 import SuiteEcosystemSection from '@/sections/SimpleSuite/SuiteEcosystemSection.jsx';
-import SuiteValuesSection from '@/sections/SimpleSuite/SuiteValuesSection.jsx';
 import SuitePlatformsSection from '@/sections/SimpleSuite/SuitePlatformsSection.jsx';
 import SuiteCasesSection from '@/sections/SimpleSuite/SuiteCasesSection.jsx';
+import SuiteTestimonialsSection from '@/sections/SimpleSuite/SuiteTestimonialsSection.jsx';
 ---
 
 <BaseLayout {...PAGE_SEO.simplesuite} contact>
   <SuiteHeroSection />
   <SuiteEcosystemSection client:visible />
-  <SuiteValuesSection />
-  <SuitePlatformsSection client:visible />
+  <SuitePlatformsSection />
   <SuiteCasesSection />
-  <SubpageLinks title="Recursos" items={SUITE_RESOURCES} background="#F9F6EE" />
+  <SuiteTestimonialsSection />
 </BaseLayout>

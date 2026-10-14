@@ -356,22 +356,31 @@ export default {
   'Ingresá tu empresa.': 'Enter your company.',
   'Elegí al menos una opción.': 'Choose at least one option.',
   'Completá los campos obligatorios (*) para enviar.': 'Fill in the required fields (*) to send.',
-  'CONECTIVIDAD': 'CONNECTIVITY',
+  CONECTIVIDAD: 'CONNECTIVITY',
   'Todo conectado en un mismo lugar.': 'Everything connected in one place.',
-  'Tus canales, las herramientas que ya usás y los servicios de IA y nube trabajan juntos alrededor de SimpleSuite.': 'Your channels, the tools you already use, and AI and cloud services work together around SimpleSuite.',
-  'Canales': 'Channels',
-  'Integraciones': 'Integrations',
+  'Tus canales, las herramientas que ya usás y los servicios de IA y nube trabajan juntos alrededor de SimpleSuite.':
+    'Your channels, the tools you already use, and AI and cloud services work together around SimpleSuite.',
+  Canales: 'Channels',
+  Integraciones: 'Integrations',
   'Servicios externos': 'External services',
-  'INTEGRACIONES':
-    'INTEGRATIONS',
-  'Que se adaptan a tu empresa':
-    'That adapt to your company',
+  INTEGRACIONES: 'INTEGRATIONS',
+  'Que se adaptan a tu empresa': 'That adapt to your company',
   'SimpleBots se conecta con las tecnologías existentes en tu empresa, para que tu negocio y procesos funcionen de forma unificada.':
     "SimpleBots connects with your company's existing technologies, so your business and processes work as one.",
-  'INTELIGENCIA ARTIFICIAL':
-    'ARTIFICIAL INTELLIGENCE',
-  'A tu servicio':
-    'At your service',
+  'INTELIGENCIA ARTIFICIAL': 'ARTIFICIAL INTELLIGENCE',
+  'A tu servicio': 'At your service',
   'SimpleBots trabaja con IA para analizar grandes cantidades de datos, comprender y clasificar intenciones o sentimientos, generar reportes avanzados, realizar predicciones o sugerencias. Es posible conectar servicios externos de los motores más potentes.':
     'SimpleBots works with AI to analyze large amounts of data, understand and classify intents or sentiment, generate advanced reports, and make predictions or suggestions. You can also connect external services from the most powerful engines.',
+  'Cada una resuelve una parte de la experiencia de tus clientes y se integra con las demás. Usalas por separado o combinadas.':
+    'Each one handles part of your customer experience and integrates with the others. Use them on their own or together.',
+  'Con estas plataformas vas a poder…': 'With these platforms you can…',
+  TESTIMONIOS: 'TESTIMONIALS',
+  'Lo que dicen nuestros clientes.': 'What our clients say.',
+  'El chatbot ha tenido un buen feedback por parte de los corredores y proveedores, ahora se sienten más conectados con nosotros y obtienen respuestas al instante.':
+    'The chatbot has had great feedback from brokers and suppliers; they now feel more connected with us and get instant answers.',
+  'Gerencia de Operaciones en San Cristóbal Seguros': 'Operations Management at San Cristóbal Seguros',
+  'Con el equipo de Simpletech lo que hemos logrado es un partnership. Nuestra asociación común es la innovación, exceder las expectativas y ser ágiles.':
+    "With the Simpletech team, what we've achieved is a partnership. What we share is innovation, exceeding expectations and being agile.",
+  'Gerente de Operaciones IT en Ta-Ta Supermercados': 'IT Operations Manager at Ta-Ta Supermercados',
+  'Ver caso': 'See case',
 };
