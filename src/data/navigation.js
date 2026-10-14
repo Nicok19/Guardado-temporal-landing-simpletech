@@ -45,7 +45,7 @@ export const NAV_ITEMS = [
     label: 'Nosotros',
     href: ROUTES.nosotros,
     items: [
-      { label: 'Artículos', desc: 'Contenido útil y novedoso', href: BLOG_URL },
+      { label: 'Blog', desc: 'Contenido útil y novedoso', href: BLOG_URL },
       { label: 'Webinars', desc: 'Charlas en vivo sobre nuestras plataformas', href: '/blog/webinars' },
       {
         label: 'Datos de la industria',

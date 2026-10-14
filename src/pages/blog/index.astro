@@ -7,14 +7,18 @@ import BlogListSection from '@/sections/Blog/BlogListSection.jsx';
 import { PAGE_SEO } from '@/config/seo';
 import { navItem } from '@/data/navigation';
 import { getPosts } from '@/services/wordpress';
+import { localizeCard } from '@/services/blogTranslations';
+import { getLang } from '@/i18n';
 
 const nav = navItem('nosotros');
 const seo = PAGE_SEO.blog;
 // Al navegador va solo lo que muestran las tarjetas (sin el contenido de cada artículo).
-const posts = (await getPosts()).map(({ html, ...p }) => p);
+// En otro idioma, título y extracto traducidos (si ya hay traducción guardada).
+const lang = getLang();
+const posts = (await getPosts()).map(({ html, ...p }) => localizeCard(p, lang));
 ---
 
 <BaseLayout {...seo}>
-  <PageHero parent={nav} title="Artículos" lead={seo.description} />
+  <PageHero parent={nav} title="Blog" lead={seo.description} />
   <BlogListSection client:load posts={posts} />
 </BaseLayout>

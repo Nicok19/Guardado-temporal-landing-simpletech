@@ -54,6 +54,10 @@ export default defineConfig({
   },
   vite: {
     plugins: [i18nJsxRuntime()],
+    // La compilación (astro build) usa su propia caché: si compartía node_modules/.vite con el servidor de desarrollo,
+    // al compilar con `npm run dev` abierto le dejaba React de producción y se rompían todas las islas
+    // (header, formulario…) con "jsxDEV is not a function".
+    cacheDir: process.argv.includes('build') ? 'node_modules/.vite-build' : 'node_modules/.vite',
     // En desarrollo, Vite descubría d3-geo recién al abrir /nosotros, re-optimizaba las dependencias y el globo
     // quedaba pidiendo la versión vieja (504 "Outdated Optimize Dep") y no se dibujaba. Se optimiza desde el arranque.
     optimizeDeps: { include: ['d3-geo'] },

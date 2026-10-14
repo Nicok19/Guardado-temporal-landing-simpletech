@@ -81,7 +81,7 @@ export const PAGE_SEO = {
     description: 'Las consultas más comunes sobre cómo trabajamos, nuestras plataformas y la implementación.',
   },
   blog: {
-    title: 'Artículos · Simpletech',
+    title: 'Blog · Simpletech',
     description:
       'Novedades, guías y tendencias sobre experiencia del cliente, WhatsApp, automatización e inteligencia artificial.',
   },

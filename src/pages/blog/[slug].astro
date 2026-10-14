@@ -1,18 +1,22 @@
 ---
 // /blog/:slug — un artículo del blog de WordPress (services/wordpress.js), con su contenido limpio y estilos propios
-// (styles/blog.css), y 3 artículos relacionados al pie.
+// (styles/blog.css), y 3 artículos relacionados al pie. En inglés, portugués y francés se muestra la traducción
+// guardada (services/blogTranslations.js); si todavía no hay, el original en español con un aviso.
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SmartLink from '@/components/common/SmartLink.jsx';
 import PostCard, { formatPostDate } from '@/sections/Blog/PostCard.jsx';
 import { SITE_NAME } from '@/config/seo';
 import { blogPostPaths } from '@/services/wordpress';
-import { localizeHref, t } from '@/i18n';
+import { getLang, localizeHref, t } from '@/i18n';
+import { localizeCard, localizePost } from '@/services/blogTranslations';
 import { FONT_MONO } from '@/styles/tokens';
 import '@/styles/blog.css';
 
 export const getStaticPaths = blogPostPaths;
 
-const { post, related } = Astro.props;
+const lang = getLang();
+const post = await localizePost(Astro.props.post, lang);
+const related = Astro.props.related.map((p) => localizeCard(p, lang));
 ---
 
 <BaseLayout title={`${post.title} · ${SITE_NAME}`} description={post.excerpt} image={post.image || undefined} type="article">
@@ -25,7 +29,7 @@ const { post, related } = Astro.props;
         >
           <SmartLink className="hv-c-ink" href="/nosotros" style={{ color: '#636262' }}>{t('NOSOTROS')}</SmartLink>
           <span aria-hidden="true">/</span>
-          <SmartLink className="hv-c-ink" href="/blog" style={{ color: '#636262' }}>{t('ARTÍCULOS')}</SmartLink>
+          <SmartLink className="hv-c-ink" href="/blog" style={{ color: '#636262' }}>BLOG</SmartLink>
         </nav>
         {
           post.categories.length > 0 && (
@@ -64,10 +68,17 @@ const { post, related } = Astro.props;
     }
 
     <div style="padding:clamp(40px,5vw,64px) var(--page-x) clamp(72px,8vw,112px)">
-      <div class="blog-prose" set:html={post.html} />
+      {
+        !post.translated && (
+          <p style="max-width:720px;margin:0 auto 28px;padding:14px 18px;border-radius:14px;background:#fff;border:1px solid #DADAE4;font-size:15px;color:#636262">
+            {t('Este artículo está disponible solo en español.')}
+          </p>
+        )
+      }
+      <div class="blog-prose" lang={post.translated ? undefined : 'es'} set:html={post.html} />
       <div style="max-width:720px;margin:48px auto 0;padding-top:28px;border-top:1px solid #DADAE4;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center">
         <SmartLink className="hv-c-ink" href="/blog" style={{ color: '#00249C', fontWeight: 600, fontSize: '15px' }}>
-          ← {t('Todos los artículos')}
+          ← {t('Volver al blog')}
         </SmartLink>
         <SmartLink
           className="hv-bg-gold hv-c-blue"
