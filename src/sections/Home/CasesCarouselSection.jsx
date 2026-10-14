@@ -1,145 +1,86 @@
-import { useEffect, useRef, useState } from 'react';
 import CaseLogo from '@/components/common/CaseLogo';
-import { useInterval } from '@/hooks/useInterval';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { SITE } from '@/config/site';
 import { CASES, toCaseView } from '@/data/cases';
-import { pad2 } from '@/utils/format';
 import SmartLink from '@/components/common/SmartLink';
 import CoverImage from '@/components/common/CoverImage';
 import { FONT_MONO } from '@/styles/tokens';
 
-// El primer caso se repite al final: al llegar a él se vuelve al inicio sin animación (loop infinito).
-// En la Home no se muestran los casos marcados con `hideInHome` (ej. DHL Chile y Uruguay: queda solo DHL).
-const HOME_CASES = CASES.filter((c) => !c.hideInHome);
-const SLIDES = [...HOME_CASES, HOME_CASES[0]].map(toCaseView);
-const COUNT = HOME_CASES.length;
-const AUTOPLAY_MS = 5500;
-const SLIDE_EASE = 'cubic-bezier(.65,0,.35,1)';
-// Swipe (tablet y celular): px antes de decidir si el gesto es horizontal o vertical, y px para cambiar de caso.
-const SWIPE_LOCK_PX = 8;
-const SWIPE_MIN_PX = 50;
+// Abanico fijo de tarjetas (estilo "What's up on socials" de landonorris.com): sin autoplay ni carrusel.
+// Cada tarjeta lleva la foto y los datos del caso, y entera es un link al caso.
+// En la Home no se muestran los casos marcados con `hideInHome`; de los que quedan, solo los primeros FAN_SIZE.
+const FAN_SIZE = 5;
+// Posición en el abanico de cada caso, en orden: el primero al centro y el resto alternando a los costados.
+const FAN_OFFSETS = [0, -1, 1, -2, 2];
+// En el HTML van de izquierda a derecha (así el CSS sabe cuáles quedan a cada lado de la tarjeta con hover);
+// `order` = orden original, para la fila del celular.
+const HOME_CASES = CASES.filter((c) => !c.hideInHome)
+  .slice(0, FAN_SIZE)
+  .map((c, i) => ({ ...toCaseView(c), offset: FAN_OFFSETS[i], order: i }))
+  .sort((a, b) => a.offset - b.offset);
+
+// Desktop: abanico en arco. Al pasar el mouse, la tarjeta sube y se agranda (escala pareja, la foto no se deforma)
+// y el resto baja al 40% de opacidad, se achica (--s) y se corre hacia afuera (--shift): así ninguna se monta sobre otra.
+// Hasta 1280px (tablet, celular y notebooks chicas): fila horizontal que se recorre con el dedo, sin rotación.
+const CSS = `
+.st-fan { --card-w: clamp(230px, 18vw, 270px); position: relative; height: calc(var(--card-w) * 1.4 + 90px); }
+.st-fan-card {
+  position: absolute; left: 50%; top: 0; width: var(--card-w); aspect-ratio: 5 / 7;
+  transform-origin: 50% 100%;
+  transform: translateX(calc(-50% + var(--card-w) * .95 * var(--o) + var(--shift, 0px))) translateY(calc(var(--a) * 38px)) rotate(calc(var(--o) * 6deg)) scale(var(--s, 1));
+  transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease, opacity .4s ease;
+}
+.st-fan-card:hover, .st-fan-card:focus-visible {
+  z-index: 20 !important;
+  transform: translateX(calc(-50% + var(--card-w) * .95 * var(--o) + var(--shift, 0px))) translateY(calc(var(--a) * 38px - 16px)) rotate(calc(var(--o) * 6deg)) scale(1.1);
+  box-shadow: 0 30px 60px -20px rgba(0,36,156,.5);
+}
+.st-fan:has(.st-fan-card:hover, .st-fan-card:focus-visible) .st-fan-card:not(:hover, :focus-visible) { opacity: .4; --s: .8; }
+.st-fan-card:is(:hover, :focus-visible) ~ .st-fan-card { --shift: calc(var(--card-w) * .2); }
+.st-fan-card:has(~ .st-fan-card:is(:hover, :focus-visible)) { --shift: calc(var(--card-w) * -.2); }
+@media (max-width: 1279.98px) {
+  .st-fan {
+    --card-w: min(78vw, 300px); height: auto; display: flex; gap: 16px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin: 0 calc(var(--page-x) * -1); padding: 8px var(--page-x) 24px;
+  }
+  .st-fan::-webkit-scrollbar { display: none; }
+  .st-fan-card, .st-fan-card:hover, .st-fan-card:focus-visible {
+    position: relative; left: auto; flex: 0 0 var(--card-w); order: var(--order);
+    transform: none; scroll-snap-align: center; opacity: 1 !important;
+  }
+}
+`;
 
 export default function CasesCarouselSection() {
-  const [slide, setSlide] = useState(0);
-  const [animate, setAnimate] = useState(true);
-  const [fast, setFast] = useState(false); // transición corta después de un swipe
-  const [dragX, setDragX] = useState(null); // desplazamiento del dedo mientras se arrastra (px)
-  const hovering = useRef(false);
-  const wrapTimer = useRef(null);
-  const swipe = useRef(null); // { id, x, y, axis: null | 'x' | 'y' }
-  const swiped = useRef(false); // para no abrir el caso al soltar un arrastre
-  const touchable = useMediaQuery(SITE.narrowQuery);
-
-  useEffect(() => () => clearTimeout(wrapTimer.current), []);
-
-  const goTo = (i, quick = false) => {
-    setAnimate(true);
-    setFast(quick);
-    setSlide(i);
-  };
-
-  const next = (quick = false) => {
-    if (slide >= COUNT) return;
-    goTo(slide + 1, quick);
-    if (slide + 1 === COUNT) {
-      clearTimeout(wrapTimer.current);
-      wrapTimer.current = setTimeout(
-        () => {
-          setAnimate(false);
-          setSlide(0);
-        },
-        quick ? 550 : 1250,
-      );
-    }
-  };
-
-  const prev = (quick = false) => {
-    clearTimeout(wrapTimer.current);
-    if (slide === 0 || slide === COUNT) {
-      // Saltar sin animación al clon del final y animar hacia el último caso real.
-      setAnimate(false);
-      setSlide(COUNT);
-      requestAnimationFrame(() => requestAnimationFrame(() => goTo(COUNT - 1, quick)));
-    } else goTo(slide - 1, quick);
-  };
-
-  useInterval(() => !hovering.current && dragX === null && next(), AUTOPLAY_MS);
-
-  // ---- Swipe: solo en tablet y celular. Los gestos verticales siguen scrolleando la página (touch-action: pan-y).
-  const onPointerDown = (e) => {
-    if (!touchable || !e.isPrimary) return;
-    swipe.current = { id: e.pointerId, x: e.clientX, y: e.clientY, axis: null };
-    swiped.current = false;
-  };
-
-  const onPointerMove = (e) => {
-    const s = swipe.current;
-    if (!s || s.id !== e.pointerId) return;
-    const dx = e.clientX - s.x;
-    const dy = e.clientY - s.y;
-    if (!s.axis) {
-      if (Math.max(Math.abs(dx), Math.abs(dy)) < SWIPE_LOCK_PX) return;
-      s.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-      if (s.axis === 'y') return;
-      e.currentTarget.setPointerCapture(e.pointerId);
-      swiped.current = true;
-    }
-    if (s.axis !== 'x') return;
-    // En el primer caso no hay nada a la izquierda: el arrastre hacia la derecha ofrece resistencia.
-    setDragX(slide === 0 && dx > 0 ? dx * 0.35 : dx);
-  };
-
-  const endSwipe = (e) => {
-    const s = swipe.current;
-    if (!s || s.id !== e.pointerId) return;
-    swipe.current = null;
-    if (s.axis !== 'x') return;
-    const dx = e.clientX - s.x;
-    setDragX(null);
-    if (e.type === 'pointerup' && Math.abs(dx) >= SWIPE_MIN_PX) {
-      if (dx < 0) next(true);
-      else prev(true);
-    } else {
-      setAnimate(true);
-      setFast(true);
-    }
-  };
-
-  const onClickCapture = (e) => {
-    if (!swiped.current) return;
-    e.preventDefault();
-    e.stopPropagation();
-    swiped.current = false;
-  };
-
-  const current = slide % COUNT;
-  const dragging = dragX !== null;
-
   return (
-    <section style={{ background: '#F9F6EE', color: '#00249C', padding: 'clamp(88px,10vw,140px) var(--page-x)' }}>
+    <section
+      style={{
+        background: '#F9F6EE',
+        color: '#00249C',
+        padding: 'clamp(88px,10vw,140px) var(--page-x)',
+        overflow: 'hidden',
+      }}
+    >
+      <style>{CSS}</style>
       <div
-        style={{ maxWidth: 'var(--page-max)', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}
+        style={{ maxWidth: 'var(--page-max)', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '56px' }}
       >
         <div
           style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', gap: '32px', flexWrap: 'wrap' }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <h2
-              data-reveal="2"
-              style={{
-                margin: 0,
-                fontSize: 'clamp(40px,5.4vw,80px)',
-                lineHeight: 0.98,
-                fontWeight: 800,
-                letterSpacing: '-.045em',
-                maxWidth: '800px',
-                textWrap: 'balance',
-              }}
-            >
-              Resultados que ya generamos junto a nuestros clientes.
-            </h2>
-          </div>
+          <h2
+            data-reveal="2"
+            style={{
+              margin: 0,
+              fontSize: 'clamp(40px,5.4vw,80px)',
+              lineHeight: 0.98,
+              fontWeight: 800,
+              letterSpacing: '-.045em',
+              maxWidth: '800px',
+              textWrap: 'balance',
+            }}
+          >
+            Resultados que ya generamos junto a nuestros clientes.
+          </h2>
           <SmartLink
             className="hv-bg-blue hv-c-cream"
             data-reveal="3"
@@ -160,260 +101,127 @@ export default function CasesCarouselSection() {
             Ver casos de éxito <span style={{ fontFamily: FONT_MONO }}>→</span>
           </SmartLink>
         </div>
-        <div
-          data-reveal="2"
-          onMouseEnter={() => (hovering.current = true)}
-          onMouseLeave={() => (hovering.current = false)}
-          style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-        >
-          <div
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={endSwipe}
-            onPointerCancel={endSwipe}
-            onClickCapture={onClickCapture}
-            onDragStart={(e) => touchable && e.preventDefault()}
-            style={{
-              overflow: 'hidden',
-              borderRadius: '28px',
-              touchAction: touchable ? 'pan-y' : 'auto',
-              userSelect: dragging ? 'none' : 'auto',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                transform: `translateX(calc(-${slide * 100}% + ${dragX ?? 0}px))`,
-                transition: animate && !dragging ? `transform ${fast ? '.5s' : '1.2s'} ${SLIDE_EASE}` : 'none',
-                willChange: 'transform',
-              }}
-            >
-              {SLIDES.map((c, i) => (
-                <div
-                  key={i}
-                  aria-hidden={i !== slide}
-                  style={{
-                    flex: '0 0 100%',
-                    minWidth: 0,
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,320px),1fr))',
-                    gap: 'clamp(24px,3vw,48px)',
-                    padding: 'clamp(14px,1.6vw,22px)',
-                    background: '#04081c',
-                    color: '#F9F6EE',
-                    borderRadius: '28px',
-                  }}
-                >
-                  <div
-                    style={{
-                      position: 'relative',
-                      minHeight: 'clamp(320px,34vw,480px)',
-                      borderRadius: '18px',
-                      overflow: 'hidden',
-                      background: '#0b1233',
-                    }}
-                  >
-                    <CoverImage
-                      placeholder={c.photoPh}
-                      src={c.photo}
-                      position={c.photoPosition}
-                      style={{ position: 'absolute', inset: 0 }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        pointerEvents: 'none',
-                        background: 'linear-gradient(135deg,rgba(0,36,156,.55),rgba(4,8,28,.15) 60%)',
-                        mixBlendMode: 'multiply',
-                      }}
-                    ></div>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        pointerEvents: 'none',
-                        background: 'linear-gradient(180deg,rgba(4,8,28,.6),transparent 38%)',
-                      }}
-                    ></div>
-                    <div style={{ position: 'absolute', left: '22px', top: '20px', pointerEvents: 'none' }}>
-                      <CaseLogo item={c} fallbackSize="26px" />
-                    </div>
-                  </div>
-                  <div
-                    style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: 'clamp(8px,1.6vw,24px)' }}
-                  >
-                    <span
-                      style={{
-                        display: 'flex',
-                        gap: '10px',
-                        alignItems: 'center',
-                        fontFamily: FONT_MONO,
-                        fontSize: '11px',
-                        letterSpacing: '.16em',
-                        color: '#DADAE4',
-                      }}
-                    >
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#DCD291' }}></span>
-                      {c.clientU} · {c.country}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: 'clamp(26px,2.8vw,42px)',
-                        fontWeight: 700,
-                        letterSpacing: '-.035em',
-                        lineHeight: 1.08,
-                        textWrap: 'balance',
-                      }}
-                    >
-                      {c.headline}
-                    </span>
-                    <div
-                      style={{
-                        marginTop: 'auto',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-end',
-                        gap: '24px',
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '10px',
-                          paddingLeft: '24px',
-                          borderLeft: '2px solid #DCD291',
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: 'clamp(48px,5.6vw,84px)',
-                            fontWeight: 800,
-                            letterSpacing: '-.05em',
-                            lineHeight: 0.9,
-                          }}
-                        >
-                          {c.kpi}
-                        </span>
-                        <span style={{ fontSize: '14px', color: '#DADAE4' }}>{c.kpiL}</span>
-                      </div>
-                      <SmartLink
-                        className="hv-c-gold"
-                        href={c.href}
-                        style={{
-                          display: 'flex',
-                          gap: '12px',
-                          alignItems: 'center',
-                          fontSize: '15px',
-                          fontWeight: 500,
-                          color: '#F9F6EE',
-                        }}
-                      >
-                        Ver caso de éxito{' '}
-                        <span
-                          style={{
-                            width: '40px',
-                            height: '40px',
-                            borderRadius: '50%',
-                            background: '#DCD291',
-                            color: '#00249C',
-                            display: 'grid',
-                            placeItems: 'center',
-                            fontFamily: FONT_MONO,
-                          }}
-                        >
-                          →
-                        </span>
-                      </SmartLink>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: '16px',
-              flexWrap: 'wrap',
-            }}
-          >
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              {HOME_CASES.map((c, i) => (
-                <button
-                  key={c.client}
-                  onClick={() => goTo(i)}
-                  aria-label={`Ver caso ${c.client}`}
-                  style={{
-                    width: i === current ? '36px' : '10px',
-                    height: '10px',
-                    borderRadius: '999px',
-                    border: 'none',
-                    padding: 0,
-                    cursor: 'pointer',
-                    background: i === current ? '#00249C' : '#DADAE4',
-                    transition: 'all .4s',
-                  }}
-                ></button>
-              ))}
-            </div>
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <span
+        <div className="st-fan" data-reveal="2">
+          {HOME_CASES.map((c) => {
+            const { offset } = c;
+            const abs = Math.abs(offset);
+            return (
+              <SmartLink
+                key={c.client}
+                href={c.href}
+                className="st-fan-card"
                 style={{
-                  fontFamily: FONT_MONO,
-                  fontSize: '12px',
-                  letterSpacing: '.08em',
-                  color: '#636262',
-                  paddingRight: '6px',
+                  '--o': offset,
+                  '--a': abs * abs * 0.5 + abs * 0.5,
+                  '--order': c.order,
+                  zIndex: 10 - abs,
+                  display: 'block',
+                  borderRadius: '28px',
+                  overflow: 'hidden',
+                  background: '#04081c',
+                  color: '#F9F6EE',
+                  boxShadow: '0 18px 40px -24px rgba(4,8,28,.55)',
                 }}
               >
-                {pad2(current + 1)} / {pad2(COUNT)}
-              </span>
-              {/* Flechas solo en desktop: en tablet y celular se navega con swipe */}
-              <div className="st-desktop-only" style={{ display: 'flex', gap: '10px' }}>
-                <button
-                  className="hv-bg-blue hv-c-cream"
-                  onClick={() => prev()}
-                  aria-label="Anterior"
+                <CoverImage
+                  placeholder={c.photoPh}
+                  src={c.photo}
+                  position={c.photoPosition}
+                  sizes="(max-width: 1280px) 80vw, 300px"
+                  style={{ position: 'absolute', inset: 0 }}
+                />
+                {/* Velo: oscuro arriba para el logo y abajo para los datos */}
+                <div
                   style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '1px solid #00249C',
-                    background: 'transparent',
-                    color: '#00249C',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    transition: 'all .3s',
+                    position: 'absolute',
+                    inset: 0,
+                    pointerEvents: 'none',
+                    background:
+                      'linear-gradient(180deg,rgba(4,8,28,.55),transparent 22%,rgba(4,8,28,.25) 30%,rgba(4,8,28,.9) 50%,#04081c)',
+                  }}
+                ></div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '22px',
+                    gap: '12px',
                   }}
                 >
-                  ←
-                </button>
-                <button
-                  className="hv-bg-blue hv-c-cream"
-                  onClick={() => next()}
-                  aria-label="Siguiente"
-                  style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    border: '1px solid #00249C',
-                    background: 'transparent',
-                    color: '#00249C',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    transition: 'all .3s',
-                  }}
-                >
-                  →
-                </button>
-              </div>
-            </div>
-          </div>
+                  <CaseLogo item={c} fallbackSize="22px" />
+                  <span
+                    style={{
+                      marginTop: 'auto',
+                      display: 'flex',
+                      gap: '8px',
+                      alignItems: 'center',
+                      fontFamily: FONT_MONO,
+                      fontSize: '10.5px',
+                      letterSpacing: '.14em',
+                      color: '#DADAE4',
+                    }}
+                  >
+                    <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#DCD291' }}></span>
+                    {c.ind} · {c.country}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '19px',
+                      fontWeight: 700,
+                      letterSpacing: '-.03em',
+                      lineHeight: 1.14,
+                      textWrap: 'balance',
+                    }}
+                  >
+                    {c.headline}
+                  </span>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-end',
+                      gap: '12px',
+                      paddingTop: '12px',
+                      borderTop: '1px solid rgba(249,246,238,.18)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: 0 }}>
+                      <span
+                        style={{
+                          fontSize: '36px',
+                          fontWeight: 800,
+                          letterSpacing: '-.05em',
+                          lineHeight: 0.9,
+                          color: '#DCD291',
+                        }}
+                      >
+                        {c.kpi}
+                      </span>
+                      <span style={{ fontSize: '12px', lineHeight: 1.35, color: '#DADAE4' }}>{c.kpiL}</span>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        flex: '0 0 auto',
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '50%',
+                        background: '#DCD291',
+                        color: '#00249C',
+                        display: 'grid',
+                        placeItems: 'center',
+                        fontFamily: FONT_MONO,
+                      }}
+                    >
+                      →
+                    </span>
+                  </div>
+                </div>
+              </SmartLink>
+            );
+          })}
         </div>
       </div>
     </section>
