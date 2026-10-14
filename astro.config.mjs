@@ -55,6 +55,9 @@ export default defineConfig({
   },
   vite: {
     plugins: [i18nJsxRuntime()],
+    // En desarrollo, Vite descubría d3-geo recién al abrir /nosotros, re-optimizaba las dependencias y el globo
+    // quedaba pidiendo la versión vieja (504 "Outdated Optimize Dep") y no se dibujaba. Se optimiza desde el arranque.
+    optimizeDeps: { include: ['d3-geo'] },
     server: {
       // Si PUBLIC_API_PROXY_TARGET está definido, /api se redirige al backend local (evita CORS en desarrollo).
       proxy: env.PUBLIC_API_PROXY_TARGET
