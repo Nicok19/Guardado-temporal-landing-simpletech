@@ -1,5 +1,5 @@
 import { HERO_CHAT, HERO_CHAT_TYPING } from '@/data/home';
-import { panelStyle } from './panel';
+import { ILLU, panelStyle, sticker } from './panel';
 
 /**
  * Pasos de la conversación: antes de cada mensaje del agente hay un paso con "escribiendo…".
@@ -21,15 +21,15 @@ const bubbleBase = {
   gap: '3px',
 };
 
+// Burbujas como stickers: cliente en crema, agente en celeste (lila si es una persona), apenas torcidas.
 function Bubble({ m }) {
   const agentStyle = {
     ...bubbleBase,
-    background: m.human ? 'rgba(168,85,247,.16)' : 'rgba(178,220,255,.08)',
-    border: '1px solid rgba(178,220,255,.14)',
+    ...sticker(m.human ? ILLU.lilac : ILLU.sky),
     borderBottomLeftRadius: '4px',
-    color: '#F9F6EE',
+    rotate: '-1deg',
   };
-  const clientStyle = { ...bubbleBase, background: '#F9F6EE', color: '#00249C', borderBottomRightRadius: '4px' };
+  const clientStyle = { ...bubbleBase, ...sticker(ILLU.cream), borderBottomRightRadius: '4px', rotate: '1deg' };
   return (
     <div
       className="st-msg"
@@ -39,9 +39,9 @@ function Bubble({ m }) {
         <span
           style={{
             fontSize: '10.5px',
-            fontWeight: 600,
-            color: m.human ? '#c79bff' : m.agent ? '#DCD291' : '#00249C',
-            opacity: m.agent ? 1 : 0.7,
+            fontWeight: 700,
+            color: ILLU.ink,
+            opacity: 0.6,
           }}
         >
           {m.who}
@@ -62,15 +62,15 @@ function TypingBubble() {
           padding: '11px 13px',
           borderRadius: '14px',
           borderBottomLeftRadius: '4px',
-          background: 'rgba(178,220,255,.08)',
-          border: '1px solid rgba(178,220,255,.14)',
+          ...sticker(ILLU.sky),
+          rotate: '-1deg',
         }}
       >
         {[0, 1, 2].map((i) => (
           <span
             key={i}
             className="st-typing-dot"
-            style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#DCD291' }}
+            style={{ width: '6px', height: '6px', borderRadius: '50%', background: ILLU.ink }}
           ></span>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import { HERO_FLOW } from '@/data/home';
 import { FONT_MONO } from '@/styles/tokens';
-import { panelStyle } from './panel';
+import { ILLU, panelStyle } from './panel';
 
 // Lienzo del flujo (coordenadas del viewBox; el SVG escala al ancho disponible).
 const W = 300;
@@ -18,6 +18,8 @@ const EDGES = [
 ];
 // En qué paso aparece cada nodo (las conexiones se dibujan cuando aparece su destino).
 const APPEARS_AT = { entrada: 1, agente: 2, resultado: 3 };
+// Color plano del ícono de cada nodo (estilo ilustrado).
+const ICON_BG = { entrada: ILLU.mint, agente: ILLU.lilac, resultado: ILLU.mint };
 // Orden en que se resalta cada nodo (ids de HERO_FLOW).
 const ORDER = ['entrada', 'agente', 'resultado'];
 
@@ -44,26 +46,28 @@ function Node({ node, visible, current }) {
         transition: `opacity .6s ease ${visible ? '.6s' : '0s'}, transform .8s cubic-bezier(.2,.8,.2,1) ${visible ? '.6s' : '0s'}`,
       }}
     >
+      {/* Nodo como sticker: sombra dura y contorno de tinta; el activo se pinta dorado */}
+      <rect x="4" y="4" width={NODE_W} height={NODE_H} rx="13" fill={ILLU.ink} />
       <rect
         width={NODE_W}
         height={NODE_H}
         rx="13"
-        fill="rgba(6,12,40,.55)"
-        stroke={current ? '#DCD291' : 'rgba(178,220,255,.22)'}
-        strokeWidth={current ? 1.5 : 1}
-        style={{ transition: 'stroke .4s' }}
+        fill={current ? ILLU.gold : ILLU.cream}
+        stroke={ILLU.ink}
+        strokeWidth="2.5"
+        style={{ transition: 'fill .4s' }}
       />
-      <rect x="12" y="13" width="30" height="30" rx="9" fill={node.color} fillOpacity=".18" />
-      <circle cx="27" cy="28" r="6" fill={node.color} />
-      <text x="54" y="25" fill="#F9F6EE" fontSize="13.5" fontWeight="600" fontFamily="Inter, sans-serif">
+      <rect x="12" y="13" width="30" height="30" rx="9" fill={ICON_BG[node.id]} stroke={ILLU.ink} strokeWidth="2" />
+      <circle cx="27" cy="28" r="5" fill={ILLU.ink} />
+      <text x="54" y="25" fill={ILLU.ink} fontSize="13.5" fontWeight="700" fontFamily="Inter, sans-serif">
         {node.t}
       </text>
-      <text x="54" y="41" fill="#8fa0d8" fontSize="10" fontFamily={FONT_MONO}>
+      <text x="54" y="41" fill={ILLU.ink} fillOpacity=".6" fontSize="10" fontFamily={FONT_MONO}>
         {node.sub}
       </text>
       {/* puertos de entrada/salida, como en n8n */}
-      <circle cx={NODE_W / 2} cy="0" r="3.5" fill="#0b1233" stroke="rgba(178,220,255,.45)" />
-      <circle cx={NODE_W / 2} cy={NODE_H} r="3.5" fill="#0b1233" stroke="rgba(178,220,255,.45)" />
+      <circle cx={NODE_W / 2} cy="0" r="4" fill={ILLU.cream} stroke={ILLU.ink} strokeWidth="2" />
+      <circle cx={NODE_W / 2} cy={NODE_H} r="4" fill={ILLU.cream} stroke={ILLU.ink} strokeWidth="2" />
     </g>
   );
 }
@@ -95,31 +99,38 @@ export default function PipelineScene({ step }) {
             const d = edgePath(edge);
             return (
               <g key={edge.join('-')}>
-                <path
-                  d={d}
-                  pathLength="1"
-                  fill="none"
-                  stroke="rgba(220,210,145,.5)"
-                  strokeWidth="1.6"
-                  strokeDasharray="1"
-                  strokeDashoffset={drawn ? 0 : 1}
-                  style={{ transition: drawn ? 'stroke-dashoffset .9s ease' : 'none' }}
-                />
-                {/* pulso de luz: un tramo corto y brillante que recorre la conexión en loop */}
+                {/* Conexión con contorno: trazo de tinta grueso debajo y crema encima, como dibujada */}
+                {[
+                  [ILLU.ink, 6],
+                  [ILLU.cream, 2.5],
+                ].map(([color, width]) => (
+                  <path
+                    key={color}
+                    d={d}
+                    pathLength="1"
+                    fill="none"
+                    stroke={color}
+                    strokeWidth={width}
+                    strokeLinecap="round"
+                    strokeDasharray="1"
+                    strokeDashoffset={drawn ? 0 : 1}
+                    style={{ transition: drawn ? 'stroke-dashoffset .9s ease' : 'none' }}
+                  />
+                ))}
+                {/* pulso: un tramo dorado que recorre la conexión en loop */}
                 <path
                   className="st-flow-pulse"
                   d={d}
                   pathLength="1"
                   fill="none"
-                  stroke="#F9F6EE"
-                  strokeWidth="2.6"
+                  stroke={ILLU.gold}
+                  strokeWidth="3"
                   strokeLinecap="round"
                   strokeDasharray="0.12 1"
                   style={{
-                    opacity: drawn ? 0.9 : 0,
+                    opacity: drawn ? 1 : 0,
                     transition: `opacity .4s ease ${drawn ? '.9s' : '0s'}`,
                     animationDelay: `${i * 0.6}s`,
-                    filter: 'drop-shadow(0 0 3px #DCD291)',
                   }}
                 />
               </g>

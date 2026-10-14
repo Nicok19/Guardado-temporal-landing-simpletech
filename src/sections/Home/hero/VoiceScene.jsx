@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useWaveAnimation } from '@/hooks/useWaveAnimation';
 import { HERO_TICK_MS, HERO_VOICE } from '@/data/home';
 import { pad2 } from '@/utils/format';
-import { panelStyle, monoLabel } from './panel';
+import { ILLU, panelStyle, monoLabel, sticker } from './panel';
 
 const BARS = Array.from({ length: 24 }, (_, i) => i);
 const CALL_START_SECONDS = 12;
@@ -25,7 +25,7 @@ export default function VoiceScene({ step, active }) {
             key={i}
             className="st-ring"
             aria-hidden="true"
-            style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1.5px solid #DCD291' }}
+            style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: `2px solid ${ILLU.cream}` }}
           ></span>
         ))}
         <span
@@ -33,25 +33,34 @@ export default function VoiceScene({ step, active }) {
             position: 'absolute',
             inset: 0,
             borderRadius: '50%',
-            background: 'linear-gradient(135deg,#1e4bd8,#00249C)',
-            border: '1px solid rgba(220,210,145,.5)',
-            color: '#DCD291',
+            ...sticker(ILLU.blue, 5),
+            border: `3px solid ${ILLU.ink}`,
+            color: ILLU.gold,
             display: 'grid',
             placeItems: 'center',
             fontWeight: 800,
             fontSize: '26px',
             letterSpacing: '-.02em',
-            boxShadow: '0 10px 40px -10px rgba(0,36,156,.9)',
           }}
         >
           {HERO_VOICE.initials}
         </span>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
         <span style={{ fontSize: '17px', fontWeight: 600 }}>{HERO_VOICE.agent}</span>
-        <span style={{ ...monoLabel, color: '#28c76f' }}>
-          ● {HERO_VOICE.status.toUpperCase()} · <span style={{ color: '#DCD291' }}>00:{pad2(seconds)}</span>
+        {/* Estado como sticker */}
+        <span
+          style={{
+            ...monoLabel,
+            ...sticker(ILLU.mint, 3),
+            fontWeight: 700,
+            padding: '5px 10px',
+            borderRadius: '999px',
+            rotate: '-2deg',
+          }}
+        >
+          ● {HERO_VOICE.status.toUpperCase()} · 00:{pad2(seconds)}
         </span>
       </div>
 
@@ -66,8 +75,9 @@ export default function VoiceScene({ step, active }) {
             style={{
               flex: 1,
               height: '100%',
-              borderRadius: '3px',
-              background: '#DCD291',
+              borderRadius: '4px',
+              background: ILLU.gold,
+              border: `1.5px solid ${ILLU.ink}`,
               transform: 'scaleY(.3)',
               transition: 'transform .2s linear',
             }}
