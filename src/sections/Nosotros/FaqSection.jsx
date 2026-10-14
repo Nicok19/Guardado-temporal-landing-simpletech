@@ -145,7 +145,7 @@ export default function FaqSection({ items = FAQS, kicker, title }) {
             aria-label="Escribinos por WhatsApp"
             style={{ flex: 'none', display: 'block', borderRadius: '50%', transition: 'transform .3s' }}
           >
-            <img src={WHATSAPP_ICON} alt="" width="64" height="64" style={{ display: 'block' }} />
+            <img src={WHATSAPP_ICON} alt="" width="64" height="64" loading="lazy" decoding="async" style={{ display: 'block' }} />
           </SmartLink>
         </div>
       </div>

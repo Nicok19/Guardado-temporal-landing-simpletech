@@ -146,7 +146,7 @@ export default function CasesCarouselSection() {
             Ver casos de éxito <span style={{ fontFamily: FONT_MONO }}>→</span>
           </SmartLink>
         </div>
-        <div className="st-fan" ref={stageRef}>
+        <div className="st-fan" ref={stageRef} data-reveal="2">
           {HOME_CASES.map((c) => {
             const { offset } = c;
             const abs = Math.abs(offset);

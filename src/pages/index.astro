@@ -10,12 +10,12 @@ import CasesCarouselSection from '@/sections/Home/CasesCarouselSection.jsx';
 import PartnersTeaserSection from '@/sections/Home/PartnersTeaserSection.jsx';
 ---
 
-<BaseLayout {...PAGE_SEO.home} contact>
+<BaseLayout {...PAGE_SEO.home} contact revealFooter>
   <HeroSection />
   <ClientsMarquee />
   <AboutTeaserSection />
   <ProductsTeaserSection client:visible />
   <TelephonySection client:visible />
-  <CasesCarouselSection client:load />
+  <CasesCarouselSection client:visible={{ rootMargin: '600px' }} />
   <PartnersTeaserSection client:visible={{ rootMargin: '300px' }} />
 </BaseLayout>

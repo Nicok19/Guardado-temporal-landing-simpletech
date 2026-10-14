@@ -56,7 +56,7 @@ export default function ContactSection({ children }) {
             a ella.
           </p>
         </div>
-        {children}
+        <div data-reveal="2">{children}</div>
       </div>
     </section>
   );

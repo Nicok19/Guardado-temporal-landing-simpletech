@@ -88,7 +88,7 @@ export default function EnginesCard({ data, step, reduced, reveal }) {
                     transition: 'all .4s',
                   }}
                 >
-                  {e.icon && <img src={e.icon} alt="" width="18" height="18" style={{ opacity: on ? 1 : 0.45 }} />}
+                  {e.icon && <img src={e.icon} alt="" width="18" height="18" loading="lazy" decoding="async" style={{ opacity: on ? 1 : 0.45 }} />}
                   {e.name}
                 </span>
               );

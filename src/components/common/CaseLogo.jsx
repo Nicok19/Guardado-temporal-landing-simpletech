@@ -10,6 +10,8 @@ export default function CaseLogo({ item, maxWidth, shadow = true, fallbackSize =
     <img
       src={item.logo}
       alt={item.client}
+      loading="lazy"
+      decoding="async"
       style={{
         height: item.logoH,
         width: 'auto',

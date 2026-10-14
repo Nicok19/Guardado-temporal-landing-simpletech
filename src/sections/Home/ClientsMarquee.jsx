@@ -10,6 +10,7 @@ export default function ClientsMarquee() {
 
   return (
     <div
+      data-reveal="1"
       style={{
         background: '#04081c',
         borderTop: '1px solid rgba(178,220,255,.08)',

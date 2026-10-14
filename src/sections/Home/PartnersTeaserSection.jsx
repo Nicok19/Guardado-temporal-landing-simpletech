@@ -189,7 +189,7 @@ export default function PartnersTeaserSection() {
               style={{ '--i': i, '--r': ROTATIONS[i % ROTATIONS.length] }}
             >
               <div className="st-stk-card">
-                <img src={p.logo} alt={p.name} style={{ maxHeight: '36px', maxWidth: '100%', objectFit: 'contain' }} />
+                <img src={p.logo} alt={p.name} loading="lazy" decoding="async" style={{ maxHeight: '36px', maxWidth: '100%', objectFit: 'contain' }} />
                 <span className="st-stk-glare"></span>
               </div>
             </div>

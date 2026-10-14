@@ -22,6 +22,8 @@ interface Props {
   type?: string;
   /** Muestra el formulario de contacto al pie (home, Nosotros, Precios y SimpleSuite; el resto de los "Conversemos" lleva a /#contacto). */
   contact?: boolean;
+  /** El footer aparece con animación al scrollear (data-reveal), como el resto de la página. */
+  revealFooter?: boolean;
 }
 
 const {
@@ -31,6 +33,7 @@ const {
   image = DEFAULT_OG_IMAGE,
   type = 'website',
   contact = false,
+  revealFooter = false,
 } = Astro.props;
 // Idioma de la página (middleware.js): fuera del español (/en/..., /pt/..., /fr/...) los textos se traducen (i18n) y el
 // diccionario se carga en el <head>.
@@ -92,7 +95,7 @@ const ogImage = new URL(image, Astro.site);
           </ContactSection>
         )
       }
-      <Footer />
+      <Footer reveal={revealFooter} />
       <WhatsAppFloat />
     </div>
     <script>

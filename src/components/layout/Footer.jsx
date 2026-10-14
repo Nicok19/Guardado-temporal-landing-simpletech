@@ -13,7 +13,9 @@ const colTitle = {
 };
 const col = { display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '14px' };
 
-export default function Footer() {
+/** `reveal` = las columnas aparecen con animación al scrollear (data-reveal). */
+export default function Footer({ reveal = false }) {
+  const r = (n) => (reveal ? { 'data-reveal': String(n) } : {});
   return (
     <footer style={{ background: '#04081c', padding: '72px var(--page-x) 32px', color: '#DADAE4' }}>
       <div
@@ -22,17 +24,19 @@ export default function Footer() {
         <div
           style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,200px),1fr))', gap: '40px' }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div {...r(1)} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <img
               src={SITE.logoUrl}
               alt="simpletech®"
+              loading="lazy"
+              decoding="async"
               style={{ height: '26px', width: 'max-content', filter: 'brightness(0) invert(1)' }}
             />
             <span style={{ fontSize: '14px', lineHeight: 1.6, color: '#8fa0d8' }}>
               Socio estratégico en experiencia del cliente, automatización e IA.
             </span>
           </div>
-          <div style={col}>
+          <div {...r(2)} style={col}>
             <span style={colTitle}>SITIO</span>
             {FOOTER_LINKS.map((l) => (
               <SmartLink key={l.href} href={l.href}>
@@ -40,7 +44,7 @@ export default function Footer() {
               </SmartLink>
             ))}
           </div>
-          <div style={col}>
+          <div {...r(3)} style={col}>
             <span style={colTitle}>OFICINAS</span>
             {OFFICES.map((o) => (
               <span key={o.city}>
@@ -48,7 +52,7 @@ export default function Footer() {
               </span>
             ))}
           </div>
-          <div style={col}>
+          <div {...r(4)} style={col}>
             <span style={colTitle}>CONTACTO</span>
             <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
             <div style={{ display: 'flex', gap: '14px', marginTop: '6px', flexWrap: 'wrap' }}>
@@ -61,6 +65,7 @@ export default function Footer() {
           </div>
         </div>
         <div
+          {...r(1)}
           style={{
             display: 'flex',
             justifyContent: 'space-between',
